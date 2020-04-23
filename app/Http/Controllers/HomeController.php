@@ -25,6 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::orderBy('created_at', 'desc')->get();
+        // echo "<pre>";
+        // print_r($sliders[0]->judul);
+        // echo "</pre>";
+        // exit();
         return view('landing', compact('sliders'));
     }
     public function admin()
