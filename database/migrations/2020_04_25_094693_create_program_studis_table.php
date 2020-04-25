@@ -29,9 +29,9 @@ class CreateProgramStudisTable extends Migration
             $table->string('faksimile')->length(128)->nullable();
             $table->string('website')->length(128)->nullable();
             $table->string('email')->length(128)->nullable();
-            $table->integer('kab_kota_id')->length(15)->unsigned()->nullable();
+            $table->char('kab_kota_id', 15)->nullable();
             $table->string('kab_kota_nama')->length(128)->nullable();
-            $table->integer('id_jenjang_didik')->length(3)->unsigned()->nullable();
+            $table->char('id_jenjang_didik', 3)->nullable();
             $table->string('nama_jenjang_didik')->length(100)->nullable();
             $table->string('tgl_berdiri')->length(20)->nullable();
             $table->string('sk_selenggara')->length(100)->nullable();

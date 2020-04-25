@@ -139,102 +139,40 @@
                     <!-- Pages Menu Ends -->
                     <!-- Portfolio Menu -->
                     <li>
-                      <a href="#">Akademik</a> 
-                    <!-- Portfolio Dropdown Menu -->
+                      <a href="#">Menu</a> 
                       <ul class="dropdown-menu">
-                        <!-- Portfolio Grid Block -->
                         <li>
-                          <a href="/all-dosen">Dosen</a>
-                        </li>
-                          <!-- Ends Portfolio Grid Block -->
-                        <li>
-                          <a href="/tabel-list-pimpinan">Pimpinan</a>
+                          <a href="/">Sub Menu 1</a>
                         </li>
                         <li>
-                          <a href="/all-kemahasiswaan">Kemahasiswaan</a>
+                          <a href="/">Sub Menu 2</a>
                         </li>
-                        <li>
-                          <a href="/all-testimony">Testimoni Alumni</a>
-                        </li>
-                          <!-- Ends Portfolio Grid Block -->
-                          <!-- Portfolio Grid Block -->
-                          <!-- Ends Portfolio Grid Block -->
-                          <!-- Portfolio Masonry Block -->
-                        <li>
-                          
-                        </li>
-                          <!-- Ends Portfolio Masonry Block -->
-                          <!-- Portfolio Masonry Block -->
-                        <li>
-                          
-                        </li>
-                          <!-- Ends Portfolio Masonry Block -->
-                          <!-- Portfolio Masonry Block -->
-                        <li>
-                          
-                        </li>
-                          <!-- Ends Portfolio Masonry Block -->
-                          <!-- Portfolio Masonry Block -->
-                        <li>
-                          
-                        </li>
-                        <!-- Ends Portfolio Masonry Block -->
-                        <li>
-                          
-                        </li>
-                        <!-- Portfolio Single Block -->
-                        <li>
-                          
-                        </li>
-                      <!-- Ends Portfolio Single Block -->
                       </ul>
-                    <!-- Portfolio Dropdown Menu -->
-                    </li>
-                    <!-- Portfolio Menu -->
-                    <!-- Shop Menu -->
-                    <li>
-
-                    <a href="#">Jurusan</a> 
-                    <!-- Shop Dropdown Menu -->
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a href="/komunikasi-penyiaran-islam">Komunikasi Penyiaran Islam</a>
-                      </li>
-                      <!-- Shop 3 Column Block -->
-                      <li>
-                        <a href="/pendidikan-agama-islam">Pendidikan Agama Islam</a>
-                        
-                      </li>
-                      <!-- Ends Shop 3 Column Block -->
-                      <!-- Shop 2 Column Block -->
-                      <li>
-                        <a href="/pgmi">PGMI</a>
-                        
-                      </li>
-                      <!-- Ends Shop 3 Column Block -->
-                      <!-- List Product Block -->
-                      <li>
-                        <a href="/perbankan-syariah">Perbankan Syariah</a>
-                        
-                      </li>
-                      <!-- Ends List Product Block -->
-                      <!-- Shop Single Block -->
-                      <li>
-                        
-                      </li>
-                      <!-- Ends Shop Single Block -->
-                    </ul>
-                    <!-- Ends Shop Dropdown Menu --></li>
-                    <!-- Ends Shop Menu -->
-                    <!-- Features Menu -->
-                    <li>
-                      <a href="http://pusatkarir.uninus.ac.id/">Pusatkarier & Kewirausahaan</a> 
-                    <!-- Features Dropdown Menu -->
                     </li>
                     <li>
                       <a href="/contact-us">Contact Us</a> 
-                    <!-- Features Dropdown Menu -->
                     </li>
+                    @guest
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                    @else
+                        <li>
+                            <a href="#">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
                     <li>
                     </li>
                       <!-- Ends Header Block -->
@@ -260,19 +198,12 @@
                       </a>
                     </li>
                     <!-- Header Share -->
-                    <li class="hidden-767">
-                      <a href="#" class="header-share">
-                        <span>
-                          <i class="fa fa-share-alt"></i>
-                        </span>
-                      </a>
-                    </li>
                   </ul>
                   <!-- Right nav -->
                   <!-- Header Contact Content -->
                   <div class="bg-white hide-show-content no-display header-contact-content">
                     <p class="vertically-absolute-middle">Call Us 
-                    <strong>+0 (123) 456 78 90</strong></p>
+                    <strong>126</strong></p>
                     <button class="close">
                       <i class="fa fa-times"></i>
                     </button>

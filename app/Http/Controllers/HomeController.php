@@ -65,7 +65,7 @@ class HomeController extends Controller
     }
     public function contact_us()
     {
-        Mapper::map(-6.945372, 107.644676);
+        Mapper::map(-6.2240103,106.8010528);
         return view('contact-us');
     }
     public function about_us()
