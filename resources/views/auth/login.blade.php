@@ -2,11 +2,14 @@
 
 @section('content')
 <div class="login-box">
-  <div class="login-logo">
-    <h1><a href="/"><b>Fakultas Agama Islam</b></a></h1>
+  <!-- <div class="login-logo">
+    <h1><a href="/"><b>PILMAPRES 2020</b></a></h1>
   </div>
   <div class="login-logo">
-    <h4>Universitas Islam Nusantara</h4>
+    <h4>Kementerian Pendidikan dan Kebudayaan Republik Indonesia</h4>
+  </div> -->
+  <div class="login-logo">
+    <img class="site_logo" alt="Site Logo" src="/front/img/FAI.png" style="width: 320px;">
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -57,7 +60,7 @@
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat" style="color:white;background-color:#FC000C; border:2px">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat" style="color:white;background-color:#3294e7; border:2px">Sign In</button>
             </div>
             <!-- /.col -->
         </div>

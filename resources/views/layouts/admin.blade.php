@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminFAI | Dashboard</title>
+  <title>Admin Pilmapres | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <link rel="icon" href="/front/img/vavicon.png" type="image/x-icon">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -47,10 +47,8 @@
   <header class="main-header">
     <!-- Logo -->
     <a href="/admin" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>UNINUS</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">Admin<b>FAI</b></span>
+      <span class="logo-lg">Admin<b>Pilmapres</b></span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -339,30 +337,6 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="glyphicon glyphicon-user"></i> <span>Sambutan Dekan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{URL::to('sambutan-dekan/index')}}"><i class="glyphicon glyphicon-user"></i>Sambutan Dekan</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bullhorn"></i> <span>Visi Misi</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{URL::to('visimisi/index')}}"><i class="fa fa-bullhorn"></i>Visi Misi</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
             <i class="fa fa-comment-o"></i> <span>Testimoni</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -370,18 +344,6 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{URL::to('/testimony/index')}}"><i class="fa fa-comment-o"></i> Testimoni</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bank"></i> <span>Kemahasiswaan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{URL::to('kemahasiswaan/index')}}"><i class="fa fa-bank"></i> Kemahasiswaan</a></li>
           </ul>
         </li>
 
@@ -395,43 +357,6 @@
           <ul class="treeview-menu">
             <li><a href="{{URL::to('category-galleri/index')}}"><i class="glyphicon glyphicon-list"></i>Kategori Galeri</a></li>
             <li><a href="{{URL::to('/gallery/index')}}"><i class="glyphicon glyphicon-picture"></i>Galeri</a></li>
-          </ul>
-        </li>
-       
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-group"></i> <span>Profil Pimpinan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{URL::to('/profil-pimpinan/index')}}"><i class="fa fa-group"></i>Profil Pimpinan</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user" aria-hidden="true"></i><span>Data Dosen</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{URL::to('/data-dosen/index')}}"><i class="fa fa-user"></i>Data Dosen</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="glyphicon glyphicon-calendar"></i> <span>Agenda</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/agenda/index"><i class="glyphicon glyphicon-calendar"></i>Agenda</a></li>
-            <li><a href="/kategori-events/index"><i class="glyphicon glyphicon-calendar"></i>Category Agenda</a></li>
           </ul>
         </li>
 

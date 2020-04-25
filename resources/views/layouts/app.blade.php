@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>FAKULTAS HUKUM UNINUS</title>
+    <title>PILMAPRES 2020</title>
     <!-- Styles -->
     {!! Html::style('css/AdminLTE.min.css') !!}
     {!! Html::style('css/iCheck/all.css') !!}

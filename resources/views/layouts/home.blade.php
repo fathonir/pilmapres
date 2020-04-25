@@ -70,10 +70,7 @@
           <div class="col-sm-12">
             <!-- Top Contact -->
             <div class="top-contact link-hover-black hidden-xs">
-                <a href="https://www.kemdikbud.go.id/"  ><b>Kementerian Pendidikan dan Kebudayaan</b></a>
-            </div>
-            <div class="top-contact link-hover-black visible-xs">
-                <a class="text-left" href="http://uninus.ac.id"><b>Universitas Islam Nusantara</b></a>
+                <a href="https://www.kemdikbud.go.id/"><b>Kementerian Pendidikan dan Kebudayaan</b></a>
             </div>
             <!-- Top Social Icon -->
             <div class="top-social-icon icons-hover-black">
