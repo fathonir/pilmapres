@@ -127,4 +127,96 @@ class HomeController extends Controller
         $image_galleries = ImageGallery::orderBy('created_at', 'desc')->get();
         return view('all-gallery', compact('galleries', 'list_kategori','image_galleries'));                     
     }
+
+    public function ajaxGetProdi(Request $request){ 
+
+        $client = new \GuzzleHttp\Client();
+        $total_page = 50;
+        $data_prodi = [];
+
+        for ($i=1; $i < $total_page ; $i++) {
+            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt/'.$request->get('id').'/prodi?page='.$i.'&per-page=5', [
+                            'verify'          => false,
+                            'headers' => [
+                            'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
+                          ],
+                        ]);
+            $json = $res->getBody()->getContents();
+            $objects = json_decode($json);
+
+            foreach ($objects as $key => $value) {
+                $data['id'] = $value->id;
+                $data['nama'] = $value->nama;
+                $data['jenjang_didik_nama'] = $value->jenjang_didik->nama;
+
+                array_push($data_prodi, $data);
+            }
+        }
+
+        return response()->json($data_prodi);
+    }
+
+    public function ajaxGetMahasiswaByNim(Request $request){ 
+
+        // echo "<pre>";
+        //     print_r($request->all());
+        // echo "</pre>";
+        // exit();
+
+        $client = new \GuzzleHttp\Client();
+        // $total_page = 50;
+        // $data_prodi = [];
+
+        // for ($i=1; $i < $total_page ; $i++) {
+            // $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->get('id').'/prodi?page='.$i.'&per-page=5', [
+            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->get('pt').'/prodi/'.$request->get('prodi').'/mahasiswa/'.$request->get('nim'), [
+                            'verify'          => false,
+                            'headers' => [
+                            'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
+                          ],
+                        ]);
+            $json = $res->getBody()->getContents();
+            $objects = json_decode($json);
+
+            // echo "<pre>";
+            //     print_r($objects);
+            // echo "</pre>";
+            // exit();
+
+        //     foreach ($objects as $key => $value) {
+        //         $data['nama'] = $value->nama;
+        //         $data['id'] = $value->nama;
+        //         $data['jenjang_didik_nama'] = $value->jenjang_didik->nama;
+
+        //         array_push($data_prodi, $data);
+        //     }
+        // }
+
+        return response()->json($objects);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

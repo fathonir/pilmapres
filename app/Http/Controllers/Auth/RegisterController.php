@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\PerguruanTinggi;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,6 +29,14 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
+//     public function showRegistrationForm(PerguruanTinggi $perguruan_tinggi)
+//     {
+//         $perguruan_tinggis = $perguruan_tinggi->getPtAktif();
+//         // $perguruan_tinggies = $perguruan_tinggi->getPtAktif();
+
+//         return view('auth.register', compact('perguruan_tinggis'));
+//     }
 
     /**
      * Create a new controller instance.
@@ -62,10 +71,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        echo "<pre>";
-            print_r($data);
-        echo "</pre>";
-        exit();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

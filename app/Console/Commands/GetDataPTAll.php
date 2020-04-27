@@ -41,13 +41,14 @@ class GetDataPTAll extends Command
     public function handle()
     {
         $client = new \GuzzleHttp\Client();
-        $total_page = 10;
+        $total_page = 100;
         $increment = 0;
         print_r('====== Start ======');
         echo "\n";
 
         for ($i=1; $i < $total_page ; $i++) {
-            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt?page='.$i.'&per-page=1000', [
+            // $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt', [
+            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt?page='.$i.'&per-page=50', [
                         'verify'          => false,
                         'headers' => [
                         'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',

@@ -11,20 +11,9 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-
-                        <!-- <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Cek Fungsi</label>
-
-                            <div class="col-md-6">
-                                <select name="select" class="form-control select2">
-                                    @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
-                                        <option value ="{{ $perguruan_tinggi->id }}">{{ $perguruan_tinggi->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> -->
+                    <!-- <form class="form-horizontal" method="POST" action="{{ route('register') }}"> -->
+                    {!! Form::open(['action' => 'RegisterPesertaController@postRegister', 'class'=>'form-horizontal', 'files'=>true]) !!}
+                        <!-- {{ csrf_field() }} -->
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Data Mahasiswa</label>
@@ -36,17 +25,32 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="copyForm" style="display: none;">
+                            <div class="form-group form-pt">
+                                <label for="email" class="col-md-4 control-label">Perguruan Tinggi</label>
+                                <div class="col-md-6">
+                                    <input id="text" class="form-control nama_pt" name="nama_pt" value="" readonly>
+                                    <input type="hidden" class="form-control id_pt" name="id_pt" value="">
+                                </div>
+                            </div>
+                            <div class="form-group form-prodi">
+                                <label for="email" class="col-md-4 control-label">Program Studi</label>
+                                <div class="col-md-6">
+                                    <input id="text" class="form-control nama_prodi" name="nama_prodi" value="" readonly>
+                                    <input type="hidden" class="form-control id_prodi" name="id_prodi" value="">
+                                </div>
+                            </div>
+                            <div class="form-group form-nama">
+                                <label for="email" class="col-md-4 control-label">Nama</label>
+                                <div class="col-md-6">
+                                    <input id="text" class="form-control mhs_nama" name="mhs_nama" value="" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group form-nim">
+                                <label for="email" class="col-md-4 control-label">NIM</label>
+                                <div class="col-md-6">
+                                    <input id="text" class="form-control mhs_nim" name="mhs_nim" value="" readonly>
+                                </div>
                             </div>
                         </div>
 
@@ -65,24 +69,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                            <label for="password" class="col-md-4 control-label">Surat Pengantar Pimpinan PT</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input type="file" name="surat_pengantar" required>
                             </div>
                         </div>
 
@@ -98,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -122,7 +112,7 @@
                     <select data-width="100%" name="select" class="form-control pt">
                         @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
                             <option>Cari Perguruan Tinggi</option>
-                            <option value ="{{ $perguruan_tinggi->id }}">{{ $perguruan_tinggi->nama }}</option>
+                            <option value ="{{ $perguruan_tinggi->id }}" namapt="{{ $perguruan_tinggi->nama }}">{{ $perguruan_tinggi->nama }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -168,8 +158,8 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
+                <button type="button" class="btn btn-warning pilihMahasiswa" data-dismiss="modal" style="display: none;"><i class="fa fa-check"></i> Pilih Data</button>
                 <button type="button" class="btn btn-primary cariMahasiswa"><i class="fa fa-fw fa-search"></i> Cari Data</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -39,6 +39,10 @@ Route::post('/berita/viewer/{id}', 'HomeController@viewerBerita');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'HomeController@admin');
 
+// Register Peserta
+Route::get('/register-peserta', 'RegisterPesertaController@register');
+Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
+
 
 Route::resource('user-groups', 'admin\UserGroupController');
 Route::get('search-user-groups','admin\UserGroupController@search');
@@ -157,4 +161,7 @@ Route::put('kategori-pengumuman/edit/{id}', ['as' => 'edit', 'uses' => 'admin\Ca
 Route::get('kategori-pengumuman/show/{id}', ['as' => 'show', 'uses' => 'admin\CategoryPengumumanController@show']);
 Route::delete('kategori-pengumuman/destroy/{id}', ['as' => 'destroy', 'uses' => 'admin\CategoryPengumumanController@destroy']);
 Route::get('/searchkategori-pengumuman', ['as' => 'searchkategori-pengumuman', 'uses' => 'admin\CategoryPengumumanController@search']);
+
+Route::get('/ajax-prodi', ['as' => 'store', 'uses' =>'HomeController@ajaxGetProdi']);
+Route::get('/ajax-get-mhs-by-nim', ['as' => 'store', 'uses' =>'HomeController@ajaxGetMahasiswaByNim']);
 
