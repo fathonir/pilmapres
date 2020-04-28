@@ -18,6 +18,7 @@ class CreateUserMahasiswaTable extends Migration
             $table->string('foto')->nullable();
             $table->integer('users_id')->unsigned()->nullable();
             $table->char('id_pd')->lenght(36);
+            $table->string('surat_pengantar')->nullable();
             $table->timestamps();
         });
     }

@@ -54,6 +54,8 @@
     <!-- Color Scheme -->
     {!! Html::style('/front/css/responsive.css') !!}
     {!! Html::style('/front/css/color.css') !!}
+    {!! Html::style('css/sweetalert.css') !!}
+    {!! Html::script('js/sweetalert.min.js') !!}
 
   </head>
   <body>

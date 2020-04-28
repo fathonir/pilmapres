@@ -14,18 +14,6 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <!-- <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Cek Fungsi</label>
-
-                            <div class="col-md-6">
-                                <select name="select" class="form-control select2">
-                                    @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
-                                        <option value ="{{ $perguruan_tinggi->id }}">{{ $perguruan_tinggi->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> -->
-
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Data Mahasiswa</label>
 
@@ -104,75 +92,75 @@
         </div>
         <div class="modal fade" id="modal-default" style="display: none;">
           <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Tutup</span>
-                </button>
-                <h4 class="modal-title" id="labelModalKu">Cari Data Mahasiswa</h4>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <p class="statusMsg"></p>
-                <div class="form-group">
-                    <label for="masukkanNama">Perguruan Tinggi</label>
-                    <select data-width="100%" name="select" class="form-control pt">
-                        @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
-                            <option>Cari Perguruan Tinggi</option>
-                            <option value ="{{ $perguruan_tinggi->id }}">{{ $perguruan_tinggi->nama }}</option>
-                        @endforeach
-                    </select>
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Tutup</span>
+                    </button>
+                    <h4 class="modal-title" id="labelModalKu">Cari Data Mahasiswa</h4>
                 </div>
-                <div class="form-group">
-                    <label for="masukkanNama">Program Studi</label>
-                    <div class="loading" style="display: none;">
-                        <center><i class="fa fa-refresh fa-spin"></i></center>
-                    </div>
-                    <div class="tabProdi">
-                        <select data-width="100%" name="select" class="form-control prodi">
-                                <option>Cari Program Studi</option>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <div class="form-group">
+                        <label for="masukkanNama">Perguruan Tinggi</label>
+                        <select data-width="100%" name="select" class="form-control pt">
+                            @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
+                                <option>Cari Perguruan Tinggi</option>
+                                <option value ="{{ $perguruan_tinggi->id }}">{{ $perguruan_tinggi->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>NIM</label>
-                    <input type="text" class="form-control nim" placeholder="Masukkan NIM Anda"/>
-                    <p style="color: red; display: none" class="NimNull">
-                        Harap Masukan NIM !
-                    </p>
-                    <p style="color: red; display: none" class="MahasiswaFalse">
-                        Data Mahasiswa ini Tidak Ditemukan! Pastikan Data Terdaftar Di PDDikti <a href="https://pddikti.kemdikbud.go.id" target="_blank">(https://pddikti.kemdikbud.go.id/)</a>
-                    </p>
-                </div>
-                <div class="loadingSearchMahasiswa" style="display: none;">
-                    <center><i class="fa fa-refresh fa-spin"></i></center>
-                </div>
-                <div class="confirmMahasiswa" style="display: none;">
                     <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" class="form-control namaMahasiswa" disabled/>
+                        <label for="masukkanNama">Program Studi</label>
+                        <div class="loading" style="display: none;">
+                            <center><i class="fa fa-refresh fa-spin"></i></center>
+                        </div>
+                        <div class="tabProdi">
+                            <select data-width="100%" name="select" class="form-control prodi">
+                                    <option>Cari Program Studi</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
+                        <label>NIM</label>
+                        <input type="text" class="form-control nim" placeholder="Masukkan NIM Anda"/>
+                        <p style="color: red; display: none" class="NimNull">
+                            Harap Masukan NIM !
+                        </p>
+                        <p style="color: red; display: none" class="MahasiswaFalse">
+                            Data Mahasiswa ini Tidak Ditemukan! Pastikan Data Terdaftar Di PDDikti <a href="https://pddikti.kemdikbud.go.id" target="_blank">(https://pddikti.kemdikbud.go.id/)</a>
+                        </p>
+                    </div>
+                    <div class="loadingSearchMahasiswa" style="display: none;">
+                        <center><i class="fa fa-refresh fa-spin"></i></center>
+                    </div>
+                    <div class="confirmMahasiswa" style="display: none;">
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" class="form-control namaMahasiswa" disabled/>
+                        </div>
+                        <div class="form-group">
+                            <label for="masukkanEmail">Tanggal Lahir</label>
+                            <input type="text" class="form-control tanggalLahir" disabled/>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
                         <label for="masukkanEmail">Tanggal Lahir</label>
-                        <input type="text" class="form-control tanggalLahir" disabled/>
-                    </div>
+                        <input type="email" class="form-control" id="masukkanEmail" placeholder="Masukkan email Anda"/>
+                    </div> -->
                 </div>
-                <!-- <div class="form-group">
-                    <label for="masukkanEmail">Tanggal Lahir</label>
-                    <input type="email" class="form-control" id="masukkanEmail" placeholder="Masukkan email Anda"/>
-                </div> -->
-            </div>
 
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary cariMahasiswa"><i class="fa fa-fw fa-search"></i> Cari Data</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cariMahasiswa"><i class="fa fa-fw fa-search"></i> Cari Data</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
-    </div>
           <!-- /.modal-dialog -->
         </div>
     </div>

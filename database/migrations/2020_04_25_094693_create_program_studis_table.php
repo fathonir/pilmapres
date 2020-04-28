@@ -19,7 +19,7 @@ class CreateProgramStudisTable extends Migration
             $table->string('nama')->length(500)->nullable();
             $table->string('status')->length(50)->nullable();
             $table->char('id_pt')->length(36);
-            $table->char('kode _pt', 20)->default(0)->nullable();
+            $table->char('kode_pt', 20)->default(0)->nullable();
             $table->string('nama_pt')->length(128)->nullable();
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();

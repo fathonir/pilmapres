@@ -45,6 +45,7 @@ class CreateMahasiswaPtsTable extends Migration
             $table->date('bln_awal_bimbingan')->nullable();
             $table->date('bln_akhir_bimbingan')->nullable();
             $table->string('sk_yudisium')->length(30)->nullable();
+            $table->string('tgl_sk_yudisium')->length(30)->nullable();
             $table->string('ipk')->nullable();
             $table->string('no_seri_ijazah')->length(40)->nullable();
             $table->string('sert_prof')->length(40)->nullable();

@@ -58,7 +58,8 @@
           </div>
   </section>
   <!-- slider -->
-
+  @include('sweet::alert')
+  
   <section id="blog" class="page-section">
       <div class="container">
           <div class="section-title" data-animation="fadeInUp">

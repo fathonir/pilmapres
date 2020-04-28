@@ -42,6 +42,7 @@ Route::get('/admin', 'HomeController@admin');
 // Register Peserta
 Route::get('/register-peserta', 'RegisterPesertaController@register');
 Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
+Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
 
 
 Route::resource('user-groups', 'admin\UserGroupController');

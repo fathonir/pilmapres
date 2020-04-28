@@ -47,8 +47,8 @@ class GetDataPTAll extends Command
         echo "\n";
 
         for ($i=1; $i < $total_page ; $i++) {
-            // $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt', [
-            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt?page='.$i.'&per-page=50', [
+            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt', [
+            // $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt?page='.$i.'&per-page=50', [
                         'verify'          => false,
                         'headers' => [
                         'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',

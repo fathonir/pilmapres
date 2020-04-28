@@ -8,6 +8,7 @@
   <div class="login-box-body">
     <p class="login-box-msg"><b>Sign in</b></p>
     <!-- form dari appp.blade -->
+    <span style="color: red;">{{ $errors->first('failed_auth') }}</span><br><br>
     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
 
@@ -21,14 +22,13 @@
         </div>
 
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <input id="password" type="password" class="form-control" name="password" required>
+            <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
             @if ($errors->has('password'))
                 <span class="help-block">
                     <strong>{{ $errors->first('password') }}</strong>
                 </span>
             @endif
         </div>
-
         <div class="row">
             <div class="col-xs-8">
               <a href="#">I forgot my password</a>
@@ -42,7 +42,7 @@
     </form>
     <div class="row">
         <div class="col-xs-12">
-          Don't have account yet? <a href="{{ route('register') }}">Register</a>
+          Don't have account yet? <a href="/register-peserta">Register</a>
         </div>
     </div>
   </div>

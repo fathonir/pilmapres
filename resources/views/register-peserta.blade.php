@@ -11,8 +11,7 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <!-- <form class="form-horizontal" method="POST" action="{{ route('register') }}"> -->
-                    {!! Form::open(['action' => 'RegisterPesertaController@postRegister', 'class'=>'form-horizontal', 'files'=>true]) !!}
+                    {!! Form::open(['action' => 'RegisterPesertaController@postRegister', 'class'=>'form-horizontal pushData', 'files'=>true]) !!}
                         <!-- {{ csrf_field() }} -->
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -22,6 +21,9 @@
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                                     <i class="fa fa-fw fa-search"></i> Cari Data
                                   </button>
+                                    <p style="color: red; display: none" class="cekDataMhs">
+                                        Cari Data Mahasiswa !
+                                    </p>
                             </div>
                         </div>
 
@@ -29,7 +31,7 @@
                             <div class="form-group form-pt">
                                 <label for="email" class="col-md-4 control-label">Perguruan Tinggi</label>
                                 <div class="col-md-6">
-                                    <input id="text" class="form-control nama_pt" name="nama_pt" value="" readonly>
+                                    <input id="text" class="form-control nama_pt" name="nama_pt" value="" required readonly>
                                     <input type="hidden" class="form-control id_pt" name="id_pt" value="">
                                 </div>
                             </div>
@@ -56,32 +58,34 @@
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="email" type="email" class="form-control email" name="email" value="{{ old('email') }}" required>
+                                <p style="color: red; display: none" class="cekDataEmail">
+                                    Masukan Email !
+                                </p>
+                                <p style="color: red; display: none" class="cekDataEmailValid">
+                                    Masukan Email Dengan Benar !
+                                </p>
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Surat Pengantar Pimpinan PT</label>
-
                             <div class="col-md-6">
-                                <input type="file" name="surat_pengantar" required>
+                                <input type="file" class="suratPengantar" name="surat_pengantar" required>
                             </div>
+                            <br>
+                            <p style="color: red; display: none" class="cekDataSurat">
+                                Unggah Surat Pengantar !
+                            </p>
                         </div>
-
+                        <span style="color: red;">{{ $errors->first('failed_auth') }}</span>
                         <div class="form-group">
                             <div class="col-md-offset-4">
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-primary">
+                                    <a class="btn btn-primary simpanData">
                                         Register
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{ route('login') }}">Login</a>
@@ -110,10 +114,12 @@
                 <div class="form-group">
                     <label for="masukkanNama">Perguruan Tinggi</label>
                     <select data-width="100%" name="select" class="form-control pt">
-                        @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
-                            <option>Cari Perguruan Tinggi</option>
-                            <option value ="{{ $perguruan_tinggi->id }}" namapt="{{ $perguruan_tinggi->nama }}">{{ $perguruan_tinggi->nama }}</option>
-                        @endforeach
+                        @if(!empty($perguruan_tinggis[0]->id))
+                            @foreach($perguruan_tinggis as $i=>$perguruan_tinggi)
+                                <option>Cari Perguruan Tinggi</option>
+                                <option value ="{{ $perguruan_tinggi->id }}" namapt="{{ $perguruan_tinggi->nama }}">{{ $perguruan_tinggi->nama }}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="form-group">
@@ -150,10 +156,6 @@
                         <input type="text" class="form-control tanggalLahir" disabled/>
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="masukkanEmail">Tanggal Lahir</label>
-                    <input type="email" class="form-control" id="masukkanEmail" placeholder="Masukkan email Anda"/>
-                </div> -->
             </div>
 
             <!-- Modal Footer -->

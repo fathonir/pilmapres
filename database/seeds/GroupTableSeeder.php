@@ -47,53 +47,11 @@ class GroupTableSeeder extends Seeder
         $role_index_slider  = Role::where('name', 'Index Slider')->first();
         $role_show_slider  = Role::where('name', 'Show Slider')->first();
 
-        /*Sambutan Dekan*/
-        $role_index_sambutan_dekan  = Role::where('name', 'Index Sambutan Dekan')->first();
-        $role_create_sambutan_dekan  = Role::where('name', 'Create Sambutan Dekan')->first();
-        $role_edit_sambutan_dekan  = Role::where('name', 'Edit Sambutan Dekan')->first();
-        $role_show_sambutan_dekan  = Role::where('name', 'Show Sambutan Dekan')->first();
-
-        /*visi misi*/
-        $role_index_visi_misi  = Role::where('name', 'Index Visi Misi')->first();
-        $role_create_visi_misi  = Role::where('name', 'Create Visi Misi')->first();
-        $role_edit_visi_misi  = Role::where('name', 'Edit Visi Misi')->first();
-        $role_show_visi_misi  = Role::where('name', 'Show Visi Misi')->first();
-
-        /*Testimony*/
-        $role_index_testimony  = Role::where('name', 'Index Testimony')->first();
-        $role_create_testimony  = Role::where('name', 'Create Testimony')->first();
-        $role_edit_testimony  = Role::where('name', 'Edit Testimony')->first();
-        $role_show_testimony  = Role::where('name', 'Show Testimony')->first();
-
-        /*Kemahasiswaan*/
-        $role_index_kemahasiswaan  = Role::where('name', 'Index Kemahasiswaan')->first();
-        $role_create_kemahasiswaan  = Role::where('name', 'Create Kemahasiswaan')->first();
-        $role_edit_kemahasiswaan  = Role::where('name', 'Edit Kemahasiswaan')->first();
-        $role_show_kemahasiswaan  = Role::where('name', 'Show Kemahasiswaan')->first();
-
         /*Gallery*/
         $role_index_gallery  = Role::where('name', 'Index Gallery')->first();
         $role_create_gallery  = Role::where('name', 'Create Gallery')->first();
         $role_edit_gallery  = Role::where('name', 'Edit Gallery')->first();
         $role_show_gallery  = Role::where('name', 'Show Gallery')->first();
-
-        /*Profile Pimpinan*/
-        $role_index_profile_pimpinan  = Role::where('name', 'Index Profile Pimpinan')->first();
-        $role_create_profile_pimpinan  = Role::where('name', 'Create Profile Pimpinan')->first();
-        $role_edit_profile_pimpinan  = Role::where('name', 'Edit Profile Pimpinan')->first();
-        $role_show_profile_pimpinan  = Role::where('name', 'Show Profile Pimpinan')->first();
-
-        /*Data Dosen*/
-        $role_index_data_dosen  = Role::where('name', 'Index Data Dosen')->first();
-        $role_create_data_dosen  = Role::where('name', 'Create Data Dosen')->first();
-        $role_edit_data_dosen  = Role::where('name', 'Edit Data Dosen')->first();
-        $role_show_data_dosen  = Role::where('name', 'Show Data Dosen')->first();
-
-        /*Agenda*/
-        $role_index_agenda  = Role::where('name', 'Index Agenda')->first();
-        $role_create_agenda  = Role::where('name', 'Create Agenda')->first();
-        $role_edit_agenda  = Role::where('name', 'Edit Agenda')->first();
-        $role_show_agenda  = Role::where('name', 'Show Agenda')->first();
 
         /*Berita*/
         $role_index_berita  = Role::where('name', 'Index Berita')->first();
@@ -146,53 +104,11 @@ class GroupTableSeeder extends Seeder
         $group->roles()->attach($role_index_slider);
         $group->roles()->attach($role_show_slider);
 
-        /*Sambutan Dekan*/
-        $group->roles()->attach($role_index_sambutan_dekan);
-        $group->roles()->attach($role_create_sambutan_dekan);
-        $group->roles()->attach($role_edit_sambutan_dekan);
-        $group->roles()->attach($role_show_sambutan_dekan);
-
-        /*visi misi*/
-        $group->roles()->attach($role_index_visi_misi);
-        $group->roles()->attach($role_create_visi_misi);
-        $group->roles()->attach($role_edit_visi_misi);
-        $group->roles()->attach($role_show_visi_misi);
-
-        /*Testimony*/
-        $group->roles()->attach($role_index_testimony);
-        $group->roles()->attach($role_create_testimony);
-        $group->roles()->attach($role_edit_testimony);
-        $group->roles()->attach($role_show_testimony);
-
-        /*Kemahasiswaan*/
-        $group->roles()->attach($role_index_kemahasiswaan);
-        $group->roles()->attach($role_create_kemahasiswaan);
-        $group->roles()->attach($role_edit_kemahasiswaan);
-        $group->roles()->attach($role_show_kemahasiswaan);
-
         /*Gallery*/
         $group->roles()->attach($role_index_gallery);
         $group->roles()->attach($role_create_gallery);
         $group->roles()->attach($role_edit_gallery);
         $group->roles()->attach($role_show_gallery);
-
-        /*Profile Pimpinan*/
-        $group->roles()->attach($role_index_profile_pimpinan);
-        $group->roles()->attach($role_create_profile_pimpinan);
-        $group->roles()->attach($role_edit_profile_pimpinan);
-        $group->roles()->attach($role_show_profile_pimpinan);
-
-        /*Data Dosen*/
-        $group->roles()->attach($role_index_data_dosen);
-        $group->roles()->attach($role_create_data_dosen);
-        $group->roles()->attach($role_edit_data_dosen);
-        $group->roles()->attach($role_show_data_dosen);
-
-        /*Agenda*/
-        $group->roles()->attach($role_index_agenda);
-        $group->roles()->attach($role_create_agenda);
-        $group->roles()->attach($role_edit_agenda);
-        $group->roles()->attach($role_show_agenda);
 
         /*Berita*/
         $group->roles()->attach($role_index_berita);
@@ -208,7 +124,19 @@ class GroupTableSeeder extends Seeder
 
         
         $group = new Group();
-        $group->name = 'Public';
+        $group->name = 'Peserta';
+        $group->save();
+
+        $group = new Group();
+        $group->name = 'Juri';
+        $group->save();
+
+        $group = new Group();
+        $group->name = 'Kopertis';
+        $group->save();
+
+        $group = new Group();
+        $group->name = 'PT';
         $group->save();
     }
 }

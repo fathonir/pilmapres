@@ -56,7 +56,6 @@
               var nim = $('.nim').val();
               $('.loadingSearchMahasiswa').show();
 
-
               if (nim == '') {
                 $('.NimNull').show();
                 $('.loadingSearchMahasiswa').hide();
@@ -102,6 +101,45 @@
               $('.id_prodi').val(prodi);
               $('.id_pt').val(pt);
             });
+
+            var countFailedEmail=0;
+            $(function() {
+             $('.simpanData').click(function(e) {
+                var idPt = $('.id_pt').val();
+                var email = $('.email').val();
+                var suratPengantar = $('.suratPengantar').val();
+
+                if (idPt == '') {
+                  $('.cekDataMhs').show();
+                }else if(email == ''){
+                  $('.cekDataMhs').hide();
+                  $('.cekDataEmail').show();
+                }else if(suratPengantar == ''){
+                  $('.cekDataEmailValid').hide();
+                  $('.cekDataEmail').hide();
+                  $('.cekDataSurat').show();
+                }else if(countFailedEmail == 1){
+                  $('.cekDataEmailValid').hide();
+                  $('.cekDataEmail').hide();
+                  $('.cekDataSurat').hide();
+                  $('.cekDataEmailValid').show();
+                }else{
+                  $(".pushData").submit();
+                }
+
+              });
+          });
+
+          $('.email').blur(function() {
+              var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+              if (testEmail.test(this.value)){
+                $('.cekDataEmailValid').hide();
+                countFailedEmail = 0;
+              }else{ 
+                countFailedEmail = 1;
+                $('.cekDataEmailValid').show();
+              }
+          });
 
         });
     </script>
