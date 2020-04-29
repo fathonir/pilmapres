@@ -22,14 +22,14 @@ class PengumumanController extends Controller
 
         if (($user)&&($user->hasAnyRole('Index Pengumuman'))) {
 
-        $pengumumans = Pengumuman::orderBy('pengumumen.created_at', 'desc')
-                     ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumumen.kategori_pengumuman')
-                     ->leftJoin('users', 'users.id', '=', 'pengumumen.user_id')
+        $pengumumans = Pengumuman::orderBy('pengumuman.created_at', 'desc')
+                     ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumuman.kategori_pengumuman')
+                     ->leftJoin('users', 'users.id', '=', 'pengumuman.user_id')
                      ->select(
-                       'pengumumen.id',
-                       'pengumumen.judul',
-                       'pengumumen.deskripsi',
-                       'pengumumen.file',
+                       'pengumuman.id',
+                       'pengumuman.judul',
+                       'pengumuman.deskripsi',
+                       'pengumuman.file',
                        'category_pengumuman.nama',
                        'users.name'
                         )
@@ -112,16 +112,16 @@ class PengumumanController extends Controller
 
         if (($user)&&($user->hasAnyRole('Show Pengumuman'))) {
 
-        $pengumuman = Pengumuman::where('pengumumen.id', $id)
-                     ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumumen.kategori_pengumuman')
-                     ->leftJoin('users', 'users.id', '=', 'pengumumen.user_id')
+        $pengumuman = Pengumuman::where('pengumuman.id', $id)
+                     ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumuman.kategori_pengumuman')
+                     ->leftJoin('users', 'users.id', '=', 'pengumuman.user_id')
                      ->select(
-                       'pengumumen.id',
-                       'pengumumen.judul',
-                       'pengumumen.deskripsi',
-                       'pengumumen.file',
+                       'pengumuman.id',
+                       'pengumuman.judul',
+                       'pengumuman.deskripsi',
+                       'pengumuman.file',
                        'category_pengumuman.nama',
-                       'pengumumen.kategori_pengumuman',
+                       'pengumuman.kategori_pengumuman',
                        'users.name')   
                      ->firstOrFail();   
         return view('admin.pengumuman.show', compact('pengumuman'),array('user' => $user));
@@ -146,17 +146,17 @@ class PengumumanController extends Controller
         if (($user)&&($user->hasAnyRole('Edit Pengumuman'))) {
 
         $kategori_pengumuman    = CategoryPengumuman::pluck('nama', 'id');
-        $pengumumans = Pengumuman::where('pengumumen.id', $id)
-                     ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumumen.kategori_pengumuman')
-                     ->leftJoin('users', 'users.id', '=', 'pengumumen.user_id')
+        $pengumumans = Pengumuman::where('pengumuman.id', $id)
+                     ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumuman.kategori_pengumuman')
+                     ->leftJoin('users', 'users.id', '=', 'pengumuman.user_id')
                      ->select(
-                       'pengumumen.id as id_pengumuman',
-                       'pengumumen.judul',
-                       'pengumumen.deskripsi',
-                       'pengumumen.file',
+                       'pengumuman.id as id_pengumuman',
+                       'pengumuman.judul',
+                       'pengumuman.deskripsi',
+                       'pengumuman.file',
                        'category_pengumuman.nama',
                        'category_pengumuman.id',
-                       'pengumumen.kategori_pengumuman',
+                       'pengumuman.kategori_pengumuman',
                        'users.name'
                         )->firstOrFail();   
         return view('admin.pengumuman.edit', compact('pengumumans','kategori_pengumuman'),array('user' => $user));
@@ -232,16 +232,16 @@ class PengumumanController extends Controller
     public function search(Request $request){
         $user = Auth::user();
         $search = $request->get('search');
-        $pengumumans = Pengumuman::where('pengumumen.judul','LIKE','%'.$search.'%')
-                                  ->orWhere('pengumumen.deskripsi', 'LIKE', '%'.$search.'%')
+        $pengumumans = Pengumuman::where('pengumuman.judul','LIKE','%'.$search.'%')
+                                  ->orWhere('pengumuman.deskripsi', 'LIKE', '%'.$search.'%')
                                   ->orWhere('category_pengumuman.nama', 'LIKE', '%'.$search.'%')
-                                  ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumumen.kategori_pengumuman')
-                                  ->leftJoin('users', 'users.id', '=', 'pengumumen.user_id')
+                                  ->leftJoin('category_pengumuman', 'category_pengumuman.id', '=', 'pengumuman.kategori_pengumuman')
+                                  ->leftJoin('users', 'users.id', '=', 'pengumuman.user_id')
                                   ->select(
-                                        'pengumumen.id',
-                                        'pengumumen.judul',
-                                        'pengumumen.deskripsi',
-                                        'pengumumen.file',
+                                        'pengumuman.id',
+                                        'pengumuman.judul',
+                                        'pengumuman.deskripsi',
+                                        'pengumuman.file',
                                         'category_pengumuman.nama',
                                         'users.name'
                                          )->get();
