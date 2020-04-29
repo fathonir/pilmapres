@@ -8,7 +8,7 @@
   <div class="login-box-body">
     <p class="login-box-msg"><b>Sign in</b></p>
     <!-- form dari appp.blade -->
-    <span style="color: red;">{{ $errors->first('failed_auth') }}</span><br><br>
+    <span style="color: red;">{{ $errors->first('failed_auth') }}</span>
     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
 

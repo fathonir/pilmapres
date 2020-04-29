@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
 use Mapper;
 use Response;
-use Auth;
 use App\Slider; 
+use App\MahasiswaPt;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -158,41 +159,28 @@ class HomeController extends Controller
 
     public function ajaxGetMahasiswaByNim(Request $request){ 
 
-        // echo "<pre>";
-        //     print_r($request->all());
-        // echo "</pre>";
-        // exit();
-
         $client = new \GuzzleHttp\Client();
-        // $total_page = 50;
-        // $data_prodi = [];
-
-        // for ($i=1; $i < $total_page ; $i++) {
-            // $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->get('id').'/prodi?page='.$i.'&per-page=5', [
-            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->get('pt').'/prodi/'.$request->get('prodi').'/mahasiswa/'.$request->get('nim'), [
-                            'verify'          => false,
-                            'headers' => [
-                            'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
-                          ],
-                        ]);
-            $json = $res->getBody()->getContents();
-            $objects = json_decode($json);
-
-            // echo "<pre>";
-            //     print_r($objects);
-            // echo "</pre>";
-            // exit();
-
-        //     foreach ($objects as $key => $value) {
-        //         $data['nama'] = $value->nama;
-        //         $data['id'] = $value->nama;
-        //         $data['jenjang_didik_nama'] = $value->jenjang_didik->nama;
-
-        //         array_push($data_prodi, $data);
-        //     }
-        // }
+        $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->get('pt').'/prodi/'.$request->get('prodi').'/mahasiswa/'.$request->get('nim'), [
+                        'verify'          => false,
+                        'headers' => [
+                        'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
+                      ],
+                    ]);
+        $json = $res->getBody()->getContents();
+        $objects = json_decode($json);
 
         return response()->json($objects);
+    }
+
+    public function ajaxCheckMahasiswaByNim(Request $request){ 
+        $mahasiswa_pt = MahasiswaPt::whereNim($request->nim)->first();
+        $status = 0;
+        
+        if ($mahasiswa_pt) {
+            $status = 1;
+        }
+
+        return response()->json($status);
     }
 }
 

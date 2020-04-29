@@ -24,6 +24,9 @@
                                     <p style="color: red; display: none" class="cekDataMhs">
                                         Cari Data Mahasiswa !
                                     </p>
+                                    <p style="color: red; display: none" class="cekDataMhsNim">
+                                        Data Mahasiswa Yang Anda Pilih Telah Terdaftar !
+                                    </p>
                             </div>
                         </div>
 

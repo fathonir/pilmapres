@@ -94,12 +94,23 @@
               var namaprodi = $(".prodi option:selected").text();
               var nama = $('.namaMahasiswa').val();
               var nim = $('.nim').val();
-              $('.nama_pt').val(namapt);
-              $('.nama_prodi').val(namaprodi);
-              $('.mhs_nama').val(nama);
-              $('.mhs_nim').val(nim);
-              $('.id_prodi').val(prodi);
-              $('.id_pt').val(pt);
+
+              $.get('/ajax-check-mhs-by-nim?nim='+nim, function(data){
+                if (data) {
+                  $('.cekDataMhsNim').show();
+                  $('.confirmMahasiswa').hide();
+                  $('.pilihMahasiswa').hide();
+                }else{
+                  $('.cekDataMhsNim').hide();
+                  $('.nama_pt').val(namapt);
+                  $('.nama_prodi').val(namaprodi);
+                  $('.mhs_nama').val(nama);
+                  $('.mhs_nim').val(nim);
+                  $('.id_prodi').val(prodi);
+                  $('.id_pt').val(pt);
+                }
+                
+              });
             });
 
             var countFailedEmail=0;
