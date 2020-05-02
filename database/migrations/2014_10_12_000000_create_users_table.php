@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->tinyInteger('active')->default(0)->unsigned();
+            $table->tinyInteger('is_user_request')->default(1)->unsigned();
+            $table->tinyInteger('is_user_rejected')->default(0)->unsigned();
             $table->timestamps();
         });
     }

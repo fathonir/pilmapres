@@ -13,6 +13,7 @@ use App\ProgramStudi;
 use App\UserMahasiswa;
 use App\PerguruanTinggi;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterPesertaController extends Controller
@@ -26,10 +27,15 @@ class RegisterPesertaController extends Controller
 
     public function registerSuccess()
     {
+        $base_path = base_path();
+        $process = new Process('php artisan add:test-job > /dev/null 2>&1 &', $base_path); 
+        $process->disableOutput();
+        $process->run();
+
         Alert::success('Data anda akan segera kami proses. Mohon menunggu proses aktivasi akun dan segera melakukan verifikasi email anda. Kami telah mengirim email verifikasi ke  indra@gmail.com Berhasil!')->persistent("Tutup");
 
-        // return view('register-peserta-sukses');
-        return redirect('/');
+        return view('register-peserta-sukses');
+        // return redirect('/');
     }
 
     public function postRegister(Request $request)
@@ -76,7 +82,7 @@ class RegisterPesertaController extends Controller
         $mahasiswa->nama_jns_tinggal    =   $mahasiswa_forlap[0]->jenis_tinggal->nama;
         $mahasiswa->telepon_rumah       =   $mahasiswa_forlap[0]->telepon;
         $mahasiswa->telepon_seluler     =   $mahasiswa_forlap[0]->handphone;
-        $mahasiswa->email               =   $mahasiswa_forlap[0]->email;
+        $mahasiswa->email               =   $request->email;
         $mahasiswa->a_terima_kps        =   $mahasiswa_forlap[0]->penerima_kps;
         $mahasiswa->wna                 =   $mahasiswa_forlap[0]->wna;
         $mahasiswa->stat_pd             =   $mahasiswa_forlap[0]->terdaftar->status;

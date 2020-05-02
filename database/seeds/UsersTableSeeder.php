@@ -19,6 +19,8 @@ class UsersTableSeeder extends Seeder
         $user_admin->email = 'admin.pilmapres@kemdikbud.go.id';
         $user_admin->password = bcrypt('aaa123');
         $user_admin->active = 1;
+        $user_admin->is_user_request = 0;
+        $user_admin->is_user_rejected = 0;
         $user_admin->save();
         $user_admin->groups()->attach($group);
     }
