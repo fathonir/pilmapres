@@ -145,7 +145,7 @@ class RegisterPesertaController extends Controller
         $json = $res->getBody()->getContents();
         $prodi_forlap = json_decode($json);
 
-        $program_studi_check = ProgramStudi::where('id', $prodi_forlap[0]->id);
+        $program_studi_check = ProgramStudi::where('id', $prodi_forlap[0]->id)->first();
 
         if (empty($program_studi_check)) {
             $program_studi = new ProgramStudi;

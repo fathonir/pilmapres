@@ -29,6 +29,10 @@
   <!-- bootstrap wysihtml5 - text editor -->
   {!! Html::style('css/bootstrap3-wysihtml5.min.css') !!}
   {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
+  {!! Html::style('css/select2.min.css') !!}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  {!! Html::style('css/sweetalert.css') !!}
+  {!! Html::script('js/sweetalert.min.js') !!}
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -385,6 +389,20 @@
             <li><a href="{{URL::to('kategori-pengumuman/index')}}"><i class="fa fa-circle-o"></i>Kategori Pengumuman</a></li>
           </ul>
         </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i> <span>User</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{URL::to('/user-request')}}"><i class="fa fa-circle-o"></i>User Request</a></li>
+            <li><a href="{{URL::to('/user-approved')}}"><i class="fa fa-circle-o"></i>User Request Disetujui</a></li>
+            <li><a href="{{URL::to('/user-rejected')}}"><i class="fa fa-circle-o"></i>User Request Ditolak</a></li>
+          </ul>
+        </li>
         
       </ul>
     </section>
@@ -457,6 +475,7 @@
 {!! Html::script('js/bootstrap-datepicker.min.js') !!}
 {!! Html::script('js/bootstrap-colorpicker.min.js') !!}
 {!! Html::script('js/icheck.min.js') !!}
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 @yield('js')
 
 </body>

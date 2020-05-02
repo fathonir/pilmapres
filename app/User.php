@@ -31,6 +31,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\UserGroup','user_id');
     }
+
+    public function userHasGroup()
+    {
+        return $this->belongsTo('App\UserGroup', 'id', 'user_id');
+    }
     
     public function groups()
     {
@@ -44,5 +49,10 @@ class User extends Authenticatable
       }else{
         return false;
       }
+    }
+
+    public function userMahasiswa()
+    {
+      return $this->belongsTo('App\UserMahasiswa', 'id', 'users_id');
     }
 }

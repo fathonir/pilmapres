@@ -44,6 +44,16 @@ Route::get('/register-peserta', 'RegisterPesertaController@register');
 Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
 Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
 
+// User
+Route::get('/user-add', 'admin\UserController@addUser');
+Route::post('/user-add-post', 'admin\UserController@addUserPost');
+Route::get('/user-request', 'admin\UserController@index');
+Route::get('/user-approved', 'admin\UserController@userApporved');
+Route::get('/user-rejected', 'admin\UserController@userRejected');
+Route::get('/user-request-post/{status}/{id}', 'admin\UserController@userProcessVerification');
+Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
+Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
+
 
 Route::resource('user-groups', 'admin\UserGroupController');
 Route::get('search-user-groups','admin\UserGroupController@search');
