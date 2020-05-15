@@ -51,8 +51,6 @@ Route::get('/user-request', 'admin\UserController@index');
 Route::get('/user-approved', 'admin\UserController@userApporved');
 Route::get('/user-rejected', 'admin\UserController@userRejected');
 Route::get('/user-request-post/{status}/{id}', 'admin\UserController@userProcessVerification');
-Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
-Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
 
 
 Route::resource('user-groups', 'admin\UserGroupController');

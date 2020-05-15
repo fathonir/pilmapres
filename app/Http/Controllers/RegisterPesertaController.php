@@ -179,6 +179,6 @@ class RegisterPesertaController extends Controller
 
         Alert::success('Data anda akan segera kami proses. Mohon menunggu proses aktivasi akun dan segera melakukan verifikasi email anda. Kami telah mengirim email verifikasi ke '.$request->email.' Berhasil!')->persistent("Tutup");
 
-        return redirect('/');
+        return redirect('/register-peserta');
     }
 }
