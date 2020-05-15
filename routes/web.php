@@ -38,6 +38,9 @@ Route::get('/sambutan/detail/{id}', 'HomeController@detailSambutan');
 Route::post('/berita/viewer/{id}', 'HomeController@viewerBerita');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'HomeController@admin');
+Route::get('/dashboard-finalis', 'HomeController@dashboardFinalis');
+Route::get('/karya-tulis', 'HomeController@karyaTulis');
+Route::post('/karya-tulis-post', 'HomeController@karyaTulisPost');
 
 // Register Peserta
 Route::get('/register-peserta', 'RegisterPesertaController@register');

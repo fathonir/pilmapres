@@ -37,23 +37,14 @@ class LoginController extends Controller
             $user = Auth::user();
             $user_group = UserGroup::where('user_id', $user->id)->first();
 
-            // echo "<pre>";
-            //     print_r($user);
-            // echo "</pre>";
-            // exit();
-
             if ($user_group && $user->active) {
 
                 if ($user_group->group_id===1){
 
                     return redirect('/admin');
                 }elseif ($user_group->group_id===2){
-                    echo "<pre>";
-                        print_r('Peserta Login');
-                    echo "</pre>";
-                    exit();
 
-                    // return redirect('/detail-mahasiswa/'.$user);
+                    return redirect('/dashboard-finalis');
                 }elseif ($user_group->group_id===3){
                     echo "<pre>";
                         print_r('Juri Login');

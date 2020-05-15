@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use File;
 use Mapper;
 use Response;
+use App\Topik; 
+use App\Bidang; 
 use App\Slider; 
+use App\KaryaTulis; 
 use App\MahasiswaPt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -26,10 +31,7 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::orderBy('created_at', 'desc')->get();
-        // echo "<pre>";
-        // print_r($sliders[0]->judul);
-        // echo "</pre>";
-        // exit();
+        
         return view('landing', compact('sliders'));
     }
     public function admin()
@@ -99,7 +101,67 @@ class HomeController extends Controller
 
     public function detailFinalis()
     {
-        return view('detail-finalis');
+
+      return view('detail-finalis');
+    }
+
+    public function dashboardFinalis()
+    {
+      $user = Auth::user();
+
+      if ($user->is_user_request) {
+        $check_verfication = false;
+      }else{
+        $check_verfication = true;
+      }
+
+      // echo "<pre>";
+      //   print_r($check_verfication);
+      // echo "</pre>";
+      // exit();
+
+      // // print_r($check_verfication);
+      // // exit();
+
+      return view('dashboard-finalis', compact('user'));
+    }
+
+    public function karyaTulis()
+    {
+      $user = Auth::user();
+      $topiks = Topik::whereActive(1)->get();
+      $bidangs = Bidang::whereActive(1)->get();
+      
+      return view('karya-tulis', compact('user', 'bidangs', 'topiks'));
+    }
+
+    public function karyaTulisPost(Request $request)
+    {
+      $user = Auth::user();
+
+      $karya_tulis            = new KaryaTulis;
+      $karya_tulis->judul     = $request->judul;
+      $karya_tulis->users_id  = $user->id;
+      $karya_tulis->topik_id  = $request->topik_id;
+      $karya_tulis->bidang_id = $request->bidang_id;
+      $karya_tulis->ringkasan = $request->ringkasan;
+      $files = $request->file;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/karya-tulis');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $karya_tulis->file   = $fileName;
+      }
+
+      $karya_tulis->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Karya Tulis Berhasil Ditambahkan.');
     }
 
     public function detailPrestasi()
