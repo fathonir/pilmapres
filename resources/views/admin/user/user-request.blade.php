@@ -29,6 +29,7 @@
 			            <th>Nama</th>
 			            <th>NIM</th>
 			            <th>Email</th>
+                  <th>Surat Pengantar</th>
 			            <th class="text-center">Aksi</th>
 				        </tr>
 					    </thead>
@@ -40,6 +41,9 @@
 				            <td>{{ $user_request->userMahasiswa->mahasiswa->nm_pd }}</td>
 				            <td>{{ $user_request->userMahasiswa->mahasiswaPt->nim }}</td>
 				            <td>{{ $user_request->email }}</td>
+                    <td>
+                      <a href="/file/surat-pengantar/{{ $user_request->userMahasiswa->surat_pengantar }}" target="_blank"> <i class="fa fa-cloud-download"></i> {{ $user_request->userMahasiswa->surat_pengantar }}</a>
+                    </td>
 				            <td>
 				            	<a onclick="confirmApprove('setuju','{{ $user_request->id }}')" class="badge bg-green"><i class="fa fa-check"></i> Setujui</a>
 				            	<a onclick="confirmApprove('tolak','{{ $user_request->id }}')" class="badge bg-red"><i class="fa fa-close"></i> Tolak</a>

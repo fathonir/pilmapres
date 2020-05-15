@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\GetDataPTAll::class
+        Commands\GetDataPTAll::class,
+        Commands\TestJob1::class
     ];
 
     /**

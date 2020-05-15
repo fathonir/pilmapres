@@ -26,7 +26,12 @@ class UserController extends Controller
     public function index()
     {
       $user_requests = User::whereIsUserRequest(1)->orderBy('created_at', 'asc')->get();
-      
+
+      // echo "<pre>";
+      //   print_r($user_requests[0]->userMahasiswa->surat_pengantar);
+      // echo "</pre>";
+      // exit();
+
       return view('admin.user.user-request', compact('user_requests'));
     }
 
