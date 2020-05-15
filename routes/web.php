@@ -175,3 +175,5 @@ Route::get('/ajax-prodi', ['as' => 'store', 'uses' =>'HomeController@ajaxGetProd
 Route::get('/ajax-get-mhs-by-nim', ['as' => 'store', 'uses' =>'HomeController@ajaxGetMahasiswaByNim']);
 Route::get('/ajax-check-mhs-by-nim', ['as' => 'store', 'uses' =>'HomeController@ajaxCheckMahasiswaByNim']);
 
+Route::get('/user/verify/{token}', 'RegisterPesertaController@verifyUser');
+

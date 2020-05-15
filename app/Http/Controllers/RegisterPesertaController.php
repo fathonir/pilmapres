@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use File;
+use Auth;
 use Input;
 use Alert;
+use \Crypt;
 use App\User;
 use App\Group;
+use App\LogMail;
+use App\CryptPass;
 use App\Mahasiswa;
+use App\VerifyUser;
 use App\MahasiswaPt;
 use App\ProgramStudi;
 use App\UserMahasiswa;
@@ -27,22 +32,21 @@ class RegisterPesertaController extends Controller
 
     public function registerSuccess()
     {
-        $base_path = base_path();
-        $process = new Process('php artisan add:test-job > /dev/null 2>&1 &', $base_path); 
-        $process->disableOutput();
-        $process->run();
+      $base_path = base_path();
+      $process = new Process('php artisan add:test-job > /dev/null 2>&1 &', $base_path); 
+      $process->disableOutput();
+      $process->run();
 
-        Alert::success('Data anda akan segera kami proses. Mohon menunggu proses aktivasi akun dan segera melakukan verifikasi email anda. Kami telah mengirim email verifikasi ke  indra@gmail.com Berhasil!')->persistent("Tutup");
+      Alert::success('Data anda akan segera kami proses. Mohon menunggu proses aktivasi akun dan segera melakukan verifikasi email anda. Kami telah mengirim email verifikasi ke  indra@gmail.com Berhasil!')->persistent("Tutup");
 
-        return view('register-peserta-sukses');
-        // return redirect('/');
+      return view('register-peserta-sukses');
     }
 
     public function postRegister(Request $request)
     {
 
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->id_pt.'/prodi/'.$request->id_prodi.'/mahasiswa/'.$request->mhs_nim, [
+        $res = $client->request('GET','https://api.kemdikbud.go.id:8243/pddikti/1.0/pt/'.$request->id_pt.'/prodi/'.$request->id_prodi.'/mahasiswa/'.$request->mhs_nim, [
                     'verify'          => false,
                     'headers' => [
                     'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
@@ -50,16 +54,31 @@ class RegisterPesertaController extends Controller
                 ]);
         $json = $res->getBody()->getContents();
         $mahasiswa_forlap = json_decode($json);
-        
+        $random_string = str_random(6);
+
         // store user
         $group_mhs  = Group::where('name', 'Peserta')->first();
         $user = new User();
         $user->name = $request->mhs_nama;
         $user->email = $request->email;
-        $user->password = bcrypt('aaa123');
-        $user->active = 0;
+        $user->password = bcrypt($random_string);
+        $user->active = 1;
         $user->save();
         $user->groups()->attach($group_mhs);
+
+        $verifyUser = VerifyUser::create([
+            'user_id' => $user->id,
+            'token' => str_random(40)
+        ]);
+
+        $cript            = new CryptPass();
+        $cript->user_id   = $user->id;
+        $cript->pass      = Crypt::encryptString($random_string);
+        $cript->save();
+
+        $notif = 'Data anda akan segera kami proses. Mohon menunggu proses aktivasi akun dan segera melakukan verifikasi email anda. Kami telah mengirim email verifikasi ke '.$request->email.' Berhasil! 
+          Email Anda : '.$user->email.' 
+          Password : '.$random_string;
 
         $mahasiswa = new Mahasiswa();
         $mahasiswa->id_pd               =   $mahasiswa_forlap[0]->id;
@@ -136,7 +155,25 @@ class RegisterPesertaController extends Controller
 
         $user_mahasiswa->save();
 
-        $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt/'.$request->id_pt.'/prodi/'.$request->id_prodi, [
+        if ($user_mahasiswa->save()) {
+
+          $log_mail = new LogMail;
+          $log_mail->email_sender = "no.reply.pilmapres.kemdikbud@gmail.com";
+          $log_mail->email_reciever = $user->email;
+          $log_mail->name = $user->name;
+          $log_mail->type = "registration_finalis";
+          $log_mail->user_id = $user->id;
+          $log_mail->is_sent = false;
+          $log_mail->save();
+                      
+          // send mail on background 
+          $base_path = base_path();
+          $process = new Process('php artisan add:send-email > /dev/null 2>&1 &', $base_path); 
+          $process->disableOutput();
+          $process->run();
+      }
+
+        $res = $client->request('GET','https://api.kemdikbud.go.id:8243/pddikti/1.0/pt/'.$request->id_pt.'/prodi/'.$request->id_prodi, [
                     'verify'          => false,
                     'headers' => [
                     'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
@@ -177,8 +214,40 @@ class RegisterPesertaController extends Controller
             $program_studi->save();   
         }
 
-        Alert::success('Data anda akan segera kami proses. Mohon menunggu proses aktivasi akun dan segera melakukan verifikasi email anda. Kami telah mengirim email verifikasi ke '.$request->email.' Berhasil!')->persistent("Tutup");
+        Alert::success($notif)->persistent("Tutup");
 
         return redirect('/register-peserta');
     }
+
+    public function verifyUser($token)
+    {
+      $verifyUser = VerifyUser::where('token', $token)->first();
+      if(isset($verifyUser) ){
+          $user = User::where('id', $verifyUser->user_id)->first();
+          if(!$user->is_mail_verified) {
+              $user->is_mail_verified = 1;
+              $user->email_verified_at = date("Y-m-d H:m:s");
+              $user->save();
+              $status = "Your e-mail is verified. You can now login.";
+              if (Auth::check()) {
+                  Alert::success('Email anda telah terverifikasi.', 'Berhasil!')->persistent("Tutup");
+                  return redirect('/home');
+              }
+              Alert::success('Email anda telah terverifikasi. Silahkan login', 'Berhasil!')->persistent("Tutup");
+              return redirect('/login');
+          }else{
+              if (Auth::check()) {
+                  Alert::success('Email anda telah terverifikasi.', 'Berhasil!')->persistent("Tutup");
+                  return redirect('/home');
+              }
+              $status = "Your e-mail is already verified. You can now login.";
+              Alert::success('Email anda telah terverifikasi sebelumnya. Silahkan login', 'Berhasil!')->persistent("Tutup");
+              return redirect('/login');
+          }
+      }else{
+          Alert::error('Link verifikasi email kadaluarsa', 'Gagal!')->persistent("Tutup");
+          return redirect('/login');
+      }
+    }
+
 }
