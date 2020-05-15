@@ -79,27 +79,10 @@ html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
                   <table width="90%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td>
-                        <h2>Selamat Datang {{ $nama_peserta }}</h2><br>
+                        <h2>Mohon Maaf {{ $nama_peserta }} Anda Belum Lolos Tahap Administrasi</h2><br>
                         <p>
-                          Gunakan Email Dan Password Ini Untuk Login :<br>
+                          Silahkan Coba Dikesempatan Lainnya.<br>
                         </p>
-                        <p>
-                          Email : {{ $email_peserta }}<br>
-                        </p>
-                        <p>
-                          Password : {{ $password_peserta }}
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center">
-                        <div style="line-height: 24px;">
-                          <a style="background-color: #f20487; padding: 10px 50px; border-radius: 3px; border: none;  font-size: 20px; font-family: sans-serif;" href="{{url('user/verify', $token_peserta)}}" target="_blank" style="color: #F1F1F1;text-decoration: none;font-size: 16px;font-weight: 600;"> Verifikasi email 
-                          </a>
-                        </div>
-                        <!-- padding -->
-                        <div style="height: 60px; line-height: 60px; font-size: 10px;">
-                        </div>
                       </td>
                     </tr>
                   </table>

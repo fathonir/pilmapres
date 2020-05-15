@@ -11,6 +11,8 @@ use App\VerifyUser;
 use App\VerifyMail; 
 use App\Mail\TestMail;
 use App\Mail\TestEmail;
+use App\Mail\VerificationTrue;
+use App\Mail\VerificationFalse;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
@@ -74,6 +76,37 @@ class SendEmails extends Command
             $send_email_log->description = "Email is sent";
             $send_email_log->send_date = date("Y-m-d H:m:s");
             $send_email_log->update();
+
+          }elseif ($send_email_log->type == 'verification_finalis_true') {
+            
+            $user = User::whereId($send_email_log->user_id)->first();
+            // data yang dikirim
+            $data = [
+              'nama_peserta' => $user->name,
+              'email_peserta' => $user->email
+            ];
+
+            Mail::to($send_email_log->email_reciever)->send(new VerificationTrue($data));
+            $send_email_log->is_sent = true;
+            $send_email_log->description = "Email is sent";
+            $send_email_log->send_date = date("Y-m-d H:m:s");
+            $send_email_log->update();
+
+          }elseif ($send_email_log->type == 'verification_finalis_false') {
+            
+            $user = User::whereId($send_email_log->user_id)->first();
+            // data yang dikirim
+            $data = [
+              'nama_peserta' => $user->name,
+              'email_peserta' => $user->email
+            ];
+
+            Mail::to($send_email_log->email_reciever)->send(new VerificationFalse($data));
+            $send_email_log->is_sent = true;
+            $send_email_log->description = "Email is sent";
+            $send_email_log->send_date = date("Y-m-d H:m:s");
+            $send_email_log->update();
+
           }
 
         } catch (\Exception $e) {

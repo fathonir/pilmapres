@@ -157,21 +157,21 @@ class RegisterPesertaController extends Controller
 
         if ($user_mahasiswa->save()) {
 
-          $log_mail = new LogMail;
-          $log_mail->email_sender = "no.reply.pilmapres.kemdikbud@gmail.com";
-          $log_mail->email_reciever = $user->email;
-          $log_mail->name = $user->name;
-          $log_mail->type = "registration_finalis";
-          $log_mail->user_id = $user->id;
-          $log_mail->is_sent = false;
-          $log_mail->save();
-                      
-          // send mail on background 
-          $base_path = base_path();
-          $process = new Process('php artisan add:send-email > /dev/null 2>&1 &', $base_path); 
-          $process->disableOutput();
-          $process->run();
-      }
+            $log_mail = new LogMail;
+            $log_mail->email_sender = "no.reply.pilmapres.kemdikbud@gmail.com";
+            $log_mail->email_reciever = $user->email;
+            $log_mail->name = $user->name;
+            $log_mail->type = "registration_finalis";
+            $log_mail->user_id = $user->id;
+            $log_mail->is_sent = false;
+            $log_mail->save();
+                        
+            // send mail on background 
+            $base_path = base_path();
+            $process = new Process('php artisan add:send-email > /dev/null 2>&1 &', $base_path); 
+            $process->disableOutput();
+            $process->run();
+        }
 
         $res = $client->request('GET','https://api.kemdikbud.go.id:8243/pddikti/1.0/pt/'.$request->id_pt.'/prodi/'.$request->id_prodi, [
                     'verify'          => false,

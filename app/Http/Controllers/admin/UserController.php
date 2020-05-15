@@ -9,12 +9,14 @@ use Alert;
 use App\User;
 use App\Group;
 use App\AdminPt;
+use App\LogMail;
 use App\Reviewer;
 use App\UserGroup;
 use App\PerguruanTinggi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
+use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -119,7 +121,41 @@ class UserController extends Controller
         $user->is_user_rejected = 1;
       }
       
-      $user->save();   
+      $user->save();  
+
+      if ($user->save()) {
+        
+          if ($user->is_user_rejected) {
+
+            $log_mail = new LogMail;
+            $log_mail->email_sender = "no.reply.pilmapres.kemdikbud@gmail.com";
+            $log_mail->email_reciever = $user->email;
+            $log_mail->name = $user->name;
+            $log_mail->type = "verification_finalis_false";
+            $log_mail->user_id = $user->id;
+            $log_mail->is_sent = false;
+            $log_mail->save();
+
+          }else{
+
+            $log_mail = new LogMail;
+            $log_mail->email_sender = "no.reply.pilmapres.kemdikbud@gmail.com";
+            $log_mail->email_reciever = $user->email;
+            $log_mail->name = $user->name;
+            $log_mail->type = "verification_finalis_true";
+            $log_mail->user_id = $user->id;
+            $log_mail->is_sent = false;
+            $log_mail->save();
+
+          }
+                      
+          // send mail on background 
+          $base_path = base_path();
+          $process = new Process('php artisan add:send-email > /dev/null 2>&1 &', $base_path); 
+          $process->disableOutput();
+          $process->run();
+        }
+
       return redirect('/user-request');
     }
 }
