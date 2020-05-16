@@ -23,9 +23,16 @@
             <div class="sidebar col-sm-12 col-md-3">
                 <div class="widget">
                     <div class="widget-title">
-                        <h3 class="title text-center"><img class="img-circle" src="/front/img/xample-photo.png" alt=""></h3>
-                        <div class="text-center font-bold-large">{{ $user->name }}</div>
-                        <div class="text-center">{{ $user->userMahasiswa->mahasiswaPt->nama_jenjang_didik }} - {{ $user->userMahasiswa->mahasiswaPt->nama_prodi }} </div>
+                      @if(empty($user->userMahasiswa->foto))
+                        <h3 class="title text-center"><img class="img-circle" src="/front/img/xample-photo.png" alt="" style="height: 210px;width: 210px;"></h3>
+                      @else
+                        <h3 class="title text-center"><img class="img-circle" src="/file/foto-profil-peserta/{{ $user->userMahasiswa->foto }}" alt="" style="height: 210px;width: 210px;"></h3>
+                      @endif
+                      <div class="text-right">
+                        <a data-toggle="modal" data-target="#modal-default" class="badge badge-success detail-prestasi"><i class="icon-image"></i> Ubah</a>
+                      </div>
+                      <div class="text-center font-bold-large">{{ $user->name }}</div>
+                      <div class="text-center">{{ $user->userMahasiswa->mahasiswaPt->nama_jenjang_didik }} - {{ $user->userMahasiswa->mahasiswaPt->nama_prodi }} </div>
                     </div>
                 </div>
             </div>
@@ -206,6 +213,40 @@
                     </div>
                 </div>
             </div>
+            {!! Form::open(['action' => 'HomeController@EditFotoProfil', 'class'=>'form-horizontal pushData', 'files'=>true]) !!}
+            <div class="modal fade" id="modal-default" style="display: none;">
+              <div class="modal-dialog">
+                <br><br><br>
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Tutup</span>
+                        </button>
+                        <h4 class="modal-title" id="labelModalKu">Ubah Foto Profil</h4>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <div class="col-md-2">
+                          <label>Pilih Foto</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input type="file" name="foto" />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default btn-xs detail-prestasi"><i class="fa fa-fw fa-save"></i> Simpan</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+            {!! Form::close() !!}
+          <!-- /.modal-dialog -->
+        </div>
         </div>
     </div>
 </section>

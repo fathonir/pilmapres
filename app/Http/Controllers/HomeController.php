@@ -8,6 +8,7 @@ use File;
 use Mapper;
 use Response;
 use App\Topik; 
+use App\UserMahasiswa; 
 use App\Bidang; 
 use App\Slider; 
 use App\KaryaTulis; 
@@ -180,6 +181,29 @@ class HomeController extends Controller
       $karya_tulis->save();
       
       return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Karya Tulis Berhasil Diubah.');
+    }
+
+    public function EditFotoProfil(Request $request)
+    {
+      $user = Auth::user();
+
+      $user_mahasiswa = UserMahasiswa::whereUsersId($user->id)->first();
+      $files          = $request->foto;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/foto-profil-peserta');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $user_mahasiswa->foto   = $fileName;
+        $user_mahasiswa->save();
+      }
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Foto Profil Berhasil Diubah.');
     }
 
     public function detailPrestasi()

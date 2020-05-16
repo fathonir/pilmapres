@@ -28,6 +28,7 @@
     {!! Html::script('js/icheck.min.js') !!}
     <script src="{{ asset('js/app.js') }}"></script>
     {!! Html::script('js/select2.full.min.js') !!}
+    @yield('js')
     <script>
         $(document).ready(function() {
             $('.pt').select2({
