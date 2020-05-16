@@ -203,14 +203,28 @@
                                   @endif
                                 </div>
                                 <div aria-labelledby="video-tab" id="video" class="tab-pane fade" role="tabpanel">
-                                  <div class="panel panel-info">
-                                      <div class="panel-body">
-                                          <div class="video-container">
-                                              <iframe width="560" height="315" src="https://www.youtube.com/embed/RX3a88irkzA" frameborder="0" allowfullscreen>
-                                              </iframe>
+                                  @if($user->is_user_request == 0)
+                                    @if(!empty($user->link_video))
+                                      <div class="panel panel-info">
+                                          <div class="panel-body">
+                                            <p><h5> Video {{ $user->video->judul }} </h5></p>
+                                            <div class="video-container">
+                                                <iframe width="560" height="315" src="{{ $user->link_video }}" frameborder="0" allowfullscreen>
+                                                </iframe>
+                                            </div>
                                           </div>
                                       </div>
-                                  </div>
+                                      <a type="button" href="/video" class="btn btn-default btn-xs detail-prestasi"><b><i class="fa fa-edit"></i> Ubah Video</b></a>
+                                    @else
+                                      <a type="button" href="/video" class="btn btn-default btn-xs detail-prestasi"><b><i class="fa fa-plus"></i> Tambah Video</b></a>
+                                    @endif
+                                  @else
+                                    <div class="panel panel-info">
+                                        <div class="panel-body">
+                                            <h5>Anda Belum Diverifikasi, Data Anda Sedang Diproses.</h5>
+                                        </div>
+                                    </div>
+                                  @endif
                                 </div>
                               </div>
                             </div>

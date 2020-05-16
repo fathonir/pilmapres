@@ -7,6 +7,7 @@ use Auth;
 use File;
 use Mapper;
 use Response;
+use App\Video; 
 use App\Topik; 
 use App\Bidang; 
 use App\Slider; 
@@ -111,7 +112,63 @@ class HomeController extends Controller
     {
       $user = Auth::user();
 
+      if (!empty($user->video->link)) {
+        $shortUrlRegex = '/youtu.be\/([a-zA-Z0-9_]+)\??/i';
+        $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))(\w+)/i';
+
+        if (preg_match($longUrlRegex, $user->video->link, $matches)) {
+            $youtube_id = $matches[count($matches) - 1];
+        }
+
+        if (preg_match($shortUrlRegex, $user->video->link, $matches)) {
+            $youtube_id = $matches[count($matches) - 1];
+        }
+
+        $user->link_video = 'https://www.youtube.com/embed/' . $youtube_id;
+      }
+
       return view('dashboard-finalis', compact('user'));
+    }
+
+    public function video()
+    {
+      $user = Auth::user();
+      $video = Video::whereUsersId($user->id)->first();
+
+      if (empty($video)) {
+        
+        return view('video', compact('user'));
+      }else{
+
+        return view('video-edit', compact('user', 'video'));
+      }
+
+    }
+    
+    public function videoPost(Request $request)
+    {
+      $user = Auth::user();
+
+      $video                      = new Video;
+      $video->users_id            = $user->id;
+      $video->judul               = $request->judul;
+      $video->link                = $request->link;
+      $video->keterangan_tambahan = $request->keterangan_tambahan;
+      $video->active = 1;
+      $video->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Video Berhasil Ditambahkan.');
+    }
+
+    public function videoEditPost(Request $request)
+    {
+      $video                      = Video::whereId($request->id)->first();
+      $video->judul               = $request->judul;
+      $video->link                = $request->link;
+      $video->keterangan_tambahan = $request->keterangan_tambahan;
+      $video->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Video Berhasil Diubah.');
     }
 
     public function prestasi()
@@ -202,6 +259,7 @@ class HomeController extends Controller
       
       return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Prestasi Berhasil Ditambahkan.');
     }
+
 
     public function karyaTulis()
     {

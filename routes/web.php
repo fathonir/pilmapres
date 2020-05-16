@@ -47,6 +47,9 @@ Route::post('/prestasi-post', 'HomeController@prestasiPost');
 Route::get('/detail-prestasi/{id}', 'HomeController@prestasiDetail');
 Route::get('/edit-prestasi/{id}', 'HomeController@prestasiEdit');
 Route::post('/edit-prestasi-post/{id}', 'HomeController@prestasiEditPost');
+Route::get('/video', 'HomeController@video');
+Route::post('/video-post', 'HomeController@videoPost');
+Route::post('/video-edit-post', 'HomeController@videoEditPost');
 
 // Register Peserta
 Route::get('/register-peserta', 'RegisterPesertaController@register');
