@@ -8,11 +8,12 @@ use File;
 use Mapper;
 use Response;
 use App\Topik; 
-use App\UserMahasiswa; 
 use App\Bidang; 
 use App\Slider; 
+use App\Prestasi; 
 use App\KaryaTulis; 
 use App\MahasiswaPt;
+use App\UserMahasiswa; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -113,6 +114,95 @@ class HomeController extends Controller
       return view('dashboard-finalis', compact('user'));
     }
 
+    public function prestasi()
+    {
+      $user = Auth::user();
+
+      return view('prestasi', compact('user'));
+    }
+
+    public function prestasiEdit($id)
+    {
+      $prestasi = Prestasi::whereId($id)->first();
+      $user = Auth::user();
+
+      return view('edit-prestasi', compact('prestasi', 'user'));
+    }
+    
+    public function prestasiEditPost(Request $request, $id)
+    {
+      $user = Auth::user();
+
+      $prestasi                     = Prestasi::whereId($id)->first();
+      $prestasi->prioritas          = $request->prioritas;
+      $prestasi->nama_prestasi      = $request->nama_prestasi;
+      $prestasi->pencapaian         = $request->pencapaian;
+      $prestasi->tahun              = $request->tahun;
+      $prestasi->tingkat            = $request->tingkat;
+      $prestasi->pemberi_event      = $request->pemberi_event;
+      $prestasi->individu_kelompok  = $request->individu_kelompok;
+      $prestasi->keterangan_tambahan= $request->keterangan_tambahan;
+      $files = $request->sertifikat;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/prestasi');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $prestasi->sertifikat   = $fileName;
+      }
+
+      $prestasi->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Prestasi Berhasil Diubah.');
+    }
+
+    public function prestasiDetail($id)
+    {
+      $prestasi = Prestasi::whereId($id)->first();
+      $user = Auth::user();
+
+      return view('detail-prestasi', compact('prestasi', 'user'));
+    }
+    
+    public function prestasiPost(Request $request)
+    {
+      $user = Auth::user();
+
+      $prestasi                     = new Prestasi;
+      $prestasi->users_id           = $user->id;
+      $prestasi->prioritas          = $request->prioritas;
+      $prestasi->nama_prestasi      = $request->nama_prestasi;
+      $prestasi->pencapaian         = $request->pencapaian;
+      $prestasi->tahun              = $request->tahun;
+      $prestasi->tingkat            = $request->tingkat;
+      $prestasi->pemberi_event      = $request->pemberi_event;
+      $prestasi->individu_kelompok  = $request->individu_kelompok;
+      $prestasi->keterangan_tambahan= $request->keterangan_tambahan;
+      $prestasi->active = 1;
+      $files = $request->sertifikat;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/prestasi');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $prestasi->sertifikat   = $fileName;
+      }
+
+      $prestasi->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Prestasi Berhasil Ditambahkan.');
+    }
+
     public function karyaTulis()
     {
       $user = Auth::user();
@@ -206,10 +296,6 @@ class HomeController extends Controller
       return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Foto Profil Berhasil Diubah.');
     }
 
-    public function detailPrestasi()
-    {
-        return view('detail-prestasi');
-    }
     public function searchKategoriGallery(Request $request)
     {
         $user = Auth::user();

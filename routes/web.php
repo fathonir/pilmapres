@@ -32,7 +32,6 @@ Auth::routes();
 // landing
 Route::get('/', 'HomeController@index');
 Route::get('/detail-finalis', 'HomeController@detailFinalis');
-Route::get('/detail-prestasi', 'HomeController@detailPrestasi');
 Route::get('/slider/detail/{id}', 'HomeController@detailSlider');
 Route::get('/sambutan/detail/{id}', 'HomeController@detailSambutan');
 Route::post('/berita/viewer/{id}', 'HomeController@viewerBerita');
@@ -43,6 +42,11 @@ Route::get('/karya-tulis', 'HomeController@karyaTulis');
 Route::post('/karya-tulis-post', 'HomeController@karyaTulisPost');
 Route::post('/karya-tulis-edit-post', 'HomeController@karyaTulisEditPost');
 Route::post('/edit-foto-profil', 'HomeController@EditFotoProfil');
+Route::get('/prestasi', 'HomeController@prestasi');
+Route::post('/prestasi-post', 'HomeController@prestasiPost');
+Route::get('/detail-prestasi/{id}', 'HomeController@prestasiDetail');
+Route::get('/edit-prestasi/{id}', 'HomeController@prestasiEdit');
+Route::post('/edit-prestasi-post/{id}', 'HomeController@prestasiEditPost');
 
 // Register Peserta
 Route::get('/register-peserta', 'RegisterPesertaController@register');

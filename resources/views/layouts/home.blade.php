@@ -54,6 +54,7 @@
     <!-- Color Scheme -->
     {!! Html::style('/front/css/responsive.css') !!}
     {!! Html::style('/front/css/color.css') !!}
+    {!! Html::style('/front/css/bootstrap-datetimepicker.min.css') !!}
     {!! Html::style('css/sweetalert.css') !!}
     {!! Html::script('js/sweetalert.min.js') !!}
 
@@ -358,11 +359,14 @@
     {!! Html::script('/front/js/tweet/carousel.js') !!}
     {!! Html::script('/front/js/tweet/scripts.js') !!}
     {!! Html::script('/front/js/tweet/tweetie.min.js') !!}
+    {!! Html::script('/front/js/moment.js') !!}
+    {!! Html::script('/front/js/bootstrap-datetimepicker.min.js') !!}
     <!-- Background Video -->
     {!! Html::script('/front/js/jquery.mb.YTPlayer.js') !!}
     <!-- Custom Js Code -->
     {!! Html::script('/front/js/custom.js') !!}
     <!-- Scripts -->
+    @yield('js')
     <script type="text/javascript">
       setTimeout(function() {
           // $('.diploma').show();

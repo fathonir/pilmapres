@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
       return $this->belongsTo('App\KaryaTulis', 'id', 'users_id');
     }
+
+    public function prestasi()
+    {
+      return $this->hasMany('App\Prestasi', 'users_id')->orderBy('prioritas', 'asc');
+    }
 }

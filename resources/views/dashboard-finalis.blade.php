@@ -29,7 +29,7 @@
                         <h3 class="title text-center"><img class="img-circle" src="/file/foto-profil-peserta/{{ $user->userMahasiswa->foto }}" alt="" style="height: 210px;width: 210px;"></h3>
                       @endif
                       <div class="text-right">
-                        <a data-toggle="modal" data-target="#modal-default" class="badge badge-success detail-prestasi"><i class="icon-image"></i> Ubah</a>
+                        <a data-toggle="modal" data-target="#modal-default" class="badge badge-default detail-prestasi" style="background-color: darkgray;"><i class="icon-image"></i> Ubah</a>
                       </div>
                       <div class="text-center font-bold-large">{{ $user->name }}</div>
                       <div class="text-center">{{ $user->userMahasiswa->mahasiswaPt->nama_jenjang_didik }} - {{ $user->userMahasiswa->mahasiswaPt->nama_prodi }} </div>
@@ -149,52 +149,58 @@
                                         </div>
                                     </div>
                                   @endif
-
-
                                 </div>
                                 <div aria-labelledby="prestasi-tab" id="prestasi" class="tab-pane fade" role="tabpanel">
-                                  <div class="panel panel-info">
-                                      <div class="panel-body table-responsive">
-                                          <table class="table table-striped">
-                                              <thead>
-                                                  <tr>
-                                                      <th>Prioritas</th>
-                                                      <th>Pencapaian</th>
-                                                      <th>Prestasi</th>
-                                                      <th>Tahun</th>
-                                                      <th>Tingkat</th>
-                                                      <th></th>
-                                                  </tr>
-                                              </thead>
-                                              <tbody>
-                                              <tr>
-                                                  <td align="center">1</td>
-                                                  <td>Juara 1</td>
-                                                  <td>1st Winner of Online Social Campaign Competition World Antibiotic Awareness Week (WAAW) 2018</td>
-                                                  <td>2018</td>
-                                                  <td><span class="label label-danger">Internasional</span></td>
-                                                  <td><a href="/detail-prestasi" class="badge badge-success detail-prestasi"><i class="icon-search"></i> Lihat</a></td>
-                                              </tr>
-                                              <tr>
-                                                  <td align="center">2</td>
-                                                  <td>Juara 1</td>
-                                                  <td>Juara 1 Esai Ilmiah Interfaculty of Medicine Scientific Competition (Intermedisco) 2017</td>
-                                                  <td>2017</td>
-                                                  <td><span class="label label-info">Nasional</span></td>
-                                                  <td><a href="/detail-prestasi" class="badge badge-success detail-prestasi"><i class="icon-search"></i> Lihat</a></td>
-                                              </tr>
-                                              <tr>
-                                                  <td align="center">3</td>
-                                                  <td>Chief Executive Officer / Ketua Organisasi</td>
-                                                  <td>Chief Executive Officer of Science and Research Center (SRC) FK Universitas Padjadjaran 2018</td>
-                                                  <td>2018</td>
-                                                  <td><span class="label label-warning">Propinsi</span></td>
-                                                  <td><a href="/detail-prestasi" class="badge badge-success detail-prestasi"><i class="icon-search"></i> Lihat</a></td>
-                                              </tr>
-                                              </tbody>
-                                          </table>
-                                      </div>
-                                  </div>  
+                                  @if($user->is_user_request == 0)
+                                    <div class="panel panel-info">
+                                        <div class="panel-body table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Prioritas</th>
+                                                        <th>Pencapaian</th>
+                                                        <th>Prestasi</th>
+                                                        <th>Tahun</th>
+                                                        <th>Tingkat</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  @foreach($user->prestasi as $i=>$prestasi)
+                                                    <tr>
+                                                      <td align="center">{{ $prestasi->prioritas }}</td>
+                                                      <td>{{ $prestasi->pencapaian }}</td>
+                                                      <td>{{ $prestasi->nama_prestasi }}</td>
+                                                      <td>{{ $prestasi->tahun }}</td>
+                                                      <td>
+                                                        @if($prestasi->tingkat == 'Internasional')
+                                                          <span class="label label-danger">{{ $prestasi->tingkat }}</span>
+                                                        @elseif($prestasi->tingkat == 'Nasional')
+                                                          <span class="label label-info">{{ $prestasi->tingkat }}</span>
+                                                        @elseif($prestasi->tingkat == 'Propinsi')
+                                                          <span class="label label-warning">{{ $prestasi->tingkat }}</span>
+                                                        @else
+                                                          <span class="label label-default">{{ $prestasi->tingkat }}</span>
+                                                        @endif
+                                                      </td>
+                                                      <td>
+                                                        <a href="/edit-prestasi/{{ $prestasi->id }}" class="badge badge-warning detail-prestasi" style="background-color: darkgoldenrod;"><i class="icon-edit"></i> Edit</a>
+                                                        <a href="/detail-prestasi/{{ $prestasi->id }}" class="badge badge-success detail-prestasi"><i class="icon-search"></i> Lihat</a>
+                                                      </td>
+                                                    </tr>
+                                                  @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>  
+                                    <a type="button" href="/prestasi" class="btn btn-default btn-xs detail-prestasi"><b><i class="fa fa-plus"></i> Tambah Prestasi</b></a>
+                                  @else
+                                    <div class="panel panel-info">
+                                        <div class="panel-body">
+                                            <h5>Anda Belum Diverifikasi, Data Anda Sedang Diproses.</h5>
+                                        </div>
+                                    </div>
+                                  @endif
                                 </div>
                                 <div aria-labelledby="video-tab" id="video" class="tab-pane fade" role="tabpanel">
                                   <div class="panel panel-info">
