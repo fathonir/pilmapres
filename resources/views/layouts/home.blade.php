@@ -158,23 +158,34 @@
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
                     @else
-                        <li>
-                            <a href="#">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                      <li>
+                          <a href="#">
+                              {{ Auth::user()->name }} <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                @if (Auth::user()->hasUserGroup->group->name == "Peserta")
+                                  <a href="/dashboard-finalis">
+                                      Dashboard
+                                  </a>
+                                @elseif (Auth::user()->hasUserGroup->group->name == "Admin Master")
+                                  <a href="/admin">
+                                      Dashboard
+                                  </a>
+                                @endif
+                              </li>
+                              <li>
+                                  <a href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();">
+                                      Logout
+                                  </a>
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      {{ csrf_field() }}
+                                  </form>
+                              </li>
+                          </ul>
+                      </li>
                     @endguest
                     <li>
                     </li>

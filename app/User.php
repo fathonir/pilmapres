@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
       return $this->belongsTo('App\Video', 'id', 'users_id');
     }
+
+    public function hasUserGroup()
+    {
+        return $this->belongsTo('App\UserGroup','id', 'user_id');
+    }
 }
