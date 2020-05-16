@@ -16,4 +16,4 @@ yarn-error.log
 .env
 /public/file/surat-pengantar/
 /nbproject/private/
-.code-workspace
+*.code-workspace
