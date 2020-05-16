@@ -41,6 +41,7 @@ Route::get('/admin', 'HomeController@admin');
 Route::get('/dashboard-finalis', 'HomeController@dashboardFinalis');
 Route::get('/karya-tulis', 'HomeController@karyaTulis');
 Route::post('/karya-tulis-post', 'HomeController@karyaTulisPost');
+Route::post('/karya-tulis-edit-post', 'HomeController@karyaTulisEditPost');
 
 // Register Peserta
 Route::get('/register-peserta', 'RegisterPesertaController@register');

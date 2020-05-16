@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
       return $this->belongsTo('App\UserMahasiswa', 'id', 'users_id');
     }
+
+    public function karyaTulis()
+    {
+      return $this->belongsTo('App\KaryaTulis', 'id', 'users_id');
+    }
 }

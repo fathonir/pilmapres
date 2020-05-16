@@ -109,20 +109,6 @@ class HomeController extends Controller
     {
       $user = Auth::user();
 
-      if ($user->is_user_request) {
-        $check_verfication = false;
-      }else{
-        $check_verfication = true;
-      }
-
-      // echo "<pre>";
-      //   print_r($check_verfication);
-      // echo "</pre>";
-      // exit();
-
-      // // print_r($check_verfication);
-      // // exit();
-
       return view('dashboard-finalis', compact('user'));
     }
 
@@ -131,8 +117,14 @@ class HomeController extends Controller
       $user = Auth::user();
       $topiks = Topik::whereActive(1)->get();
       $bidangs = Bidang::whereActive(1)->get();
+      $karya_tulis = KaryaTulis::whereUsersId($user->id)->first();
+
+      if (empty($karya_tulis)) {
+        return view('karya-tulis', compact('user', 'bidangs', 'topiks'));
+      }else{
+        return view('karya-tulis-edit', compact('user', 'bidangs', 'topiks', 'karya_tulis'));
+      }
       
-      return view('karya-tulis', compact('user', 'bidangs', 'topiks'));
     }
 
     public function karyaTulisPost(Request $request)
@@ -162,6 +154,32 @@ class HomeController extends Controller
       $karya_tulis->save();
       
       return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Karya Tulis Berhasil Ditambahkan.');
+    }
+
+    public function karyaTulisEditPost(Request $request)
+    {
+      $karya_tulis            = KaryaTulis::whereId($request->id)->first();
+      $karya_tulis->judul     = $request->judul;
+      $karya_tulis->topik_id  = $request->topik_id;
+      $karya_tulis->bidang_id = $request->bidang_id;
+      $karya_tulis->ringkasan = $request->ringkasan;
+      $files = $request->file;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/karya-tulis');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $karya_tulis->file   = $fileName;
+      }
+
+      $karya_tulis->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Karya Tulis Berhasil Diubah.');
     }
 
     public function detailPrestasi()
