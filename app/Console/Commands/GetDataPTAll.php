@@ -4,8 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\PerguruanTinggi;
-use Carbon\Carbon;
-use Excel;
 
 class GetDataPTAll extends Command
 {
@@ -42,33 +40,44 @@ class GetDataPTAll extends Command
     {
         $client = new \GuzzleHttp\Client();
         $total_page = 100;
+        $per_page = 100;
         $increment = 0;
-        print_r('====== Start ======');
-        echo "\n";
+        
+        $pddikti_endpoint = env('PDDIKTI_ENDPOINT');
+        $pddikti_key = env('PDDIKTI_KEY');
+        
+        echo "====== Start ======\n";
+        echo "Endpoint: {$pddikti_endpoint}\n";
+        echo "Key: {$pddikti_key}\n";
 
-        for ($i=1; $i < $total_page ; $i++) {
-            $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/1.0/pt', [
-            // $res = $client->request('GET','https://api.ristekdikti.go.id:8243/pddikti/0.3/pt?page='.$i.'&per-page=50', [
-                        'verify'          => false,
-                        'headers' => [
-                        'Authorization' => 'Bearer d3f25dda-36dd-345c-89da-1473d5045f17',
-                      ],
-                    ]);
+        for ($i = 0; $i < $total_page; $i++) {
+            $res = $client->request('GET', "{$pddikti_endpoint}/pt?page={$i}&per-page={$per_page}", [
+                'verify' => false,
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $pddikti_key,
+                ],
+            ]);
+            
             $json = $res->getBody()->getContents();
             $objects = json_decode($json);
+            
             if (!empty($objects)) {
                 foreach ($objects as $key => $value) {
                     $increment++;
                     $perguruan_tinggi = PerguruanTinggi::where('id', $value->id)->first();
+
+                    // Jika PT bukan 00 Negeri / 01-14 LLDIKTI, Skip
+                    if ((int)substr($value->kode, 0, 2) > 14) {
+                        echo "{$increment} Skip PT : {$value->nama}\n";
+                        continue 1;
+                    }
                     
-                    if (empty($perguruan_tinggi)) {
-                        $perguruan_tinggi = new PerguruanTinggi;
-                        $perguruan_tinggi->id                   = $value->id;
-                        print_r($increment. '. Insert data PT : '.$value->nama);
-                        echo "\n";
-                    }else{
-                        print_r($increment. '. Update data PT : '.$value->nama);
-                        echo "\n";
+                    if ($perguruan_tinggi == null) {
+                        $perguruan_tinggi = new PerguruanTinggi();
+                        $perguruan_tinggi->id = $value->id;
+                        echo "{$increment} Insert data PT : {$value->nama}\n";
+                    } else {
+                        echo "{$increment} Update data PT : {$value->nama}\n";
                     }
 
                     $perguruan_tinggi->kode                     = $value->kode;
@@ -101,11 +110,10 @@ class GetDataPTAll extends Command
                     $perguruan_tinggi->bentuk_pendidikan_nama   = $value->bentuk_pendidikan->nama;
                     $perguruan_tinggi->last_update              = $value->last_update;
                     $perguruan_tinggi->save();
-                }        
-            }else{
-                print_r('====== Finish ======');
-                echo "\n";
-                exit();
+                }
+            } else {
+                echo '====== Finish ======';
+                break;
             }
         }
     }
