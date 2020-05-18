@@ -31,7 +31,7 @@
     <meta name="twitter:image:src" content="@yield('imagetwit')" />
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Arimo:300,400,700,400italic,700italic' />
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css' />
-        <!-- Font Awesome Icons -->
+    <!-- Font Awesome Icons -->
     {!! Html::style('/front/css/font-awesome.min.css') !!}
     <!-- Bootstrap core CSS -->
     {!! Html::style('/front/css/bootstrap.min.css') !!}
@@ -77,14 +77,10 @@
             </div>
             <!-- Top Social Icon -->
             <div class="top-social-icon icons-hover-black">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <!-- <a href="#"><i class="fa fa-youtube"></i></a> -->
-                <!-- <a href="#"><i class="fa fa-dribbble"></i></a> -->
-                <!-- <a href="#"><i class="fa fa-linkedin"></i></a> -->
-                <!-- <a href="#"><i class="fa fa-github"></i></a> -->
-                <!-- <a href="#"><i class="fa fa-rss"></i></a> -->
-                <a href="#"><i class="fa fa-google-plus"></i></a>
+                <a href="https://www.facebook.com/puspresnas.puspresnas.1"><i class="fa fa-facebook"></i></a>
+                <a href="https://twitter.com/puspresnas"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.instagram.com/puspresnas/"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UC-NYR136dYUJLsSiWRfLNKA"><i class="fa fa-youtube"></i></a>
             </div>
 
           </div>
@@ -279,7 +275,8 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-4 widget bottom-xs-pad-20">
                             <a><img src="/front/img/FAI.png"></a>
-                            <p>Gedung D, Jalan Jenderal Sudirman Pintu Satu, Senayan, Jakarta Pusat 10270</p>
+                            <p><strong>PUSAT PRESTASI NASIONAL</strong></p>
+                            <p>Jalan Jenderal Sudirman Pintu Satu, Senayan, Jakarta 10270</p>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-4 widget bottom-xs-pad-20">
                             <div class="widget-title">
@@ -287,8 +284,8 @@
                                 <h3 class="title" align="center">Hubungi Kami</h3>
                             </div>
                             <p align="center">
-                              <h5><strong><span class="fa fa-phone"></span> | 126</strong></h5>
-                              <h5><strong><span class="fa fa-envelope"></span> | pilmapres@kemdikbud.go.id</strong></h5>
+                              <h5><strong><span class="fa fa-phone"></span> | (021) 5731177</strong></h5>
+                              <h5><strong><span class="fa fa-envelope"></span> | <a href="mailto:dikti.puspresnas@kemdikbud.go.id">dikti.puspresnas@kemdikbud.go.id</a></strong></h5>
                             </p>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-4 widget newsletter bottom-xs-pad-20">
@@ -296,10 +293,10 @@
                               <h3 class="title" align="center">Sosial Media</h3>
                           </div>
                         <div class="social-icon gray-bg icons-circle i-5x" align="center">
-                          <a href="https://web.facebook.com/ditjen.dikti?_rdc=1&_rdr"><i class="fa fa-facebook"></i></a>
-                          <a href="https://twitter.com/ditjendikti"><i href="#" class="fa fa-twitter"></i></a>
-                          <a href="https://www.instagram.com/ditjen.dikti/"><i href="#" class="fa fa-instagram"></i> </a>
-                          <a href="https://www.youtube.com/channel/UCGo_6l_6kp8H8OHcKcSIeDw"><i href="#" class="fa fa-youtube"></i></a>
+                          <a href="https://www.facebook.com/puspresnas.puspresnas.1"><i class="fa fa-facebook"></i></a>
+                          <a href="https://twitter.com/puspresnas"><i href="#" class="fa fa-twitter"></i></a>
+                          <a href="https://www.instagram.com/puspresnas/"><i href="#" class="fa fa-instagram"></i> </a>
+                          <a href="https://www.youtube.com/channel/UC-NYR136dYUJLsSiWRfLNKA"><i href="#" class="fa fa-youtube"></i></a>
                           </div>
                         </div>
                         <!-- .newsletter -->
@@ -314,12 +311,6 @@
                         <a href="https://www.kemdikbud.go.id/"><img src="/front/img/ftrlogo.png" style="width: 70%; margin-left: 25px;"></a>
                     </div>
                     <div class="col-md-7">
-                      <!-- <a href="http://uninus.ac.id/">Uninus</a>
-                      <a href="http://pusatkarir.uninus.ac.id/">Pusat Karir</a>
-                      <a href="https://forlap.ristekdikti.go.id/">Forlap Dikti</a>
-                      <a href="#">Web Mail</a><br>
-                      <a>Fakultas Agama Islam, Universitas Islam Nusantara.</a><a href="http://jaguardev.id">JaguarDev.</a>
- -->
                     </div>
                     <div class="col-md-1">
                       <div class="col-xs-2  col-sm-6 col-md-6 text-right page-scroll gray-bg icons-circle i-3x">
@@ -344,7 +335,7 @@
     <!-- Menu jQuery Bootstrap Addon --> 
     {!! Html::script('/front/js/jquery.hover-dropdown-menu-addon.js') !!}
     <!-- Scroll Top Menu -->
-     {!! Html::script('/front/js/jquery.easing.1.3.js') !!}
+    {!! Html::script('/front/js/jquery.easing.1.3.js') !!}
     <!-- Sticky Menu --> 
     {!! Html::script('/front/js/jquery.sticky.js') !!}
     <!-- Bootstrap Validation -->
