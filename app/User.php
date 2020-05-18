@@ -55,4 +55,24 @@ class User extends Authenticatable
     {
       return $this->belongsTo('App\UserMahasiswa', 'id', 'users_id');
     }
+
+    public function karyaTulis()
+    {
+      return $this->belongsTo('App\KaryaTulis', 'id', 'users_id');
+    }
+
+    public function prestasi()
+    {
+      return $this->hasMany('App\Prestasi', 'users_id')->orderBy('prioritas', 'asc');
+    }
+    
+    public function video()
+    {
+      return $this->belongsTo('App\Video', 'id', 'users_id');
+    }
+
+    public function hasUserGroup()
+    {
+        return $this->belongsTo('App\UserGroup','id', 'user_id');
+    }
 }

@@ -54,6 +54,7 @@
     <!-- Color Scheme -->
     {!! Html::style('/front/css/responsive.css') !!}
     {!! Html::style('/front/css/color.css') !!}
+    {!! Html::style('/front/css/bootstrap-datetimepicker.min.css') !!}
     {!! Html::style('css/sweetalert.css') !!}
     {!! Html::script('js/sweetalert.min.js') !!}
 
@@ -157,23 +158,34 @@
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
                     @else
-                        <li>
-                            <a href="#">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                      <li>
+                          <a href="#">
+                              {{ Auth::user()->name }} <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                @if (Auth::user()->hasUserGroup->group->name == "Peserta")
+                                  <a href="/dashboard-finalis">
+                                      Dashboard
+                                  </a>
+                                @elseif (Auth::user()->hasUserGroup->group->name == "Admin Master")
+                                  <a href="/admin">
+                                      Dashboard
+                                  </a>
+                                @endif
+                              </li>
+                              <li>
+                                  <a href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();">
+                                      Logout
+                                  </a>
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      {{ csrf_field() }}
+                                  </form>
+                              </li>
+                          </ul>
+                      </li>
                     @endguest
                     <li>
                     </li>
@@ -358,11 +370,14 @@
     {!! Html::script('/front/js/tweet/carousel.js') !!}
     {!! Html::script('/front/js/tweet/scripts.js') !!}
     {!! Html::script('/front/js/tweet/tweetie.min.js') !!}
+    {!! Html::script('/front/js/moment.js') !!}
+    {!! Html::script('/front/js/bootstrap-datetimepicker.min.js') !!}
     <!-- Background Video -->
     {!! Html::script('/front/js/jquery.mb.YTPlayer.js') !!}
     <!-- Custom Js Code -->
     {!! Html::script('/front/js/custom.js') !!}
     <!-- Scripts -->
+    @yield('js')
     <script type="text/javascript">
       setTimeout(function() {
           // $('.diploma').show();

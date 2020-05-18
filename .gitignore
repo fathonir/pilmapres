@@ -1,19 +1,26 @@
 /node_modules
 /public/hot
-/public/images
 /public/storage
-/public/audios
-/public/file-pengumuman
-/public/file-regulasi
 /storage/*.key
 /vendor
-/.idea
+.env
 /.vagrant
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.env
-/public/file/surat-pengantar/
+
+# IDE Related
+/.idea
 /nbproject/private/
 *.code-workspace
+
+# Public Folder
+/public/file/surat-pengantar/
+/public/images
+/public/audios
+/public/file-pengumuman
+/public/file-regulasi
+
+# Etc
+.DS_Store

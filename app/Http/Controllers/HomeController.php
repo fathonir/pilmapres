@@ -7,11 +7,14 @@ use Auth;
 use File;
 use Mapper;
 use Response;
+use App\Video; 
 use App\Topik; 
 use App\Bidang; 
 use App\Slider; 
+use App\Prestasi; 
 use App\KaryaTulis; 
 use App\MahasiswaPt;
+use App\UserMahasiswa; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -109,30 +112,168 @@ class HomeController extends Controller
     {
       $user = Auth::user();
 
-      if ($user->is_user_request) {
-        $check_verfication = false;
-      }else{
-        $check_verfication = true;
+      if (!empty($user->video->link)) {
+        $shortUrlRegex = '/youtu.be\/([a-zA-Z0-9_]+)\??/i';
+        $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))(\w+)/i';
+
+        if (preg_match($longUrlRegex, $user->video->link, $matches)) {
+            $youtube_id = $matches[count($matches) - 1];
+        }
+
+        if (preg_match($shortUrlRegex, $user->video->link, $matches)) {
+            $youtube_id = $matches[count($matches) - 1];
+        }
+
+        $user->link_video = 'https://www.youtube.com/embed/' . $youtube_id;
       }
-
-      // echo "<pre>";
-      //   print_r($check_verfication);
-      // echo "</pre>";
-      // exit();
-
-      // // print_r($check_verfication);
-      // // exit();
 
       return view('dashboard-finalis', compact('user'));
     }
+
+    public function video()
+    {
+      $user = Auth::user();
+      $video = Video::whereUsersId($user->id)->first();
+
+      if (empty($video)) {
+        
+        return view('video', compact('user'));
+      }else{
+
+        return view('video-edit', compact('user', 'video'));
+      }
+
+    }
+    
+    public function videoPost(Request $request)
+    {
+      $user = Auth::user();
+
+      $video                      = new Video;
+      $video->users_id            = $user->id;
+      $video->judul               = $request->judul;
+      $video->link                = $request->link;
+      $video->keterangan_tambahan = $request->keterangan_tambahan;
+      $video->active = 1;
+      $video->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Video Berhasil Ditambahkan.');
+    }
+
+    public function videoEditPost(Request $request)
+    {
+      $video                      = Video::whereId($request->id)->first();
+      $video->judul               = $request->judul;
+      $video->link                = $request->link;
+      $video->keterangan_tambahan = $request->keterangan_tambahan;
+      $video->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Video Berhasil Diubah.');
+    }
+
+    public function prestasi()
+    {
+      $user = Auth::user();
+
+      return view('prestasi', compact('user'));
+    }
+
+    public function prestasiEdit($id)
+    {
+      $prestasi = Prestasi::whereId($id)->first();
+      $user = Auth::user();
+
+      return view('edit-prestasi', compact('prestasi', 'user'));
+    }
+    
+    public function prestasiEditPost(Request $request, $id)
+    {
+      $user = Auth::user();
+
+      $prestasi                     = Prestasi::whereId($id)->first();
+      $prestasi->prioritas          = $request->prioritas;
+      $prestasi->nama_prestasi      = $request->nama_prestasi;
+      $prestasi->pencapaian         = $request->pencapaian;
+      $prestasi->tahun              = $request->tahun;
+      $prestasi->tingkat            = $request->tingkat;
+      $prestasi->pemberi_event      = $request->pemberi_event;
+      $prestasi->individu_kelompok  = $request->individu_kelompok;
+      $prestasi->keterangan_tambahan= $request->keterangan_tambahan;
+      $files = $request->sertifikat;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/prestasi');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $prestasi->sertifikat   = $fileName;
+      }
+
+      $prestasi->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Prestasi Berhasil Diubah.');
+    }
+
+    public function prestasiDetail($id)
+    {
+      $prestasi = Prestasi::whereId($id)->first();
+      $user = Auth::user();
+
+      return view('detail-prestasi', compact('prestasi', 'user'));
+    }
+    
+    public function prestasiPost(Request $request)
+    {
+      $user = Auth::user();
+
+      $prestasi                     = new Prestasi;
+      $prestasi->users_id           = $user->id;
+      $prestasi->prioritas          = $request->prioritas;
+      $prestasi->nama_prestasi      = $request->nama_prestasi;
+      $prestasi->pencapaian         = $request->pencapaian;
+      $prestasi->tahun              = $request->tahun;
+      $prestasi->tingkat            = $request->tingkat;
+      $prestasi->pemberi_event      = $request->pemberi_event;
+      $prestasi->individu_kelompok  = $request->individu_kelompok;
+      $prestasi->keterangan_tambahan= $request->keterangan_tambahan;
+      $prestasi->active = 1;
+      $files = $request->sertifikat;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/prestasi');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $prestasi->sertifikat   = $fileName;
+      }
+
+      $prestasi->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Prestasi Berhasil Ditambahkan.');
+    }
+
 
     public function karyaTulis()
     {
       $user = Auth::user();
       $topiks = Topik::whereActive(1)->get();
       $bidangs = Bidang::whereActive(1)->get();
+      $karya_tulis = KaryaTulis::whereUsersId($user->id)->first();
+
+      if (empty($karya_tulis)) {
+        return view('karya-tulis', compact('user', 'bidangs', 'topiks'));
+      }else{
+        return view('karya-tulis-edit', compact('user', 'bidangs', 'topiks', 'karya_tulis'));
+      }
       
-      return view('karya-tulis', compact('user', 'bidangs', 'topiks'));
     }
 
     public function karyaTulisPost(Request $request)
@@ -164,10 +305,55 @@ class HomeController extends Controller
       return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Karya Tulis Berhasil Ditambahkan.');
     }
 
-    public function detailPrestasi()
+    public function karyaTulisEditPost(Request $request)
     {
-        return view('detail-prestasi');
+      $karya_tulis            = KaryaTulis::whereId($request->id)->first();
+      $karya_tulis->judul     = $request->judul;
+      $karya_tulis->topik_id  = $request->topik_id;
+      $karya_tulis->bidang_id = $request->bidang_id;
+      $karya_tulis->ringkasan = $request->ringkasan;
+      $files = $request->file;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/karya-tulis');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $karya_tulis->file   = $fileName;
+      }
+
+      $karya_tulis->save();
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Karya Tulis Berhasil Diubah.');
     }
+
+    public function EditFotoProfil(Request $request)
+    {
+      $user = Auth::user();
+
+      $user_mahasiswa = UserMahasiswa::whereUsersId($user->id)->first();
+      $files          = $request->foto;
+
+      if(isset($files)){
+        $fileName = $files->getClientOriginalName();
+        $destinationPath = public_path('/file/foto-profil-peserta');
+        if(!File::exists($destinationPath)){
+          if(File::makeDirectory($destinationPath,0777,true)){
+              throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");  
+          }
+        }
+        $files->move($destinationPath,$fileName);
+        $user_mahasiswa->foto   = $fileName;
+        $user_mahasiswa->save();
+      }
+      
+      return Redirect::action('HomeController@dashboardFinalis')->with('flash-success','Foto Profil Berhasil Diubah.');
+    }
+
     public function searchKategoriGallery(Request $request)
     {
         $user = Auth::user();
