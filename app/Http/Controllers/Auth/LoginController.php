@@ -26,33 +26,29 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
         $this->rules($request);
         $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         $request->merge([$field => $request->input('email')]);
 
-
-        if (Auth::attempt($request->only($field, 'password')))
-        {
+        if (Auth::attempt($request->only($field, 'password'))) {
             $user = Auth::user();
             $user_group = UserGroup::where('user_id', $user->id)->first();
 
             if ($user_group && $user->active) {
 
-                if ($user_group->group_id===1){
-
+                if ($user_group->group_id === 1) {
                     return redirect('/admin');
-                }elseif ($user_group->group_id===2){
+                } elseif ($user_group->group_id === 2) {
 
                     return redirect('/dashboard-finalis');
-                }elseif ($user_group->group_id===3){
+                } elseif ($user_group->group_id === 3) {
                     echo "<pre>";
-                        print_r('Juri Login');
+                    print_r('Juri Login');
                     echo "</pre>";
                     exit();
                     // return redirect('/admin-dashboard');
                 }
-            }else{
+            } else {
                 // Alert::success('Anda tidak bisa melakukan login dengan account ini! silahkan hubungi administrator untuk informasi lebih lanjut.', 'Kesalahan!')->persistent("Tutup");
                 Auth::logout();
                 // return redirect('/login');
@@ -60,13 +56,8 @@ class LoginController extends Controller
                     'failed_auth' => 'Anda tidak bisa melakukan login dengan account ini! silahkan hubungi administrator untuk informasi lebih lanjut.',
                 ]);
             }
-
         }
 
-            // echo "<pre>";
-            //     print_r('Salah');
-            // echo "</pre>";
-            // exit();
         return redirect('/login')->withErrors([
             'failed_auth' => 'These credentials do not match our records.',
         ]);
