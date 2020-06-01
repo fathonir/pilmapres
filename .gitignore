@@ -18,6 +18,7 @@ _ide_helpder.php
 
 # Public Folder
 /public/vendor
+/public/node_modules
 /public/file/surat-pengantar/
 /public/images
 /public/audios
