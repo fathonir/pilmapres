@@ -12,14 +12,14 @@ class GetDataPTAll extends Command
      *
      * @var string
      */
-    protected $signature = 'add:get-data-pt-all';
+    protected $signature = 'pddikti:get-data-pt-all';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Get Data All PT From Forlap';
+    protected $description = 'Sinkronisasi data PT dari PDDIKTI';
 
     /**
      * Create a new command instance.
@@ -46,12 +46,17 @@ class GetDataPTAll extends Command
         $pddikti_endpoint = env('PDDIKTI_ENDPOINT');
         $pddikti_key = env('PDDIKTI_KEY');
         
-        echo "====== Start ======\n";
-        echo "Endpoint: {$pddikti_endpoint}\n";
-        echo "Key: {$pddikti_key}\n";
+        $this->line("SINKRONISASI DATA PERGURUAN TINGGI\n"
+            . "Endpoint: {$pddikti_endpoint}\n"
+            . "Key: {$pddikti_key}");
+            
+        
 
         for ($i = 0; $i < $total_page; $i++) {
-            $res = $client->request('GET', "{$pddikti_endpoint}/pt?page={$i}&per-page={$per_page}", [
+            
+            $request_url = "{$pddikti_endpoint}/pt?page={$i}&per-page={$per_page}";
+            
+            $res = $client->request('GET', $request_url, [
                 'verify' => false,
                 'headers' => [
                     'Authorization' => 'Bearer ' . $pddikti_key,
@@ -64,55 +69,29 @@ class GetDataPTAll extends Command
             if (!empty($objects)) {
                 foreach ($objects as $key => $value) {
                     $increment++;
-                    $perguruan_tinggi = PerguruanTinggi::where('id', $value->id)->first();
+                    $perguruan_tinggi = PerguruanTinggi::where('id_institusi', $value->id)->first();
 
                     // Jika PT bukan 00 Negeri / 01-14 LLDIKTI, Skip
                     if ((int)substr($value->kode, 0, 2) > 14) {
-                        echo "{$increment} Skip PT : {$value->nama}\n";
+                        $this->line("{$increment} Skip PT : {$value->nama}");
                         continue 1;
                     }
                     
                     if ($perguruan_tinggi == null) {
                         $perguruan_tinggi = new PerguruanTinggi();
-                        $perguruan_tinggi->id = $value->id;
-                        echo "{$increment} Insert data PT : {$value->nama}\n";
+                        $this->line("{$increment} Insert data PT : {$value->nama}");
                     } else {
-                        echo "{$increment} Update data PT : {$value->nama}\n";
+                        $this->line("{$increment} Update data PT : {$value->nama}");
                     }
 
-                    $perguruan_tinggi->kode                     = $value->kode;
-                    $perguruan_tinggi->nama                     = $value->nama;
-                    $perguruan_tinggi->nama_singkat             = $value->nama_singkat;
-                    $perguruan_tinggi->sk_pendirian             = $value->sk_pendirian;
-                    $perguruan_tinggi->tgl_sk_pendirian         = $value->tgl_sk_pendirian;
-                    $perguruan_tinggi->sk_operasional           = $value->sk_operasional;
-                    $perguruan_tinggi->tgl_sk_operasional       = $value->tgl_sk_operasional;
-                    $perguruan_tinggi->status                   = $value->status;
-                    $perguruan_tinggi->alamat_jalan             = $value->alamat->jalan;
-                    $perguruan_tinggi->alamat_rt                = $value->alamat->rt;
-                    $perguruan_tinggi->alamat_rw                = $value->alamat->rw;
-                    $perguruan_tinggi->alamat_dusun             = $value->alamat->dusun;
-                    $perguruan_tinggi->alamat_kelurahan         = $value->alamat->kelurahan;
-                    $perguruan_tinggi->alamat_kode_pos          = $value->alamat->kode_pos;
-                    $perguruan_tinggi->kota_id                  = $value->alamat->kab_kota->id;
-                    $perguruan_tinggi->nama_kota                = $value->alamat->kab_kota->nama;
-                    $perguruan_tinggi->provinsi_id              = $value->propinsi->id;
-                    $perguruan_tinggi->provinsi_nama            = $value->propinsi->nama;
-                    $perguruan_tinggi->telepon                  = $value->telepon;
-                    $perguruan_tinggi->faksimile                = $value->faksimile;
-                    $perguruan_tinggi->website                  = $value->website;
-                    $perguruan_tinggi->email                    = $value->email;
-                    $perguruan_tinggi->status_milik_id          = $value->status_milik->id;
-                    $perguruan_tinggi->status_milik_nama        = $value->status_milik->nama;
-                    $perguruan_tinggi->pembina_id               = $value->pembina->id;
-                    $perguruan_tinggi->pembina_nama             = $value->pembina->nama;
-                    $perguruan_tinggi->bentuk_pendidikan_id     = $value->bentuk_pendidikan->id;
-                    $perguruan_tinggi->bentuk_pendidikan_nama   = $value->bentuk_pendidikan->nama;
-                    $perguruan_tinggi->last_update              = $value->last_update;
+                    $perguruan_tinggi->kode_pt      = trim($value->kode);
+                    $perguruan_tinggi->nama_pt      = $value->nama;
+                    $perguruan_tinggi->id_institusi = $value->id;
                     $perguruan_tinggi->save();
+                    
                 }
             } else {
-                echo '====== Finish ======';
+                $this->line('====== Finish ======');
                 break;
             }
         }
