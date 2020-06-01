@@ -19,6 +19,8 @@ $assets = [
     // Font Awesome 4
     'fortawesome/font-awesome/css/',
     'fortawesome/font-awesome/fonts/',
+    // Select2
+    'select2/select2/dist'
 ];
 
 $nodeModuleAssets = [
