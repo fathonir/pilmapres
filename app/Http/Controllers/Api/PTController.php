@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class PTController extends Controller
@@ -30,8 +30,8 @@ class PTController extends Controller
     {
         $nim = trim($nim);
         
-        $mahasiswa = \App\Mahasiswa::
-            where([
+        $mahasiswa = \App\Mahasiswa::with(['perguruanTinggi', 'programStudi'])
+            ->where([
                 ['perguruan_tinggi_id', $ptID],
                 ['program_studi_id', $prodiID],
                 ['nim', $nim]
@@ -44,8 +44,8 @@ class PTController extends Controller
         $pddikti_endpoint = env('PDDIKTI_ENDPOINT');
         $pddikti_key = env('PDDIKTI_KEY');
 
-        $pt = DB::table('perguruan_tinggis')->select(['id', 'id_institusi'])->where('id', $ptID)->first();
-        $prodi = DB::table('program_studis')->select(['id', 'id_pdpt'])->where('id', $prodiID)->first();
+        $pt = \App\PerguruanTinggi::find($ptID);
+        $prodi = \App\ProgramStudi::find($prodiID);
 
         // Jika pt / prodi tidak ditemukan, batalkan proses
         if ($pt == null || $prodi == null) {
@@ -79,8 +79,9 @@ class PTController extends Controller
                 'no_hp' => trim($mahasiswaPDDikti->handphone),
                 'id_pdpt' => $mahasiswaPDDikti->id
             ]);
-
-            return $mahasiswa;
+            
+            // Recursively Call
+            return $this->mahasiswa($ptID, $prodiID, $nim);
         }
         
         return;
