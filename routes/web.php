@@ -52,9 +52,10 @@ Route::post('/video-post', 'HomeController@videoPost');
 Route::post('/video-edit-post', 'HomeController@videoEditPost');
 
 // Register Peserta
-Route::get('/register-peserta', 'RegisterPesertaController@register');
-Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
-Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
+//Route::get('/register-peserta', 'RegisterPesertaController@register');
+//Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
+//Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
+Route::resource('register-peserta', 'RegisterPesertaController');
 
 // User
 Route::get('/user-add', 'admin\UserController@addUser');
@@ -183,9 +184,6 @@ Route::get('kategori-pengumuman/show/{id}', ['as' => 'show', 'uses' => 'admin\Ca
 Route::delete('kategori-pengumuman/destroy/{id}', ['as' => 'destroy', 'uses' => 'admin\CategoryPengumumanController@destroy']);
 Route::get('/searchkategori-pengumuman', ['as' => 'searchkategori-pengumuman', 'uses' => 'admin\CategoryPengumumanController@search']);
 
-Route::get('/ajax-prodi', ['as' => 'store', 'uses' =>'HomeController@ajaxGetProdi']);
-Route::get('/ajax-get-mhs-by-nim', ['as' => 'store', 'uses' =>'HomeController@ajaxGetMahasiswaByNim']);
-Route::get('/ajax-check-mhs-by-nim', ['as' => 'store', 'uses' =>'HomeController@ajaxCheckMahasiswaByNim']);
 
 Route::get('/user/verify/{token}', 'RegisterPesertaController@verifyUser');
 
