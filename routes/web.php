@@ -52,9 +52,6 @@ Route::post('/video-post', 'HomeController@videoPost');
 Route::post('/video-edit-post', 'HomeController@videoEditPost');
 
 // Register Peserta
-//Route::get('/register-peserta', 'RegisterPesertaController@register');
-//Route::post('/register-peserta', 'RegisterPesertaController@postRegister');
-//Route::get('/register-peserta-sukses', 'RegisterPesertaController@registerSuccess');
 Route::resource('register-peserta', 'RegisterPesertaController');
 
 // User
