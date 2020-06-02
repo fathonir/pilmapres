@@ -36,30 +36,28 @@ class LoginController extends Controller
 
             if ($user_group && $user->active) {
 
-                if ($user_group->group_id === 1) {
+                if ($user_group->group_id === \App\Group::GROUP_ADMIN) {
                     return redirect('/admin');
-                } elseif ($user_group->group_id === 2) {
-
+                } elseif ($user_group->group_id === \App\Group::GROUP_MAHASISWA) {
                     return redirect('/dashboard-finalis');
-                } elseif ($user_group->group_id === 3) {
+                } elseif ($user_group->group_id === \App\Group::GROUP_JURI) {
                     echo "<pre>";
                     print_r('Juri Login');
                     echo "</pre>";
                     exit();
-                    // return redirect('/admin-dashboard');
                 }
             } else {
                 // Alert::success('Anda tidak bisa melakukan login dengan account ini! silahkan hubungi administrator untuk informasi lebih lanjut.', 'Kesalahan!')->persistent("Tutup");
                 Auth::logout();
                 // return redirect('/login');
                 return redirect('/login')->withErrors([
-                    'failed_auth' => 'Anda tidak bisa melakukan login dengan account ini! silahkan hubungi administrator untuk informasi lebih lanjut.',
+                    'failed_auth' => 'Anda tidak bisa melakukan login dengan account ini. Silahkan hubungi administrator untuk informasi lebih lanjut.',
                 ]);
             }
         }
 
         return redirect('/login')->withErrors([
-            'failed_auth' => 'These credentials do not match our records.',
+            'failed_auth' => 'Login anda tidak ditemukan',
         ]);
     }
 

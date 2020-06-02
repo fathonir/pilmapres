@@ -1,9 +1,0 @@
-<?php
-
-/**
- * CONSTANTS COLLECTION FOR PILMAPRES
- */
-
-define('USER_GROUP_ADMIN', 1);
-define('USER_GROUP_MAHASISWA', 2);
-define('USER_GROUP_JURI', 3);
