@@ -73,6 +73,7 @@ class PTController extends Controller
                 'nim' => trim($mahasiswaPDDikti->terdaftar->nim),
                 'nama' => trim($mahasiswaPDDikti->nama),
                 'tgl_lahir' => $mahasiswaPDDikti->tgl_lahir,
+                'tempat_lahir' => $mahasiswaPDDikti->tempat_lahir,
                 'angkatan' => substr($mahasiswaPDDikti->terdaftar->smt_mulai, 0, 4),
                 'email' => trim($mahasiswaPDDikti->email),
                 'no_hp' => trim($mahasiswaPDDikti->handphone),
