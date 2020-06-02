@@ -15,6 +15,7 @@ class CreateFilePesertasTable extends Migration
     {
         Schema::create('file_pesertas', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('peserta_id');
             $table->unsignedInteger('syarat_id');
             $table->text('nama_file');
             $table->text('nama_asli');
@@ -29,6 +30,7 @@ class CreateFilePesertasTable extends Migration
             $table->unsignedInteger('jumlah_penghargaan_pada_event')->nullable();
             $table->float('nilai')->nullable();
             $table->timestamps();
+            $table->foreign('peserta_id')->references('id')->on('pesertas');
             $table->foreign('syarat_id')->references('id')->on('syarats');
         });
     }
