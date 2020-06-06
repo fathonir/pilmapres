@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Alert;
+use App\Group;
 use App\UserGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,11 +37,11 @@ class LoginController extends Controller
 
             if ($user_group && $user->active) {
 
-                if ($user_group->group_id === \App\Group::GROUP_ADMIN) {
+                if ($user_group->group_id === Group::ADMIN) {
                     return redirect('/admin');
-                } elseif ($user_group->group_id === \App\Group::GROUP_MAHASISWA) {
+                } elseif ($user_group->group_id === Group::MAHASISWA) {
                     return redirect('/dashboard-finalis');
-                } elseif ($user_group->group_id === \App\Group::GROUP_JURI) {
+                } elseif ($user_group->group_id === Group::JURI) {
                     echo "<pre>";
                     print_r('Juri Login');
                     echo "</pre>";

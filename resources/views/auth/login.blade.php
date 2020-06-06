@@ -1,19 +1,21 @@
 @extends('layouts.app')
+@section('title', 'Login')
+@section('head')
 {!! Html::style('css/sweetalert.css') !!}
-{!! Html::script('js/sweetalert.min.js') !!}
+@endsection
+
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><img class="site_logo" alt="Site Logo" src="/front/img/FAI.png" style="width: 320px;"></a>
+    <a href="#"><img class="site_logo" alt="Site Logo" src="front/img/FAI.png" style="width: 320px;"></a>
   </div>
   <div class="login-box-body">
-    <p class="login-box-msg"><b>Sign in</b></p>
-    @include('sweet::alert')
+    <p class="login-box-msg"><b>Login</b></p>
+    
     <!-- form dari appp.blade -->
     <span style="color: red;">{{ $errors->first('failed_auth') }}</span>
     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
-
         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
             <input id="email"  placeholder="Email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
             @if ($errors->has('email'))
@@ -33,21 +35,27 @@
         </div>
         <div class="row">
             <div class="col-xs-8">
-              <a href="#">I forgot my password</a>
+              <a href="{{ url('register-peserta') }}">Klik untuk Daftar</a>
+              
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat" style="color:white;background-color:#3294e7; border:2px">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat" style="color:white;background-color:#3294e7; border:2px">Login</button>
             </div>
             <!-- /.col -->
         </div>
-    </form>
-    <div class="row">
-        <div class="col-xs-12">
-          Don't have account yet? <a href="/register-peserta">Register</a>
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{{ url('/') }}">Ke Halaman Depan</a>
+            </div>
         </div>
-    </div>
+    </form>
   </div>
   <!-- /.login-box-body -->
 </div>
+@endsection
+
+@section('js')
+{!! Html::script('js/sweetalert.min.js') !!}
+@include('sweet::alert')
 @endsection
