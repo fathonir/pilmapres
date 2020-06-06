@@ -13,7 +13,7 @@ class ProgramsTableSeeder extends Seeder
     public function run()
     {
         DB::table('programs')->insert([
-            'id' => 1,
+            'id' => \App\Program::PILMAPRES,
             'nama_program' => 'Pemilihan Mahasiswa Berprestasi',
             'nama_program_singkat' => 'PILMAPRES'
         ]);
