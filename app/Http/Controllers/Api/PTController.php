@@ -65,6 +65,11 @@ class PTController extends Controller
         if ($response->getStatusCode() == 200) {
 
             $mahasiswaPDDiktis = \GuzzleHttp\json_decode($response->getBody()->getContents());
+            
+            if (count($mahasiswaPDDiktis) == 0) {
+                return;
+            }
+            
             $mahasiswaPDDikti = $mahasiswaPDDiktis[0];
 
             $mahasiswa = \App\Mahasiswa::create([
