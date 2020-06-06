@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    public const ADMIN = 1;
+    public const MAHASISWA = 2;
+    public const JURI = 3;
+    
     protected $fillable = [
 		'name',
     ];

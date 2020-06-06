@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PerguruanTinggi extends Model
+class Tahapan extends Model
 {
     //
 }

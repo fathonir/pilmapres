@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PerguruanTinggi extends Model
+class Program extends Model
 {
-    //
+    public const PILMAPRES = 1;
 }

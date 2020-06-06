@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::apiResource('pt', 'Api\\PTController');
+Route::get('pt/{idPT}/prodi', 'Api\\PTController@prodi');
+Route::get('pt/{idPT}/prodi/{idProdi}/mahasiswa/{nim}', 'Api\\PTController@mahasiswa');
+
 Route::post('/post/berita/viewer/{id}', 'Api\\ApiController@postViewer');
 Route::post('/post/event/viewer/{id}', 'Api\\ApiController@postViewerEvent');
 Route::get('/get/articles', 'Api\\ApiController@getArticlesLoadmore');

@@ -138,20 +138,10 @@
                     <!-- Pages Menu Ends -->
                     <!-- Portfolio Menu -->
                     <li>
-                      <a href="#">Menu</a> 
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a href="/">Sub Menu 1</a>
-                        </li>
-                        <li>
-                          <a href="/">Sub Menu 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="/contact-us">Contact Us</a> 
+                      <a href="{{ URL::to('/') }}">Halaman Depan</a> 
                     </li>
                     @guest
+                        <li><a href="{{ route('register-peserta.index') }}">Registrasi</a></li>
                         <li><a href="{{ route('login') }}">Login</a></li>
                     @else
                       <li>
@@ -187,27 +177,6 @@
                     </li>
                       <!-- Ends Header Block -->
                       <!-- Footer Block -->
-                    <li class="mega-menu">
-                      <!-- <a href="{{ route('login') }}">Login</a> -->
-                    </li>
-                    <!-- Shortcode Menu Ends -->
-                    <!-- Header Contact -->
-                    <li class="hidden-767">
-                      <a href="#" class="header-contact">
-                        <span>
-                          <i class="fa fa-mobile"></i>
-                        </span>
-                      </a>
-                    </li>
-                    <!-- Header Search -->
-                    <li class="hidden-767">
-                      <a href="#" class="header-search">
-                        <span>
-                          <i class="fa fa-search"></i>
-                        </span>
-                      </a>
-                    </li>
-                    <!-- Header Share -->
                   </ul>
                   <!-- Right nav -->
                   <!-- Header Contact Content -->
