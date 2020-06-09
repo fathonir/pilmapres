@@ -205,7 +205,7 @@
 		$('.cariMahasiswa').click(function (e) {
 			var pt = $('.pt').val();
 			var prodi = $('.prodi').val();
-			var nim = $('.nim').val();
+			var nim = encodeURIComponent($('.nim').val());
 			$('.loadingSearchMahasiswa').show();
 
 			if (nim === '') {
@@ -215,7 +215,7 @@
 				$('.pilihMahasiswa').hide();
 			} else {
 				$('.NimNull').hide();
-				$.get('/api/pt/' + pt + '/prodi/' + prodi + '/mahasiswa/' + nim, function (mahasiswa) {
+				$.get('/api/pt/' + pt + '/prodi/' + prodi + '/mahasiswa', { nim: nim }, function (mahasiswa) {
 					if (mahasiswa === '') {
 						$('.MahasiswaFalse').show();
 						$('.confirmMahasiswa').hide();
@@ -239,7 +239,10 @@
 						$('.pilihMahasiswa').show();
 						$('.copyForm').show();
 					}
-				});
+				}).fail(function() {
+                    $('.MahasiswaFalse').show();
+                    $('.loadingSearchMahasiswa').hide();
+                });
 			}
 
 		});

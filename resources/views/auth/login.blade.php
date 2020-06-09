@@ -35,8 +35,7 @@
         </div>
         <div class="row">
             <div class="col-xs-8">
-              <a href="{{ url('register-peserta') }}">Klik untuk Daftar</a>
-              
+              <a href="{{ url('register-peserta') }}">Ke Registrasi Mahasiswa</a>
             </div>
             <!-- /.col -->
             <div class="col-xs-4">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class PTController extends Controller
 {
@@ -21,14 +22,13 @@ class PTController extends Controller
     }
     
     /**
-     * API: /api/pt/$ptID/prodi/$prodiID/mahasiswa/$nim
+     * API: /api/pt/$ptID/prodi/$prodiID/mahasiswa?nim=$nim
      * @param string $ptID
      * @param string $prodiID
-     * @param string $nim
      */
-    function mahasiswa($ptID, $prodiID, $nim)
+    function mahasiswa(Request $request, $ptID, $prodiID)
     {
-        $nim = trim($nim);
+        $nim = trim($request->get('nim'));
         
         $mahasiswa = \App\Mahasiswa::with(['perguruanTinggi', 'programStudi'])
             ->where([
@@ -86,7 +86,7 @@ class PTController extends Controller
             ]);
             
             // Recursively Call
-            return $this->mahasiswa($ptID, $prodiID, $nim);
+            return $this->mahasiswa($request, $ptID, $prodiID);
         }
         
         return;
