@@ -30,7 +30,7 @@
   {!! Html::style('css/bootstrap3-wysihtml5.min.css') !!}
   {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
   {!! Html::style('css/select2.min.css') !!}
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  {!! Html::style('vendor/datatables/datatables/media/css/jquery.dataTables.min.css') !!}
   {!! Html::style('css/sweetalert.css') !!}
   {!! Html::script('js/sweetalert.min.js') !!}
 
@@ -475,7 +475,7 @@
 {!! Html::script('js/bootstrap-datepicker.min.js') !!}
 {!! Html::script('js/bootstrap-colorpicker.min.js') !!}
 {!! Html::script('js/icheck.min.js') !!}
-<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+{!! Html::script('vendor/datatables/datatables/media/js/jquery.dataTables.min.js') !!}
 @yield('js')
 
 </body>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b9e0b86cef279d7a85ed0911b07c70c",
+    "content-hash": "750b8ef3aec952f23b8b7db7a3bed9f5",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -287,6 +287,29 @@
                 "streetview"
             ],
             "time": "2020-03-03T08:14:04+00:00"
+        },
+        {
+            "name": "datatables/datatables",
+            "version": "1.10.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DataTables/DataTables.git",
+                "reference": "83657a29e33ce93ee940ce25684940eb3acb2913"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/83657a29e33ce93ee940ce25684940eb3acb2913",
+                "reference": "83657a29e33ce93ee940ce25684940eb3acb2913",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table.",
+            "homepage": "http://www.datatables.net/",
+            "time": "2019-10-01T13:42:32+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
