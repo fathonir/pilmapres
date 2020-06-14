@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Alert;
 use App\Group;
 use App\UserGroup;
 use Illuminate\Http\Request;
@@ -25,6 +24,15 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    /**
+     * Merubah login menggunakan username
+     * @return string
+     */
+    public function username()
+    {
+        return 'username';
+    }
+
     public function login(Request $request)
     {
         $this->rules($request);
@@ -32,11 +40,11 @@ class LoginController extends Controller
         $request->merge([$field => $request->input('email')]);
 
         if (Auth::attempt($request->only($field, 'password'))) {
+
             $user = Auth::user();
             $user_group = UserGroup::where('user_id', $user->id)->first();
 
-            if ($user_group && $user->active) {
-
+            if ($user_group && $user->is_active) {
                 if ($user_group->group_id === Group::ADMIN) {
                     return redirect('/admin');
                 } elseif ($user_group->group_id === Group::MAHASISWA) {
@@ -48,11 +56,10 @@ class LoginController extends Controller
                     exit();
                 }
             } else {
-                // Alert::success('Anda tidak bisa melakukan login dengan account ini! silahkan hubungi administrator untuk informasi lebih lanjut.', 'Kesalahan!')->persistent("Tutup");
                 Auth::logout();
-                // return redirect('/login');
                 return redirect('/login')->withErrors([
-                    'failed_auth' => 'Anda tidak bisa melakukan login dengan account ini. Silahkan hubungi administrator untuk informasi lebih lanjut.',
+                    'failed_auth' => 'Anda tidak bisa melakukan login dengan account ini. ' .
+                        'Silahkan hubungi administrator untuk informasi lebih lanjut.',
                 ]);
             }
         }

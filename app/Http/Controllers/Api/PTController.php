@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mahasiswa;
+use App\PerguruanTinggi;
+use App\ProgramStudi;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -29,30 +33,27 @@ class PTController extends Controller
     function mahasiswa(Request $request, $ptID, $prodiID)
     {
         $nim = trim($request->get('nim'));
-        
-        $mahasiswa = \App\Mahasiswa::with(['perguruanTinggi', 'programStudi'])
+
+        /** @var Mahasiswa $mahasiswa */
+        $mahasiswa = Mahasiswa::with(['perguruanTinggi', 'programStudi'])
             ->where([
                 ['perguruan_tinggi_id', $ptID],
                 ['program_studi_id', $prodiID],
                 ['nim', $nim]
             ])->first();
         
-        if ($mahasiswa != null) {
-            return $mahasiswa;
-        }
-        
         $pddikti_endpoint = env('PDDIKTI_ENDPOINT');
         $pddikti_key = env('PDDIKTI_KEY');
 
-        $pt = \App\PerguruanTinggi::find($ptID);
-        $prodi = \App\ProgramStudi::find($prodiID);
+        $pt = PerguruanTinggi::find($ptID);
+        $prodi = ProgramStudi::find($prodiID);
 
         // Jika pt / prodi tidak ditemukan, batalkan proses
         if ($pt == null || $prodi == null) {
             return;
         }
 
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
         $request_url = "{$pddikti_endpoint}/pt/{$pt->id_institusi}/prodi/{$prodi->id_pdpt}/mahasiswa/{$nim}";
         $response = $client->request('GET', $request_url, [
             'verify' => false,
@@ -72,21 +73,26 @@ class PTController extends Controller
             
             $mahasiswaPDDikti = $mahasiswaPDDiktis[0];
 
-            $mahasiswa = \App\Mahasiswa::create([
-                'perguruan_tinggi_id' => $pt->id,
-                'program_studi_id' => $prodi->id,
-                'nim' => trim($mahasiswaPDDikti->terdaftar->nim),
-                'nama' => trim($mahasiswaPDDikti->nama),
-                'tgl_lahir' => $mahasiswaPDDikti->tgl_lahir,
-                'tempat_lahir' => $mahasiswaPDDikti->tempat_lahir,
-                'angkatan' => substr($mahasiswaPDDikti->terdaftar->smt_mulai, 0, 4),
-                'email' => trim($mahasiswaPDDikti->email),
-                'no_hp' => trim($mahasiswaPDDikti->handphone),
-                'id_pdpt' => $mahasiswaPDDikti->id
-            ]);
+            if ($mahasiswa == null) {
+                $mahasiswa = Mahasiswa::create([
+                    'perguruan_tinggi_id' => $pt->id,
+                    'program_studi_id' => $prodi->id,
+                    'nim' => trim($mahasiswaPDDikti->terdaftar->nim),
+                    'nama' => trim($mahasiswaPDDikti->nama),
+                    'tgl_lahir' => $mahasiswaPDDikti->tgl_lahir,
+                    'tempat_lahir' => $mahasiswaPDDikti->tempat_lahir,
+                    'angkatan' => substr($mahasiswaPDDikti->terdaftar->smt_mulai, 0, 4),
+                    'email' => trim($mahasiswaPDDikti->email),
+                    'no_hp' => trim($mahasiswaPDDikti->handphone),
+                    'id_pdpt' => $mahasiswaPDDikti->id
+                ]);
+            } else {
+                $mahasiswa->semester_terakhir = $mahasiswaPDDikti->terdaftar->smt_tempuh;
+                $mahasiswa->ipk_terakhir = $mahasiswaPDDikti->terdaftar->ipk;
+                $mahasiswa->save();
+            }
             
-            // Recursively Call
-            return $this->mahasiswa($request, $ptID, $prodiID);
+            return $mahasiswa;
         }
         
         return;

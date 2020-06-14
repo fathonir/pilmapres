@@ -8,6 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
+    @if (App::environment() == 'production')
     <link rel="apple-touch-icon" sizes="57x57" href="https://www.kemdikbud.go.id/main/addons/shared_addons/themes/november_theme/img/icon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="https://www.kemdikbud.go.id/main/addons/shared_addons/themes/november_theme/img/icon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="https://www.kemdikbud.go.id/main/addons/shared_addons/themes/november_theme/img/icon/apple-icon-72x72.png">
@@ -24,13 +25,20 @@
     <link rel="manifest" href="https://www.kemdikbud.go.id/main/addons/shared_addons/themes/november_theme/img/icon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="https://www.kemdikbud.go.id/main/addons/shared_addons/themes/november_theme/img/icon/ms-icon-144x144.png">
-
+    @endif
+    
     <title>PILMAPRES 2020 | @yield('title')</title>
     
     {!! Html::style('vendor/twitter/bootstrap/dist/css/bootstrap.min.css') !!}
     {!! Html::style('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') !!}
     {!! Html::style('vendor/fortawesome/font-awesome/css/font-awesome.min.css') !!}
     {!! Html::style('css/app.css') !!}
+    
+    @if (App::environment() == 'production')
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    @endif
+    
     @yield('head')
 </head>
 <body>
