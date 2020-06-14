@@ -202,7 +202,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{URL::to('admin/peserta/register')}}"><i class="fa fa-user-plus"></i>Peserta Registrasi</a></li>
-            <li><a href="{{URL::to('admin/peserta/index')}}"><i class="fa fa-list"></i>Data Peserta</a></li>
+            <li><a href="{{URL::to('admin/peserta')}}"><i class="fa fa-list"></i>Data Peserta</a></li>
             <li><a href="{{URL::to('admin/peserta/rejected')}}"><i class="fa fa-user-times"></i>Peserta Direject</a></li>
           </ul>
         </li>
