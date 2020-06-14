@@ -8,42 +8,40 @@
     <link rel="icon" href="/front/img/vavicon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-{!! Html::style('css/bootstrap.min.css') !!}
-<!-- Font Awesome -->
-{!! Html::style('css/font-awesome.css') !!}
-<!-- Ionicons -->
-{!! Html::style('css/ionicons.min.css') !!}
-<!-- Theme style -->
-{!! Html::style('css/AdminLTE.min.css') !!}
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-           folder instead of downloading all of them to reduce the load. -->
-{!! Html::style('css/_all-skins.min.css') !!}
-<!-- Morris chart -->
-{!! Html::style('css/morris.css') !!}
-<!-- jvectormap -->
-{!! Html::style('css/jquery-jvectormap.css') !!}
-<!-- Date Picker -->
-{!! Html::style('css/bootstrap-datepicker.min.css') !!}
-<!-- Daterange picker -->
-{!! Html::style('css/daterangepicker.css') !!}
-<!-- bootstrap wysihtml5 - text editor -->
-{!! Html::style('css/bootstrap3-wysihtml5.min.css') !!}
-{!! Html::style('css/bootstrap-colorpicker.min.css') !!}
-{!! Html::style('css/select2.min.css') !!}
-{!! Html::style('vendor/datatables/datatables/media/css/dataTables.bootstrap.min.css') !!}
-{!! Html::style('css/sweetalert.css') !!}
+    {!! Html::style('vendor/twitter/bootstrap/dist/css/bootstrap.min.css') !!}
+    <!-- Font Awesome -->
+    {!! Html::style('vendor/fortawesome/font-awesome/css/font-awesome.min.css') !!}
+    <!-- Ionicons -->
+    {!! Html::style('css/ionicons.min.css') !!}
+    <!-- Theme style -->
+    {!! Html::style('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') !!}
+    <!-- AdminLTE Skins -->
+    {!! Html::style('vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.min.css') !!}
+    <!-- Morris chart -->
+    {!! Html::style('css/morris.css') !!}
+    <!-- jvectormap -->
+    {!! Html::style('css/jquery-jvectormap.css') !!}
+    <!-- Date Picker -->
+    {!! Html::style('css/bootstrap-datepicker.min.css') !!}
+    <!-- Daterange picker -->
+    {!! Html::style('css/daterangepicker.css') !!}
+    <!-- bootstrap wysihtml5 - text editor -->
+    {!! Html::style('css/bootstrap3-wysihtml5.min.css') !!}
+    {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
+    {!! Html::style('css/select2.min.css') !!}
+    {!! Html::style('vendor/datatables/datatables/media/css/dataTables.bootstrap.min.css') !!}
+    {!! Html::style('css/sweetalert.css') !!}
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-@if (App::environment() == 'production')
     <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    @endif
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -52,7 +50,7 @@
         <!-- Logo -->
         <a href="/admin" class="logo">
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">Admin<b>Pilmapres</b></span>
+            <span class="logo-lg"><b>PILMAPRES</b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -246,7 +244,7 @@
         <div class="pull-right hidden-xs">
             Theme by Almsaeed Studio
         </div>
-        <strong>Copyright &copy; 2020 <a href="https://www.kemdikbud.go.id">KEMDIKBUD</a>.</strong> All rights
+        <strong>&copy; 2020 <a href="https://www.kemdikbud.go.id">KEMDIKBUD</a>.</strong> All rights
         reserved.
     </footer>
 
