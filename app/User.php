@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App
  * @property string $name
  * @property string $email
+ * @property string username
  * @property int $mahasiswa_id
  * @property bool is_mail_verified
  * @property string email_verified_at
@@ -75,6 +76,6 @@ class User extends Authenticatable
 
     public function mahasiswa()
     {
-        return $this->hasOne('App\Mahasiswa');
+        return $this->belongsTo('App\Mahasiswa');
     }
 }

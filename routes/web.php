@@ -182,10 +182,10 @@ Route::delete('kategori-pengumuman/destroy/{id}', ['as' => 'destroy', 'uses' => 
 Route::get('/searchkategori-pengumuman', ['as' => 'searchkategori-pengumuman', 'uses' => 'admin\CategoryPengumumanController@search']);
 
 
-Route::get('admin/peserta/register', 'admin\PesertaController@register')->middleware('auth');
-Route::get('admin/peserta/approval', 'admin\PesertaController@approval')->middleware('auth');
-Route::post('admin/peserta/approval', 'admin\PesertaController@approvalPost')->middleware('auth');
-Route::get('admin/peserta/approval-processed', 'admin\PesertaController@approvalProcessed')
-    ->middleware('auth');
-Route::get('admin/peserta/rejected', 'admin\PesertaController@rejected')->middleware('auth');
-Route::get('admin/peserta', 'admin\PesertaController@index')->middleware('auth');
+Route::prefix('admin')->group(function() {
+    Route::get('peserta/register', 'admin\PesertaController@register')->middleware('auth');
+    Route::get('peserta/approval', 'admin\PesertaController@approval')->middleware('auth');
+    Route::get('peserta/approval-processed', 'admin\PesertaController@approvalProcessed')->middleware('auth');
+    Route::get('peserta/rejected', 'admin\PesertaController@rejected')->middleware('auth');
+    Route::resource('peserta', 'admin\PesertaController')->middleware('auth');
+});

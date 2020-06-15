@@ -26,23 +26,27 @@ class PesertaController extends Controller
     {
         $this->kegiatanAktif = Kegiatan::where('is_aktif', 1)->first();
     }
+
+    private function pesertaQueryBuilder()
+    {
+        return DB::table('pesertas as p')
+            ->select(['p.id', 'm.nim', 'm.nama', 'm.tgl_lahir', 'p.semester_tempuh', 'p.ipk',
+                'ps.nama_prodi', 'pt.nama_pt', 'fpp.nama_file', 'p.created_at', 'p.rejected_at', 'u.username'])
+            ->join('mahasiswas as m', 'm.id', '=', 'p.mahasiswa_id')
+            ->join('program_studis as ps', 'ps.id', '=', 'm.program_studi_id')
+            ->join('perguruan_tinggis as pt', 'pt.id', '=', 'ps.perguruan_tinggi_id')
+            ->join('file_pengantar_pesertas as fpp', 'fpp.peserta_id', '=', 'p.id')
+            ->leftJoin('users as u', 'u.mahasiswa_id', '=', 'm.id')
+            ->where('p.kegiatan_id', $this->kegiatanAktif->id);
+    }
     
     public function register()
     {
-        $pesertas = DB::select(
-            'select p.id, m.nim, m.nama, m.tgl_lahir, p.semester_tempuh, p.ipk, ps.nama_prodi,
-                pt.nama_pt, fpp.nama_file, p.created_at 
-            from pesertas p 
-            join mahasiswas m on m.id = p.mahasiswa_id 
-            join program_studis ps on ps.id = m.program_studi_id 
-            join perguruan_tinggis pt on pt.id = ps.perguruan_tinggi_id 
-            join file_pengantar_pesertas fpp on fpp.peserta_id = p.id 
-            where 
-                p.is_approved is null and 
-                p.is_rejected is null and
-                p.kegiatan_id = :kegiatan_id
-            order by p.created_at asc', 
-            ['kegiatan_id' => $this->kegiatanAktif->id]);
+        $pesertas = $this->pesertaQueryBuilder()
+            ->whereNull('is_approved')
+            ->whereNull('is_rejected')
+            ->orderBy('p.created_at')
+            ->get();
         
         // Preprocessing
         foreach ($pesertas as $peserta) {
@@ -63,7 +67,7 @@ class PesertaController extends Controller
         $peserta_id = $request->get('id');
 
         /** @var Peserta $peserta */
-        $peserta = Peserta::with(['mahasiswa.programStudi', 'mahasiswa.perguruanTinggi'])->find($peserta_id);
+        $peserta = Peserta::find($peserta_id);
 
         $allValid = true;
 
@@ -142,12 +146,15 @@ class PesertaController extends Controller
             $userMahasiswa = User::where('mahasiswa_id', $peserta->mahasiswa_id)->first();
             if ($userMahasiswa == null) {
                 $userMahasiswa = new User();
+                $userMahasiswa->username =
+                    trim($peserta->mahasiswa->perguruanTinggi->kode_pt) . '-' .
+                    trim($peserta->mahasiswa->nim);
                 $userMahasiswa->mahasiswa_id = $peserta->mahasiswa_id;
                 $userMahasiswa->name = $peserta->mahasiswa->nama;
                 $userMahasiswa->email = $peserta->mahasiswa->email;
                 $userMahasiswa->is_mail_verified = true;
                 $userMahasiswa->email_verified_at = date('Y-m-d H:i:s');
-                $userMahasiswa->password_plain = mt_rand(100000, 999999);
+                $userMahasiswa->password_plain = date('dmy', strtotime($peserta->mahasiswa->tgl_lahir));
                 $userMahasiswa->password = Hash::make($userMahasiswa->password_plain);
                 $userMahasiswa->is_active = true;
                 $userMahasiswa->save();
@@ -188,6 +195,42 @@ class PesertaController extends Controller
     
     public function index()
     {
+        $pesertas = $this->pesertaQueryBuilder()->whereNotNull('is_approved')->get();
 
+        // Hitung umur
+        foreach ($pesertas as $peserta) {
+            $peserta->umur = date_diff(
+                date_create($peserta->tgl_lahir),
+                date_create($this->kegiatanAktif->tgl_batas_umur))
+                ->format('%y Thn');
+        }
+
+        return view('admin.peserta.index', [
+            'kegiatan' => $this->kegiatanAktif,
+            'pesertas' => $pesertas
+        ]);
+    }
+
+    public function edit($id)
+    {
+        dd($id);
+        return 'oke';
+    }
+
+    public function rejected()
+    {
+        $pesertas = $this->pesertaQueryBuilder()
+            ->whereNotNull('is_rejected')
+            ->get();
+
+        // Hitung umur
+        foreach ($pesertas as $peserta) {
+            $peserta->umur = date_diff(
+                date_create($peserta->tgl_lahir),
+                date_create($this->kegiatanAktif->tgl_batas_umur))
+                ->format('%y Thn');
+        }
+
+        return view('admin.peserta.rejected', ['pesertas' => $pesertas]);
     }
 }

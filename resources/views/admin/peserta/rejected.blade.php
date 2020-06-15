@@ -2,12 +2,12 @@
 @section('title', 'Peserta Registrasi')
 @section('content')
     <section class="content-header">
-        <h1>Peserta Registrasi <small>Data peserta yang melakukan registrasi yang memerlukan approval</small>
+        <h1>Peserta Registrasi Ditolak <small>Data peserta yang tidak disetujui</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#">Peserta</a></li>
-            <li class="active">Peserta Registrasi</li>
+            <li class="active">Peserta Ditolak</li>
         </ol>
     </section>
     <section class="content">
@@ -26,6 +26,7 @@
                                 <th>NIM / Program Studi / Perguruan Tinggi</th>
                                 <th data-orderable="false">Rekom</th>
                                 <th>Waktu Registrasi</th>
+                                <th>Ditolak</th>
                                 <th data-orderable="false"></th>
                             </tr>
                             </thead>
@@ -44,16 +45,14 @@
                                         </a>
                                     </td>
                                     <td>{{ strftime('%d/%m/%y %H:%M:%S', strtotime($peserta->created_at)) }}</td>
-                                    <td>
-                                        <a class="btn btn-xs btn-info"
-                                           href="{{ URL::to('admin/peserta/approval?id='.$peserta->id) }}">Proses</a>
-                                    </td>
+                                    <td>{{ strftime('%d/%m/%y %H:%M:%S', strtotime($peserta->rejected_at)) }}</td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="9">
+                                <td colspan="10">
                                     <a href="{{ URL::to('admin/peserta/download-register') }}">Download All</a>
                                 </td>
                             </tr>

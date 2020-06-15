@@ -48,7 +48,7 @@
     <ul>
         <li>Program : PILMAPRES 2020</li>
         <li>Halaman Login : {{ URL::to('login') }}</li>
-        <li>Username : {{ $user->email }}</li>
+        <li>Username : {{ $user->username }}</li>
         <li>Password : {{ $user->password_plain }}</li>
     </ul>
     <p>Harap disimpan baik-baik user login ini. Untuk keamanan silahkan ganti password sesaat setelah login pertama kali.</p>

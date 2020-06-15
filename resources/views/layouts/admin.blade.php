@@ -117,9 +117,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::to('/user-groups')}}"><i class="fa fa-circle-o"></i> User Groups</a></li>
@@ -131,9 +129,7 @@
                 <li class="treeview">
                     <a href="{{URL::to('slider/index')}}">
                         <i class="fa fa-object-group"></i> <span>Slider</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::to('slider/index')}}"><i class="fa fa-circle-o"></i> Slider</a></li>
@@ -143,9 +139,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-comment-o"></i> <span>Testimoni</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::to('/testimony/index')}}"><i class="fa fa-comment-o"></i> Testimoni</a></li>
@@ -155,24 +149,18 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="glyphicon glyphicon-picture"></i> <span>Galeri</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{URL::to('category-galleri/index')}}"><i class="glyphicon glyphicon-list"></i>Kategori
-                                Galeri</a></li>
-                        <li><a href="{{URL::to('/gallery/index')}}"><i
-                                        class="glyphicon glyphicon-picture"></i>Galeri</a></li>
+                        <li><a href="{{URL::to('category-galleri/index')}}"><i class="glyphicon glyphicon-list"></i>Kategori Galeri</a></li>
+                        <li><a href="{{URL::to('/gallery/index')}}"><i class="glyphicon glyphicon-picture"></i>Galeri</a></li>
                     </ul>
                 </li>
 
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-newspaper-o"></i> <span>Berita</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::to('kategori-berita/index')}}"><i class="fa fa-circle-o"></i>Kategori Berita</a>
@@ -184,9 +172,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-book"></i> <span>Pengumuman</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::to('/pengumuman/index')}}"><i class="fa fa-circle-o"></i>Pengumuman</a></li>
@@ -198,31 +184,13 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-group"></i> <span>Peserta</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::to('admin/peserta/register')}}"><i class="fa fa-user-plus"></i>Peserta
                                 Registrasi</a></li>
                         <li><a href="{{URL::to('admin/peserta')}}"><i class="fa fa-list"></i>Data Peserta</a></li>
                         <li><a href="{{URL::to('admin/peserta/rejected')}}"><i class="fa fa-user-times"></i>Peserta
-                                Direject</a></li>
-                    </ul>
-                </li>
-
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-user"></i> <span>User</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{URL::to('/user-request')}}"><i class="fa fa-circle-o"></i>User Request</a></li>
-                        <li><a href="{{URL::to('/user-approved')}}"><i class="fa fa-circle-o"></i>User Request Disetujui</a>
-                        </li>
-                        <li><a href="{{URL::to('/user-rejected')}}"><i class="fa fa-circle-o"></i>User Request
                                 Ditolak</a></li>
                     </ul>
                 </li>
@@ -241,11 +209,8 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            Theme by Almsaeed Studio
-        </div>
-        <strong>&copy; 2020 <a href="https://www.kemdikbud.go.id">KEMDIKBUD</a>.</strong> All rights
-        reserved.
+        <div class="pull-right hidden-xs">Theme by Almsaeed Studio</div>
+        <strong>&copy; 2020 <a href="https://www.kemdikbud.go.id">KEMDIKBUD</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->

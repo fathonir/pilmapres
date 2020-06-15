@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Mahasiswa
  * @package App
+ * @property string nim
  * @property string $nama
  * @property string $email
  * @property PerguruanTinggi $perguruanTinggi
