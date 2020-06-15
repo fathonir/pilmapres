@@ -182,5 +182,11 @@ Route::delete('kategori-pengumuman/destroy/{id}', ['as' => 'destroy', 'uses' => 
 Route::get('/searchkategori-pengumuman', ['as' => 'searchkategori-pengumuman', 'uses' => 'admin\CategoryPengumumanController@search']);
 
 
-Route::get('/user/verify/{token}', 'RegisterPesertaController@verifyUser');
-
+Route::prefix('admin')->group(function() {
+    Route::get('peserta/register', 'admin\PesertaController@register')->middleware('auth');
+    Route::get('peserta/approval', 'admin\PesertaController@approval')->middleware('auth');
+    Route::post('peserta/approval', 'admin\PesertaController@approvalPost')->middleware('auth');
+    Route::get('peserta/approval-processed', 'admin\PesertaController@approvalProcessed')->middleware('auth');
+    Route::get('peserta/rejected', 'admin\PesertaController@rejected')->middleware('auth');
+    Route::resource('peserta', 'admin\PesertaController')->middleware('auth');
+});

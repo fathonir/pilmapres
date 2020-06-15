@@ -20,7 +20,9 @@ $assets = [
     'fortawesome/font-awesome/css/',
     'fortawesome/font-awesome/fonts/',
     // Select2
-    'select2/select2/dist'
+    'select2/select2/dist',
+    // DataTables 1.10
+    'datatables/datatables/media'
 ];
 
 $nodeModuleAssets = [

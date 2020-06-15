@@ -17,7 +17,7 @@
     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <input id="email"  placeholder="Email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+            <input id="email"  placeholder="Email / Username" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -35,8 +35,7 @@
         </div>
         <div class="row">
             <div class="col-xs-8">
-              <a href="{{ url('register-peserta') }}">Klik untuk Daftar</a>
-              
+              <a href="{{ url('register-peserta') }}">Ke Registrasi Mahasiswa</a>
             </div>
             <!-- /.col -->
             <div class="col-xs-4">

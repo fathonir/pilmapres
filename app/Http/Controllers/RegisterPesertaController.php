@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use File;
 use Auth;
-use Input;
 use Alert;
 use App\FilePengantarPeserta;
 use App\Kegiatan;
@@ -28,7 +27,7 @@ class RegisterPesertaController extends Controller
     public function store(Request $request)
     {
         // Ambil kegiatan Pilmapres aktif
-        /** @var \App\Kegiatan $kegiatan */
+        /** @var Kegiatan $kegiatan */
         $kegiatan = Kegiatan::with('program')->where('is_aktif', true)->first();
 
         // Validasi Kegiatan masih aktif dan pada jadwal
@@ -56,13 +55,17 @@ class RegisterPesertaController extends Controller
 
         DB::beginTransaction();
         
-        /** @var \App\Mahasiswa $mahasiswa */
+        /** @var Mahasiswa $mahasiswa */
         $mahasiswa = Mahasiswa::find($request->input('mahasiswa_id'));
+        $mahasiswa->email = $request->input('email');
+        $mahasiswa->save();
 
-        /** @var \App\Peserta $peserta */
+        /** @var Peserta $peserta */
         $peserta = new Peserta();
         $peserta->kegiatan_id = $kegiatan->id;
         $peserta->mahasiswa_id = $request->input('mahasiswa_id');
+        $peserta->ipk = $mahasiswa->ipk_terakhir;
+        $peserta->semester_tempuh = $mahasiswa->semester_terakhir;
         $peserta->save();
 
         $uploadedFilePengantar = $request->file('file_pengantar');
@@ -80,7 +83,7 @@ class RegisterPesertaController extends Controller
 
         $uploadedFilePengantar->move($destinationPath, $destinationFile);
 
-        /** @var \App\FilePengantarPeserta $filePengantarPeserta */
+        /** @var FilePengantarPeserta $filePengantarPeserta */
         $filePengantarPeserta = new FilePengantarPeserta();
         $filePengantarPeserta->peserta_id = $peserta->id;
         $filePengantarPeserta->nama_asli = $uploadedFilePengantar->getClientOriginalName();
