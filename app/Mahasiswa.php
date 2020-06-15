@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tgl_lahir
  * @property int semester_terakhir
  * @property float ipk_terakhir
+ * @property Peserta[] $pesertas
+ * @property string id_pdpt
  */
 class Mahasiswa extends Model
 {
@@ -29,5 +31,10 @@ class Mahasiswa extends Model
     public function programStudi()
     {
         return $this->belongsTo('App\ProgramStudi');
+    }
+
+    public function pesertas()
+    {
+        return $this->hasMany('App\Peserta');
     }
 }
