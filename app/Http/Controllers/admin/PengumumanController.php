@@ -33,10 +33,6 @@ class PengumumanController extends Controller
                     'users.name'
                 )
                 ->get();
-            // echo "<pre>";
-            // print_r($pengumumans);
-            // echo "</pre>";
-            // exit();
             return view('admin.pengumuman.list', array('pengumumans' => $pengumumans, 'user' => $user));
 
         } else {
@@ -67,41 +63,43 @@ class PengumumanController extends Controller
 
     public function store(Request $request)
     {
-        // echo "<pre>";
-        //    print_r($request->all());
-        //    echo "</pre>";
-        //    exit();
         $user = Auth::user();
 
-        // store
-        $pengumumans = new Pengumuman;
-        $pengumumans->user_id = $user->id;
-        $pengumumans->judul = Input::get('judul');
-        $pengumumans->deskripsi = Input::get('deskripsi');
-        $pengumumans->kategori_pengumuman = Input::get('id');
+        $pengumuman = new Pengumuman();
+        $pengumuman->user_id = $user->id;
+        $pengumuman->judul = Input::get('judul');
+        $pengumuman->deskripsi = Input::get('deskripsi');
+        $pengumuman->kategori_pengumuman = Input::get('id');
 
-        $img = $request->file('file');
-        $imageName = time() . '.' . $img->getClientOriginalExtension();
+        if ($request->hasFile('file')) {
 
-        //thumbs
-        $destinationPath = public_path('images/pengumuman/thumbs');
-        if (!File::exists($destinationPath)) {
-            if (File::makeDirectory($destinationPath, 0777, true)) {
-                throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");
+            $img = $request->file('file');
+            $imageName = time() . '.' . $img->getClientOriginalExtension();
+
+            // Create Thumbnail
+            $destinationPath = public_path('images/pengumuman/thumbs');
+
+            if (!File::exists($destinationPath)) {
+                if (File::makeDirectory($destinationPath, 0777, true)) {
+                    throw new \Exception("Unable to upload to invoices directory make sure it is read / writable.");
+                }
             }
+
+            $image = Image::make($img->getRealPath());
+            $image->fit(200, 200);
+            $image->save($destinationPath . '/' . $imageName);
+
+            // Original
+            $destinationPath = public_path('images/pengumuman');
+            $encodedImg = Image::make($img)->encode('jpg', 50);
+            $encodedImg->save($destinationPath . '/' . $imageName);
+
+            // Save image name
+            $pengumuman->file = $imageName;
         }
-        $image = Image::make($img->getRealPath());
-        $image->fit(200, 200);
-        $image->save($destinationPath . '/' . $imageName);
 
-        //original
-        $destinationPath = public_path('images/pengumuman');
-        $img = Image::make($img)->encode('jpg', 50);
-        $img->save($destinationPath . '/' . $imageName);
-        //save data image to db
-        $pengumumans->file = $imageName;
+        $pengumuman->save();
 
-        $pengumumans->save();
         return Redirect::action('admin\PengumumanController@index');
     }
 
