@@ -10,4 +10,9 @@ class Pengumuman extends Model
     protected $fillable = [
         'user_id', 'judul', 'deskripsi', 'file', 'kategori_pengumuman'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
