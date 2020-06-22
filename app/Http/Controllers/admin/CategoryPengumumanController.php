@@ -23,7 +23,7 @@ class CategoryPengumumanController extends Controller
     // if(Auth::user()->hasAnyRole('List Category')){
       $categories = CategoryPengumuman::orderBy('created_at', 'desc')->paginate(10);
       $start_page= (($categories->currentPage()-1) * 10) + 1;
-      return view('admin.categori_pengumuman.index',array('categories' => $categories, 'start_page'=>$start_page));
+      return view('admin.category-pengumuman.index',array('categories' => $categories, 'start_page'=>$start_page));
     // }else{
       // return response ("ERROR PERMISSIONS", 401);
     // }
@@ -32,7 +32,7 @@ class CategoryPengumumanController extends Controller
 	public function create()
   {
     // if(Auth::user()->hasAnyRole('Create Category')){
-      return View::make('admin.categori-pengumuman.create');
+      return View::make('admin.category-pengumuman.create');
     // }else{
        // return response ("ERROR PERMISSIONS", 401);
     // }
@@ -60,7 +60,7 @@ class CategoryPengumumanController extends Controller
   {
     // if(Auth::user()->hasAnyRole('Details Category')){
       $category = CategoryPengumuman::findOrFail($id);
-      return view('admin.categori-pengumuman.show', array('category' => $category));
+      return view('admin.category-pengumuman.show', array('category' => $category));
     // }else{
       // return response ("ERROR PERMISSIONS", 401);
     // }
@@ -70,7 +70,7 @@ class CategoryPengumumanController extends Controller
   {
     // if(Auth::user()->hasAnyRole('Edit Category')){
       $category = CategoryPengumuman::findOrFail($id);     
-      return view('admin.categori-pengumuman.edit', array('category' => $category));
+      return view('admin.category-pengumuman.edit', array('category' => $category));
     // }else{
       // return response ("ERROR PERMISSIONS", 401);
     // }
@@ -114,6 +114,6 @@ class CategoryPengumumanController extends Controller
       $search = $request->get('search');
       $categories = CategoryPengumuman::where('nama','LIKE','%'.$search.'%')->paginate(10);
       $start_page= (($categories->currentPage()-1) * 10) + 1;
-        return view('admin.categori-pengumuman.list', compact('categories','start_page'));
+        return view('admin.category-pengumuman.list', compact('categories','start_page'));
   }
 }
