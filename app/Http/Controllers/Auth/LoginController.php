@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LoginController extends Controller
 {
@@ -49,12 +50,9 @@ class LoginController extends Controller
                 if ($user_group->group_id === Group::ADMIN) {
                     return redirect('/admin');
                 } elseif ($user_group->group_id === Group::MAHASISWA) {
-                    return redirect('/dashboard-finalis');
+                    return redirect('/mahasiswa/home');
                 } elseif ($user_group->group_id === Group::JURI) {
-                    echo "<pre>";
-                    print_r('Juri Login');
-                    echo "</pre>";
-                    exit();
+
                 }
             } else {
                 Auth::logout();
