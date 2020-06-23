@@ -68,10 +68,10 @@
                 <div class="col-md-12 top-pad-20 bottom-pad-20 text-center">
                     <h3 class="text-capitalize inline-block tb-margin-20 black animated fadeInUp visible"
                         data-animation="fadeInUp">
-                        Pengumuman daftar peserta PILMAPRES 2020 sudah bisa dilihat.
+                        Pengumuman daftar peserta PILMAPRES 2020 hasil verifikasi.
                     </h3>
                     <div class="inline-block lr-pad-20">
-                        <a href="#" class="btn btn-transparent-black btn-lg animated fadeInDown visible"
+                        <a href="{{ URL::to('pengumuman/user-peserta/1') }}" class="btn btn-transparent-black btn-lg animated fadeInDown visible"
                            data-animation="fadeInDown">Klik disini untuk mendapatkan Akun</a>
                     </div>
                 </div>

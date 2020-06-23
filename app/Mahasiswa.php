@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float ipk_terakhir
  * @property Peserta[] $pesertas
  * @property string id_pdpt
+ * @property User $user
  */
 class Mahasiswa extends Model
 {
@@ -25,16 +26,21 @@ class Mahasiswa extends Model
 
     public function perguruanTinggi()
     {
-        return $this->belongsTo('App\PerguruanTinggi');
+        return $this->belongsTo(PerguruanTinggi::class);
     }
     
     public function programStudi()
     {
-        return $this->belongsTo('App\ProgramStudi');
+        return $this->belongsTo(ProgramStudi::class);
     }
 
     public function pesertas()
     {
-        return $this->hasMany('App\Peserta');
+        return $this->hasMany(Peserta::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 }
