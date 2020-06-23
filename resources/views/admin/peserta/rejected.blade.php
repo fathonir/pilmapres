@@ -25,8 +25,7 @@
                                 <th>Usia</th>
                                 <th>NIM / Program Studi / Perguruan Tinggi</th>
                                 <th data-orderable="false">Rekom</th>
-                                <th>Waktu Registrasi</th>
-                                <th>Ditolak</th>
+                                <th>Keterangan</th>
                                 <th data-orderable="false"></th>
                             </tr>
                             </thead>
@@ -44,15 +43,14 @@
                                             <i class="fa fa-file-pdf-o text-danger"></i>
                                         </a>
                                     </td>
-                                    <td>{{ strftime('%d/%m/%y %H:%M:%S', strtotime($peserta->created_at)) }}</td>
-                                    <td>{{ strftime('%d/%m/%y %H:%M:%S', strtotime($peserta->rejected_at)) }}</td>
+                                    <td>{{ $peserta->keterangan_reject }}</td>
                                     <td></td>
                                 </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="10">
+                                <td colspan="9">
                                     <a href="{{ URL::to('admin/peserta/download-register') }}">Download All</a>
                                 </td>
                             </tr>

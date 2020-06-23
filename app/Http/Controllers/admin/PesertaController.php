@@ -31,7 +31,8 @@ class PesertaController extends Controller
     {
         return DB::table('pesertas as p')
             ->select(['p.id', 'm.nim', 'm.nama', 'm.tgl_lahir', 'p.semester_tempuh', 'p.ipk',
-                'ps.nama_prodi', 'pt.nama_pt', 'fpp.nama_file', 'p.created_at', 'p.rejected_at', 'u.username'])
+                'ps.nama_prodi', 'pt.nama_pt', 'fpp.nama_file', 'p.created_at', 'p.rejected_at', 'u.username',
+                'p.keterangan_reject'])
             ->join('mahasiswas as m', 'm.id', '=', 'p.mahasiswa_id')
             ->join('program_studis as ps', 'ps.id', '=', 'm.program_studi_id')
             ->join('perguruan_tinggis as pt', 'pt.id', '=', 'ps.perguruan_tinggi_id')
