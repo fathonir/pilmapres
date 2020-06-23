@@ -36,10 +36,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->rules($request);
-        $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        $request->merge([$field => $request->input('email')]);
 
-        if (Auth::attempt($request->only($field, 'password'))) {
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        if (Auth::attempt(['username' => $username, 'password' => $password])) {
 
             $user = Auth::user();
             $user_group = UserGroup::where('user_id', $user->id)->first();
@@ -72,7 +73,7 @@ class LoginController extends Controller
     public function rules($request)
     {
         $this->validate($request, [
-            'email' => 'required|string',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
     }
