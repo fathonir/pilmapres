@@ -43,7 +43,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
 
     <header class="main-header">
@@ -174,27 +174,10 @@
 <!-- AdminLTE App -->
 {!! Html::script('js/adminlte.min.js') !!}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- AdminLTE for demo purposes -->
-<!-- {!! Html::script('js/demo.js') !!} -->
-<!-- Morris.js charts -->
-<!-- {!! Html::script('js/raphael.min.js') !!} -->
-<!-- {!! Html::script('js/morris.min.js') !!} -->
-<!-- Sparkline -->
-<!-- {!! Html::script('js/jquery.sparkline.min.js') !!} -->
-<!-- jvectormap -->
-<!-- jQuery Knob Chart -->
-<!-- {!! Html::script('js/jquery.knob.min.js') !!} -->
 <!-- daterangepicker -->
-<!-- {!! Html::script('js/moment.min.js') !!} -->
 {!! Html::script('js/daterangepicker.js') !!}
 <!-- datepicker -->
 {!! Html::script('js/bootstrap-datepicker.min.js') !!}
-<!-- Bootstrap WYSIHTML5 -->
-<!-- {!! Html::script('js/bootstrap3-wysihtml5.all.min.js') !!} -->
-<!-- Slimscroll -->
-<!-- {!! Html::script('js/jquery.slimscroll.min.js') !!} -->
-<!-- FastClick -->
-<!-- {!! Html::script('js/fastclick.js') !!} -->
 {!! Html::script('js/sweetalert.min.js') !!}
 {!! Html::script('js/select2.full.min.js') !!}
 {!! Html::script('js/jquery.inputmask.js') !!}
