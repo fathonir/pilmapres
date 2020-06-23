@@ -14,7 +14,7 @@ class TestJob1 extends Command
      *
      * @var string
      */
-    protected $signature = 'add:test-job';
+    protected $signature = 'app:test-job';
 
     /**
      * The console command description.
