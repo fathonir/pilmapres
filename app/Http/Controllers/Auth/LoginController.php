@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LoginController extends Controller
 {
@@ -36,10 +37,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->rules($request);
-        $field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        $request->merge([$field => $request->input('email')]);
 
-        if (Auth::attempt($request->only($field, 'password'))) {
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        if (Auth::attempt(['username' => $username, 'password' => $password])) {
 
             $user = Auth::user();
             $user_group = UserGroup::where('user_id', $user->id)->first();
@@ -48,12 +50,9 @@ class LoginController extends Controller
                 if ($user_group->group_id === Group::ADMIN) {
                     return redirect('/admin');
                 } elseif ($user_group->group_id === Group::MAHASISWA) {
-                    return redirect('/dashboard-finalis');
+                    return redirect('/mahasiswa/home');
                 } elseif ($user_group->group_id === Group::JURI) {
-                    echo "<pre>";
-                    print_r('Juri Login');
-                    echo "</pre>";
-                    exit();
+
                 }
             } else {
                 Auth::logout();
@@ -72,7 +71,7 @@ class LoginController extends Controller
     public function rules($request)
     {
         $this->validate($request, [
-            'email' => 'required|string',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
     }

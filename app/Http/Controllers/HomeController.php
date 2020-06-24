@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pengumuman;
 use Auth;
 use File;
 use Mapper;
@@ -33,8 +34,9 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::orderBy('created_at', 'desc')->get();
+        $pengumumans = Pengumuman::orderBy('updated_at', 'desc')->limit(3)->get();
         
-        return view('landing', compact('sliders'));
+        return view('landing', compact('sliders', 'pengumumans'));
     }
     public function admin()
     {

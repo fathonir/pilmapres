@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string rejected_at
  * @property string keterangan_reject
  * @property int kegiatan_id
+ * @property FilePeserta[] $filePesertas
  */
 class Peserta extends Model
 {
@@ -27,16 +28,21 @@ class Peserta extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo('App\Mahasiswa');
+        return $this->belongsTo(Mahasiswa::class);
     }
 
     public function kegiatan()
     {
-        return $this->belongsTo('App\Kegiatan');
+        return $this->belongsTo(Kegiatan::class);
     }
 
     public function filePengantarPeserta()
     {
-        return $this->hasOne('App\FilePengantarPeserta');
+        return $this->hasOne(FilePengantarPeserta::class);
+    }
+
+    public function filePesertas()
+    {
+        return $this->hasMany(FilePeserta::class);
     }
 }

@@ -27,6 +27,11 @@ Route::get('/about-us', 'HomeController@about_us');
 Route::get('/contact-us', 'HomeController@contact_us');
 Route::get('/gallery-detail/{id}', 'HomeController@gallery_detail');
 Route::get('/event-detail/{id}', 'HomeController@event_detail');
+
+// Pengumuman Daftar List Peserta (per Kegiatan)
+Route::get('/pengumuman/user-peserta/{id}', 'PengumumanController@userPeserta');
+
+// Authentication
 Auth::routes();
 
 // landing
@@ -35,9 +40,10 @@ Route::get('/detail-finalis', 'HomeController@detailFinalis');
 Route::get('/slider/detail/{id}', 'HomeController@detailSlider');
 Route::get('/sambutan/detail/{id}', 'HomeController@detailSambutan');
 Route::post('/berita/viewer/{id}', 'HomeController@viewerBerita');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'HomeController@admin');
-Route::get('/dashboard-finalis', 'HomeController@dashboardFinalis');
+
 Route::get('/karya-tulis', 'HomeController@karyaTulis');
 Route::post('/karya-tulis-post', 'HomeController@karyaTulisPost');
 Route::post('/karya-tulis-edit-post', 'HomeController@karyaTulisEditPost');
@@ -189,4 +195,10 @@ Route::prefix('admin')->group(function() {
     Route::get('peserta/approval-processed', 'admin\PesertaController@approvalProcessed')->middleware('auth');
     Route::get('peserta/rejected', 'admin\PesertaController@rejected')->middleware('auth');
     Route::resource('peserta', 'admin\PesertaController')->middleware('auth');
+});
+
+Route::prefix('mahasiswa')->group(function () {
+    Route::resource('home', 'Mahasiswa\HomeController')->middleware('auth');
+    Route::get('portofolio/store-success', 'Mahasiswa\PortofolioController@storeSuccess')->middleware('auth');
+    Route::resource('portofolio', 'Mahasiswa\PortofolioController')->middleware('auth');
 });
