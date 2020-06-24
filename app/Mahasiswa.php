@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Mahasiswa
  * @package App
+ * @property int id
  * @property string nim
  * @property string $nama
  * @property string $email
@@ -22,13 +23,13 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     // Enable Mass Assignment
-	protected $guarded = [];
+    protected $guarded = [];
 
     public function perguruanTinggi()
     {
         return $this->belongsTo(PerguruanTinggi::class);
     }
-    
+
     public function programStudi()
     {
         return $this->belongsTo(ProgramStudi::class);
@@ -42,5 +43,10 @@ class Mahasiswa extends Model
     public function user()
     {
         return $this->hasOne(User::class);
+    }
+
+    public function getTglLahirFormatedAttribute()
+    {
+        return strftime('%d %B %Y', strtotime($this->tgl_lahir));
     }
 }

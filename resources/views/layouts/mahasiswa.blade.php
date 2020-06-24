@@ -17,20 +17,9 @@
     {!! Html::style('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') !!}
     <!-- AdminLTE Skins -->
     {!! Html::style('vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.min.css') !!}
-    <!-- Morris chart -->
-    {!! Html::style('css/morris.css') !!}
-    <!-- jvectormap -->
-    {!! Html::style('css/jquery-jvectormap.css') !!}
-    <!-- Date Picker -->
-    {!! Html::style('css/bootstrap-datepicker.min.css') !!}
-    <!-- Daterange picker -->
-    {!! Html::style('css/daterangepicker.css') !!}
-    <!-- bootstrap wysihtml5 - text editor -->
-    {!! Html::style('css/bootstrap3-wysihtml5.min.css') !!}
-    {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
-    {!! Html::style('css/select2.min.css') !!}
+    <!-- DataTables -->
+    {!! Html::style('vendor/datatables/datatables/media/css/jquery.dataTables.min.css') !!}
     {!! Html::style('vendor/datatables/datatables/media/css/dataTables.bootstrap.min.css') !!}
-    {!! Html::style('css/sweetalert.css') !!}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -146,7 +135,7 @@
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">Theme by Almsaeed Studio</div>
-        <strong>&copy; 2020 <a href="https://www.kemdikbud.go.id">KEMDIKBUD</a>.</strong> All rights reserved.
+        <strong>&copy; 2020 <a href="https://www.kemdikbud.go.id">KEMDIKBUD</a></strong>. All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->
@@ -172,19 +161,7 @@
 {!! Html::script('vendor/datatables/datatables/media/js/jquery.dataTables.min.js') !!}
 {!! Html::script('vendor/datatables/datatables/media/js/dataTables.bootstrap.min.js') !!}
 <!-- AdminLTE App -->
-{!! Html::script('js/adminlte.min.js') !!}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- daterangepicker -->
-{!! Html::script('js/daterangepicker.js') !!}
-<!-- datepicker -->
-{!! Html::script('js/bootstrap-datepicker.min.js') !!}
-{!! Html::script('js/sweetalert.min.js') !!}
-{!! Html::script('js/select2.full.min.js') !!}
-{!! Html::script('js/jquery.inputmask.js') !!}
-{!! Html::script('js/moment.min.js') !!}
-{!! Html::script('js/bootstrap-colorpicker.min.js') !!}
-{!! Html::script('js/icheck.min.js') !!}
-
+{!! Html::script('vendor/almasaeed2010/adminlte/dist/js/adminlte.min.js') !!}
 @yield('js')
 
 </body>

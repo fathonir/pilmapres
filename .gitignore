@@ -20,7 +20,7 @@ _ide_helpder.php
 # Public Folder
 /public/vendor
 /public/node_modules
-/public/file/surat-pengantar/
+/public/file/
 /public/images
 /public/audios
 /public/file-pengumuman

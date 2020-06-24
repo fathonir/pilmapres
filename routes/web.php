@@ -199,5 +199,6 @@ Route::prefix('admin')->group(function() {
 
 Route::prefix('mahasiswa')->group(function () {
     Route::resource('home', 'Mahasiswa\HomeController')->middleware('auth');
+    Route::get('portofolio/store-success', 'Mahasiswa\PortofolioController@storeSuccess')->middleware('auth');
     Route::resource('portofolio', 'Mahasiswa\PortofolioController')->middleware('auth');
 });
