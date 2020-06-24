@@ -21,7 +21,19 @@ class PortofolioController extends Controller
 {
     public function index()
     {
-        return view('mahasiswa.portofolio.index');
+        $kegiatan = Kegiatan::where('is_aktif', true)->first();
+        $mahasiswa = Auth::user()->mahasiswa;
+        $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
+        $peserta = Peserta::where(['kegiatan_id' => $kegiatan->id, 'mahasiswa_id' => $mahasiswa->id])->first();
+
+        $filePesertaPathEnv = env('FILE_PESERTA_PATH');
+        $filePesertaPath = strtr($filePesertaPathEnv, [
+            '{kegiatan_id}' => $kegiatan->id,
+            '{peserta_id}' => $peserta->id,
+            '{tahapan_id}' => $tahapan->id,
+        ]);
+
+        return view('mahasiswa.portofolio.index', compact('peserta', 'filePesertaPath'));
     }
 
     public function create()
