@@ -22,7 +22,7 @@ class CreateFilePesertasTable extends Migration
             $table->integer('ukuran')->default(0);
             $table->text('nama_prestasi')->nullable();
             $table->text('capaian')->nullable();
-            $table->unsignedTinyInteger('tahun')->nullable();
+            $table->unsignedSmallInteger('tahun')->nullable();
             $table->text('nama_lembaga_event')->nullable()->commet('Nama Lembaga / Event');
             $table->boolean('is_kelompok')->nullable()->default(null);
             $table->text('tingkat')->nullable();
