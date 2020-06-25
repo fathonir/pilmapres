@@ -50,6 +50,7 @@ class GenerateUserPesertaApproved extends Command
         // Peserta Approve yang belum ada user
         $pesertas = Peserta::with(['mahasiswa', 'mahasiswa.perguruanTinggi'])
             ->whereNotNull('is_approved')
+            ->whereDate('created_at', '2020-06-25')
             ->get();
 
         foreach ($pesertas as $peserta) {
@@ -76,6 +77,12 @@ class GenerateUserPesertaApproved extends Command
                 $userMahasiswa->password_plain = date('dmy', strtotime($peserta->mahasiswa->tgl_lahir));
                 $userMahasiswa->password = Hash::make($userMahasiswa->password_plain);
                 $userMahasiswa->is_active = true;
+
+                $user = User::where('username', $userMahasiswa->username)->first();
+
+                if ($user != null)
+                    continue;
+
                 $userMahasiswa->save();
 
                 // Attach group peserta
