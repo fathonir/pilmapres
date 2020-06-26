@@ -33,6 +33,7 @@ Route::get('/pengumuman/user-peserta/{id}', 'PengumumanController@userPeserta');
 
 // Authentication
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
 
 // landing
 Route::get('/', 'HomeController@index');

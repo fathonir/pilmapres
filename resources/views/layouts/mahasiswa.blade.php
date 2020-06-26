@@ -120,6 +120,7 @@
                         <li><a href="{{ URL::to('mahasiswa/portofolio') }}"><i class="fa fa-folder-o"></i> Data Portofolio</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
