@@ -56,9 +56,13 @@
                         <hr>
                         <strong><i class="fa fa-file-text-o margin-r-5"></i> Surat Rekomendasi</strong>
                         <p>
+                            @if ($peserta->filePengantarPeserta != null)
                             <a href="{{ URL::to('file/surat-pengantar/'.$peserta->filePengantarPeserta->nama_file) }}" target="_blank">
                                 {{ $peserta->filePengantarPeserta->nama_asli }}
                             </a>
+                            @else
+                                Sudah diverifikasi
+                            @endif
                         </p>
                     </div>
                     <!-- /.box-body -->
