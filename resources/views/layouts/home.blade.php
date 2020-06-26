@@ -156,7 +156,7 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     @if (Auth::user()->hasUserGroup->group->name == "Peserta")
-                                                        <a href="/dashboard-finalis">
+                                                        <a href="/mahasiswa/home">
                                                             Dashboard
                                                         </a>
                                                     @elseif (Auth::user()->hasUserGroup->group->name == "Admin Master")

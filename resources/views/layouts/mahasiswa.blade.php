@@ -37,7 +37,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="/admin" class="logo">
+        <a href="{{ URL::to('mahasiswa/home') }}" class="logo">
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>PILMAPRES</b></span>
         </a>
