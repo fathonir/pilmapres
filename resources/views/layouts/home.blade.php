@@ -157,11 +157,11 @@
                                                 <li>
                                                     @if (Auth::user()->hasUserGroup->group->name == "Peserta")
                                                         <a href="/mahasiswa/home">
-                                                            Dashboard
+                                                            Halaman Peserta
                                                         </a>
                                                     @elseif (Auth::user()->hasUserGroup->group->name == "Admin Master")
                                                         <a href="/admin">
-                                                            Dashboard
+                                                            Halaman Admin
                                                         </a>
                                                     @endif
                                                 </li>
