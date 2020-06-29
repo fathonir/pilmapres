@@ -214,8 +214,18 @@ class PortofolioController extends Controller
             ->with(['message' => 'Portofolio berhasil disimpan']);
     }
 
+    public function delete($id)
+    {
+        $filePeserta = FilePeserta::find($id);
+        return view('mahasiswa.portofolio.delete', compact('filePeserta'));
+    }
+
     public function destroy($id)
     {
-        //
+        /** @var FilePeserta $filePeserta */
+        $filePeserta = FilePeserta::find($id);
+        $filePeserta->delete();
+
+        return view('mahasiswa.portofolio.destroy_success', ['message' => 'Portofolio berhasil dihapus']);
     }
 }
