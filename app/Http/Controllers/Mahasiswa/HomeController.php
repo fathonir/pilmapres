@@ -17,6 +17,10 @@ class HomeController extends Controller
         $kegiatan = Kegiatan::where('is_aktif', true)->first();
         $mahasiswa = Mahasiswa::find(Auth::user()->mahasiswa_id);
 
+        // Check Photo
+        $mahasiswa->photoExist = ($mahasiswa->photo != null);
+        $mahasiswa->photoUrl = url(env('PHOTO_MAHASISWA_PATH') . '/' . $mahasiswa->photo);
+
         // Hitung Umur
         $mahasiswa->umur = (new \DateTime($mahasiswa->tgl_lahir))->diff(new \DateTime($kegiatan->tgl_batas_umur))
             ->format('%y tahun %m bulan %d hari');

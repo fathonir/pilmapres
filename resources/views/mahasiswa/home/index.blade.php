@@ -12,9 +12,14 @@
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle"
-                             src="https://via.placeholder.com/128"
-                             alt="User profile picture">
+                        @if ($mahasiswa->photoExist)
+                            <img class="profile-user-img img-responsive img-circle"
+                                 src="{{ $mahasiswa->photoUrl }}">
+                        @else
+                            <img class="profile-user-img img-responsive img-circle"
+                                 src="https://via.placeholder.com/128">
+                        @endif
+
                         <h3 class="profile-username text-center">{{ $mahasiswa->nama }}</h3>
                         <p class="text-muted text-center">{{ $mahasiswa->programStudi->nama_prodi }}</p>
                         <p class="text-muted text-center">{{ $mahasiswa->perguruanTinggi->nama_pt }}</p>
@@ -30,7 +35,7 @@
                             </li>
                         </ul>
                         <p class="text-center">
-                            <a href="#" class="btn btn-primary">Update Pas Foto</a>
+                            <a href="{{ URL::to('mahasiswa/photo') }}" class="btn btn-primary">Update Pas Foto</a>
                             <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-default">
                                 <i class="fa fa-upload"></i> Unggah Portofolio</a>
                             <a href="{{ URL::to('mahasiswa/portofolio') }}" class="btn btn-default">
