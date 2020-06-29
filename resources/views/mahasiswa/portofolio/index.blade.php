@@ -45,14 +45,17 @@
                                             <i class="fa fa-file-o"></i>
                                         </a>
                                     </td>
+                                    <td>
+                                        <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/edit') }}" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> Edit</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="box-footer">
-                        <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-primary">
-                            Unggah Portofolio
+                        <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-info">
+                            <i class="fa fa-plus"></i> Tambah Portofolio
                         </a>
                     </div>
                 </div>
