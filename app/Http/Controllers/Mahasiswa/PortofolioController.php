@@ -45,13 +45,15 @@ class PortofolioController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->input(), [
+        $validator = Validator::make($request->all(), [
             'jenis_prestasi_id' => 'required',
             'file_bukti' => 'file|mimetypes:application/pdf',
             'nama_prestasi' => 'required',
             'tahun' => 'required|numeric',
             'nama_lembaga_event' => 'required',
-            'tingkat_prestasi_id' => 'required'
+            'tingkat_prestasi_id' => 'required',
+            'jumlah_peserta' => 'numeric',
+            'jumlah_penghargaan_pada_event' => 'numeric'
         ], [
             'jenis_prestasi_id.required' => 'Pilih Jenis Prestasi',
             'file_bukti.required' => 'File Bukti perlu di unggah',

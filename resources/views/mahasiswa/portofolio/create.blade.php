@@ -36,7 +36,8 @@
                                     @foreach ($kelompokPrestasis as $kelompokPrestasi)
                                         <optgroup label="{{ $kelompokPrestasi->kelompok_prestasi }}"></optgroup>
                                         @foreach ($kelompokPrestasi->jenisPrestasis as $jenisPrestasi)
-                                            <option value="{{ $jenisPrestasi->id }}">
+                                            <option value="{{ $jenisPrestasi->id }}"
+                                                    {{ old('jenis_prestasi_id') == $jenisPrestasi->id ? 'selected' : '' }}>
                                                 {{ $jenisPrestasi->jenis_prestasi }}
                                             </option>
                                         @endforeach
@@ -66,14 +67,15 @@
                             <div class="row">
                                 <div class="col-sm-10 form-group {{ $errors->has('nama_lembaga_event') ? 'has-error' : '' }}">
                                     <label>Lembaga Pemberi / Nama Event</label>
-                                    <input type="text" class="form-control" name="nama_lembaga_event">
+                                    <input type="text" class="form-control" name="nama_lembaga_event"
+                                           value="{{ old('nama_lembaga_event') }}">
                                     <span class="help-block">Lembaga/Individu yang memberikan</span>
                                 </div>
                                 <div class="col-sm-2 form-group">
                                     <label>Individu / Kelompok</label>
                                     <select class="form-control" name="is_kelompok">
-                                        <option value="0">Individu</option>
-                                        <option value="1">Kelompok</option>
+                                        <option value="0" {{ old('is_kelompok') == '0' ? 'selected':'' }}>Individu</option>
+                                        <option value="1" {{ old('is_kelompok') == '1' ? 'selected':'' }}>Kelompok</option>
                                     </select>
                                 </div>
                             </div>
@@ -83,19 +85,24 @@
                                     <select class="form-control" name="tingkat_prestasi_id">
                                         <option value=""></option>
                                         @foreach ($tingkatPrestasis as $tingkatPrestasi)
-                                            <option value="{{ $tingkatPrestasi->id }}">
+                                            <option value="{{ $tingkatPrestasi->id }}"
+                                                    {{ old('tingkat_prestasi_id') == $tingkatPrestasi->id ? 'selected':'' }}>
                                                 {{ $tingkatPrestasi->tingkat_prestasi }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-4 form-group {{ $errors->has('jumlah_peserta') ? 'has-error' : '' }}">
                                     <label>Jumlah Peserta</label>
-                                    <input type="text" class="form-control" name="jumlah_peserta">
+                                    <input type="text" class="form-control" name="jumlah_peserta"
+                                           value="{{ old('jumlah_peserta') }}" placeholder="Contoh 100">
+                                    <span class="help-block">Jumlah pada Event</span>
                                 </div>
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-4 form-group {{ $errors->has('jumlah_penghargaan_pada_event') ? 'has-error' : '' }}">
                                     <label>Jumlah Penghargaan pada Event</label>
-                                    <input type="text" class="form-control" name="jumlah_penghargaan_pada_event">
+                                    <input type="text" class="form-control" name="jumlah_penghargaan_pada_event"
+                                           value="{{ old('jumlah_penghargaan_pada_event') }}" placeholder="Contoh. 3">
+                                    <span class="help-block">Juara yg diberikan pada Event</span>
                                 </div>
                             </div>
                         </div>
