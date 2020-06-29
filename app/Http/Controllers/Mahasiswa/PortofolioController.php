@@ -52,8 +52,8 @@ class PortofolioController extends Controller
             'tahun' => 'required|numeric',
             'nama_lembaga_event' => 'required',
             'tingkat_prestasi_id' => 'required',
-            'jumlah_peserta' => 'numeric',
-            'jumlah_penghargaan_pada_event' => 'numeric'
+            'jumlah_peserta' => 'nullable|numeric',
+            'jumlah_penghargaan_pada_event' => 'nullable|numeric'
         ], [
             'jenis_prestasi_id.required' => 'Pilih Jenis Prestasi',
             'file_bukti.required' => 'File Bukti perlu di unggah',
