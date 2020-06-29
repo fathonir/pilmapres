@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Data Portofolio</h3>
+                        <h3 class="box-title">Data Portofolio (Maksimal {{ $syarat->max_multi_upload }})</h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -45,15 +45,21 @@
                                             <i class="fa fa-file-o"></i>
                                         </a>
                                     </td>
+                                    <td>
+                                        <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/edit') }}" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="box-footer">
-                        <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-primary">
-                            Unggah Portofolio
+                        @if (count($peserta->filePesertas) < $syarat->max_multi_upload)
+                        <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-info">
+                            <i class="fa fa-plus"></i> Tambah Portofolio
                         </a>
+                        @endif
                     </div>
                 </div>
             </div>

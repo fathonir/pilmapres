@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Peserta[] $pesertas
  * @property string id_pdpt
  * @property User $user
+ * @property string $photo
  */
 class Mahasiswa extends Model
 {

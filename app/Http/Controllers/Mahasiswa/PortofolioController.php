@@ -25,6 +25,7 @@ class PortofolioController extends Controller
         $mahasiswa = Auth::user()->mahasiswa;
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
         $peserta = Peserta::where(['kegiatan_id' => $kegiatan->id, 'mahasiswa_id' => $mahasiswa->id])->first();
+        $syarat = Syarat::where('nama_syarat', 'Portofolio')->first();
 
         $filePesertaPathEnv = env('FILE_PESERTA_PATH');
         $filePesertaPath = strtr($filePesertaPathEnv, [
@@ -33,7 +34,7 @@ class PortofolioController extends Controller
             '{tahapan_id}' => $tahapan->id,
         ]);
 
-        return view('mahasiswa.portofolio.index', compact('peserta', 'filePesertaPath'));
+        return view('mahasiswa.portofolio.index', compact('peserta', 'filePesertaPath', 'syarat'));
     }
 
     public function create()
@@ -43,21 +44,26 @@ class PortofolioController extends Controller
         return view('mahasiswa.portofolio.create', compact('kelompokPrestasis', 'tingkatPrestasis'));
     }
 
-    public function store(Request $request)
+    protected function makeValidator(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        return Validator::make($request->all(), [
             'jenis_prestasi_id' => 'required',
-            'file_bukti' => 'file|mimetypes:application/pdf',
+            'file_bukti' => 'required|file|mimetypes:application/pdf',
             'nama_prestasi' => 'required',
             'tahun' => 'required|numeric',
             'nama_lembaga_event' => 'required',
             'tingkat_prestasi_id' => 'required',
-            'jumlah_peserta' => 'numeric',
-            'jumlah_penghargaan_pada_event' => 'numeric'
+            'jumlah_peserta' => 'nullable|numeric',
+            'jumlah_penghargaan_pada_event' => 'nullable|numeric'
         ], [
             'jenis_prestasi_id.required' => 'Pilih Jenis Prestasi',
             'file_bukti.required' => 'File Bukti perlu di unggah',
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validator = $this->makeValidator($request);
 
         if ($validator->fails()) {
             return redirect('mahasiswa/portofolio/create')
@@ -131,23 +137,96 @@ class PortofolioController extends Controller
         return view('mahasiswa.portofolio.store_success');
     }
 
-    public function show($id)
+    public function edit($filePesertaId)
     {
-        //
-    }
+        $kelompokPrestasis = KelompokPrestasi::with('jenisPrestasis')->get();
+        $tingkatPrestasis = TingkatPrestasi::get();
+        $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
 
-    public function edit($id)
-    {
-        //
+        $filePeserta = FilePeserta::find($filePesertaId);
+        $destPathConfig = env('FILE_PESERTA_PATH');
+        $filePeserta->fileUrl = url(
+            strtr($destPathConfig, [
+                '{kegiatan_id}' => $filePeserta->peserta->kegiatan_id,
+                '{peserta_id}' => $filePeserta->peserta_id,
+                '{tahapan_id}' => $tahapan->id,
+            ])
+        ) . '/' . $filePeserta->nama_file;
+
+        return view('mahasiswa.portofolio.edit', compact('kelompokPrestasis', 'tingkatPrestasis', 'filePeserta'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $validator = $this->makeValidator($request);
+
+        if ($validator->fails()) {
+            return redirect(url('mahasiswa/portofolio/'.$id.'/edit'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        /** @var FilePeserta $filePeserta */
+        $filePeserta = FilePeserta::find($id);
+
+        /** @var Peserta $peserta */
+        $peserta = $filePeserta->peserta;
+
+        /** @var Kegiatan $kegiatan */
+        $kegiatan = $filePeserta->peserta->kegiatan;
+
+        /** @var Mahasiswa $mahasiswa */
+        $mahasiswa = $filePeserta->peserta->mahasiswa;
+
+        /** @var Tahapan $tahapan */
+        $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
+
+        // Folder Tujuan
+        $destPathConfig = env('FILE_PESERTA_PATH');
+        $destPath = public_path(
+            strtr($destPathConfig, [
+                '{kegiatan_id}' => $kegiatan->id,
+                '{peserta_id}' => $peserta->id,
+                '{tahapan_id}' => $tahapan->id,
+            ])
+        );
+
+        // File tujuan
+        $fileBukti = $request->file('file_bukti');
+        $destFile = sha1(time()).'.'.strtolower($fileBukti->getClientOriginalExtension());
+        $fileBukti->move($destPath, $destFile);
+
+        // Update FilePeserta
+        $filePeserta->nama_file             = $destFile;
+        $filePeserta->nama_asli             = $fileBukti->getClientOriginalName();
+        $filePeserta->ukuran                = $fileBukti->getClientSize();
+        $filePeserta->jenis_prestasi_id     = $request->input('jenis_prestasi_id');
+        $filePeserta->nama_prestasi         = $request->input('nama_prestasi');
+        $filePeserta->tahun                 = $request->input('tahun');
+        $filePeserta->nama_lembaga_event    = $request->input('nama_lembaga_event');
+        $filePeserta->is_kelompok           = $request->input('is_kelompok');
+        $filePeserta->tingkat_prestasi_id   = $request->input('tingkat_prestasi_id');
+        $filePeserta->jumlah_peserta        = $request->input('jumlah_peserta');
+        $filePeserta->jumlah_penghargaan_pada_event = $request->input('jumlah_penghargaan_pada_event');
+        $filePeserta->nilai                 = 0;
+        $filePeserta->save();
+
+        return redirect('mahasiswa/portofolio/store-success')
+            ->with(['message' => 'Portofolio berhasil disimpan']);
+    }
+
+    public function delete($id)
+    {
+        $filePeserta = FilePeserta::find($id);
+        return view('mahasiswa.portofolio.delete', compact('filePeserta'));
     }
 
     public function destroy($id)
     {
-        //
+        /** @var FilePeserta $filePeserta */
+        $filePeserta = FilePeserta::find($id);
+        $filePeserta->delete();
+
+        return view('mahasiswa.portofolio.destroy_success', ['message' => 'Portofolio berhasil dihapus']);
     }
 }
