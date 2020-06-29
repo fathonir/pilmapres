@@ -5,7 +5,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> Portofolio</a></li>
-            <li class="active">Portofolio</li>
+            <li class="active">Edit Portofolio</li>
         </ol>
     </section>
 
@@ -16,8 +16,9 @@
                     <div class="box-header with-border">
                         <h3 clas="box-title">Edit Portofolio</h3>
                     </div>
-                    <form role="form" method="POST" action="{{ url()->current() }}" enctype="multipart/form-data">
+                    <form role="form" method="POST" action="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="box-body">
                             @if ($errors->any())
                                 <div class="alert alert-danger">

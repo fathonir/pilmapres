@@ -47,6 +47,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/edit') }}" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
                             @endforeach
