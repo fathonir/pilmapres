@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Data Portofolio</h3>
+                        <h3 class="box-title">Data Portofolio (Maksimal {{ $syarat->max_multi_upload }})</h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -55,9 +55,11 @@
                         </table>
                     </div>
                     <div class="box-footer">
+                        @if (count($peserta->filePesertas) < $syarat->max_multi_upload)
                         <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-info">
                             <i class="fa fa-plus"></i> Tambah Portofolio
                         </a>
+                        @endif
                     </div>
                 </div>
             </div>

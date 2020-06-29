@@ -25,6 +25,7 @@ class PortofolioController extends Controller
         $mahasiswa = Auth::user()->mahasiswa;
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
         $peserta = Peserta::where(['kegiatan_id' => $kegiatan->id, 'mahasiswa_id' => $mahasiswa->id])->first();
+        $syarat = Syarat::where('nama_syarat', 'Portofolio')->first();
 
         $filePesertaPathEnv = env('FILE_PESERTA_PATH');
         $filePesertaPath = strtr($filePesertaPathEnv, [
@@ -33,7 +34,7 @@ class PortofolioController extends Controller
             '{tahapan_id}' => $tahapan->id,
         ]);
 
-        return view('mahasiswa.portofolio.index', compact('peserta', 'filePesertaPath'));
+        return view('mahasiswa.portofolio.index', compact('peserta', 'filePesertaPath', 'syarat'));
     }
 
     public function create()
