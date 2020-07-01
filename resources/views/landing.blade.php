@@ -1,6 +1,19 @@
 @extends('layouts.home')
 
 @section('content')
+    <section id="call-to-action" class="page-section no-pad bg-color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 top-pad-10 bottom-pad-10 text-center">
+                    <div class="inline-block lr-pad-20">
+                        <a href="https://pilmapres.kemdikbud.go.id/cbt" class="btn btn-transparent-black btn-lg visible">Klik disini untuk menuju halaman CBT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- call-to-action -->
+
     <section class="slider" id="home">
         <div class="tp-banner">
             <ul>
