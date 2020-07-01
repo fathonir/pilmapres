@@ -145,6 +145,12 @@
                                     <li>
                                         <a href="{{ URL::to('/') }}">Halaman Depan</a>
                                     </li>
+                                    <li>
+                                        <a href="https://pilmapres.kemdikbud.go.id/cbt" target="_blank"
+                                           style="font-size: 18px; color: green; font-weight: bold; border: 2px dashed green; border-radius: 5px">
+                                            Halaman CBT
+                                        </a>
+                                    </li>
                                     @guest
                                         <li><a href="{{ route('register-peserta.index') }}">Registrasi</a></li>
                                         <li><a href="{{ route('login') }}">Login</a></li>
@@ -259,12 +265,11 @@
                             <!-- Title -->
                             <h3 class="title" align="center">Hubungi Kami</h3>
                         </div>
-                        <p align="center">
+                        <p align="center"></p>
                         <h5><strong><span class="fa fa-phone"></span> | (021) 5731177</strong></h5>
                         <h5><strong><span class="fa fa-envelope"></span> | <a
                                         href="mailto:dikti.puspresnas@kemdikbud.go.id">dikti.puspresnas@kemdikbud.go.id</a></strong>
                         </h5>
-                        </p>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 widget newsletter bottom-xs-pad-20">
                         <div class="widget-title">
