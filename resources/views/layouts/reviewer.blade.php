@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Peserta Pilmapres | @yield('title', 'Dashboard')</title>
+    <title>Reviewer Pilmapres | @yield('title', 'Dashboard')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <link rel="icon" href="/front/img/vavicon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -18,7 +18,6 @@
     <!-- AdminLTE Skins -->
     {!! Html::style('vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.min.css') !!}
     <!-- DataTables -->
-    {!! Html::style('vendor/datatables/datatables/media/css/jquery.dataTables.min.css') !!}
     {!! Html::style('vendor/datatables/datatables/media/css/dataTables.bootstrap.min.css') !!}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,14 +31,14 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="{{ URL::to('mahasiswa/home') }}" class="logo">
+        <a href="{{ URL::to('reviewer/home') }}" class="logo">
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>PILMAPRES</b></span>
+            <span class="logo-lg"><b>JURI PILMAPRES</b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -62,10 +61,7 @@
                             <li class="user-header">
                                 <img src="/front/img/vavicon.png" class="img-circle" alt="User Image">
                                 <p>{{ Auth::user()->name }}
-                                    <small>
-                                        {{ Auth::user()->mahasiswa->programStudi->nama_prodi }}<br/>
-                                        {{ Auth::user()->mahasiswa->perguruanTinggi->nama_pt }}
-                                    </small>
+                                    <small>Juri PILMAPRES</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -102,18 +98,9 @@
 
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu tree" data-widget="tree">
-                <li><a href="{{ URL::to('mahasiswa/home/') }}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-folder-o"></i> <span>Portofolio</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu" style="display: none;">
-                        <li><a href="{{ URL::to('mahasiswa/portofolio/create') }}"><i class="fa fa-upload"></i> Unggah Portofolio</a></li>
-                        <li><a href="{{ URL::to('mahasiswa/portofolio') }}"><i class="fa fa-folder-o"></i> Data Portofolio</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+                <li><a href="{{ URL::to('reviewer/home/') }}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+                <li><a href="{{ URL::to('reviewer/portofolio/') }}"><i class="fa fa-check-circle"></i> <span>Penilaian Portofolio</span></a></li>
+                <li><a href="{{ URL::to('logout') }}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
