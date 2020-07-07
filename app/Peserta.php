@@ -45,4 +45,9 @@ class Peserta extends Model
     {
         return $this->hasMany(FilePeserta::class);
     }
+
+    public function tahapans()
+    {
+        return $this->belongsToMany(Tahapan::class, 'tahapan_pesertas');
+    }
 }
