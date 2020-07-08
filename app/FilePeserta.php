@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class FilePeserta
  * @property Peserta $peserta
+ * @property HasilPenilaian hasilPenilaian
  */
 class FilePeserta extends Model
 {
@@ -25,5 +26,10 @@ class FilePeserta extends Model
     public function tingkatPrestasi()
     {
         return $this->belongsTo(TingkatPrestasi::class);
+    }
+
+    public function hasilPenilaian()
+    {
+        return $this->hasOne(HasilPenilaian::class);
     }
 }

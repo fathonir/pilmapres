@@ -48,11 +48,11 @@ class LoginController extends Controller
 
             if ($user_group && $user->is_active) {
                 if ($user_group->group_id === Group::ADMIN) {
-                    return redirect('/admin');
+                    return redirect('admin');
                 } elseif ($user_group->group_id === Group::MAHASISWA) {
-                    return redirect('/mahasiswa/home');
+                    return redirect('mahasiswa/home');
                 } elseif ($user_group->group_id === Group::JURI) {
-
+                    return redirect('reviewer/home');
                 }
             } else {
                 Auth::logout();
