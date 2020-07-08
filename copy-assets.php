@@ -27,7 +27,9 @@ $assets = [
 
 $nodeModuleAssets = [
     // SweetAlert
-    'sweetalert/dist/'
+    'sweetalert/dist/',
+    // Jquery Validation
+    'jquery-validation/dist/'
 ];
 
 foreach ($assets as $value) {

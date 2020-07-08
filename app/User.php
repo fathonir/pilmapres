@@ -18,6 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string password_plain
  * @property string password
  * @property Mahasiswa $mahasiswa
+ * @property Dosen $dosen
  */
 class User extends Authenticatable
 {
@@ -77,5 +78,10 @@ class User extends Authenticatable
     public function mahasiswa()
     {
         return $this->belongsTo('App\Mahasiswa');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class);
     }
 }

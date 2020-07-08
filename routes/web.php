@@ -198,6 +198,11 @@ Route::prefix('admin')->group(function() {
     Route::resource('peserta', 'admin\PesertaController')->middleware('auth');
 });
 
+Route::prefix('reviewer')->group(function() {
+    Route::resource('home', 'Reviewer\HomeController')->middleware('auth');
+    Route::resource('portofolio', 'Reviewer\PortofolioController')->middleware('auth');
+});
+
 Route::prefix('mahasiswa')->group(function () {
     Route::resource('home', 'Mahasiswa\HomeController')->middleware('auth');
     Route::get('portofolio/store-success', 'Mahasiswa\PortofolioController@storeSuccess')->middleware('auth');
