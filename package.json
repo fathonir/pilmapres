@@ -18,5 +18,8 @@
         "lodash": "^4.17.4",
         "sweetalert": "^2.1.2",
         "vue": "^2.1.10"
+    },
+    "dependencies": {
+        "jquery-validation": "^1.19.2"
     }
 }
