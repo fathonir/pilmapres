@@ -40,7 +40,10 @@ class PortofolioController extends Controller
                     $join->on('fp.peserta_id', '=', 'p.id');
                     $join->on('fp.is_dinilai', '=', DB::raw(1));
                 })
-                ->leftJoin('hasil_penilaians as hp', 'hp.file_peserta_id', '=', 'fp.id')
+                ->leftJoin('hasil_penilaians as hp', function($join) {
+                    $join->on('hp.plot_reviewer_id', '=', 'pr.id');
+                    $join->on('hp.file_peserta_id', '=', 'fp.id');
+                })
                 ->where('pr.dosen_id', Auth::user()->dosen->id)
                 ->where('tp.tahapan_id', $request->get('tahapan_id'))
                 ->select('pr.id', 'm.nama', 'ps.nama_prodi', 'pt.nama_pt', 'pr.nilai_reviewer',
@@ -79,12 +82,12 @@ class PortofolioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id plot_reviewer.id
+     * @param int $plot_reviewer_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($plot_reviewer_id)
     {
-        $plotReviewer = PlotReviewer::with('tahapanPeserta')->find($id);
+        $plotReviewer = PlotReviewer::with('tahapanPeserta')->find($plot_reviewer_id);
 
         $peserta = Peserta::with([
             'kegiatan:id',
