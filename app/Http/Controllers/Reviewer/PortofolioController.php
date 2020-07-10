@@ -94,9 +94,13 @@ class PortofolioController extends Controller
             'mahasiswa:id,nama,program_studi_id,perguruan_tinggi_id',
             'mahasiswa.programStudi:id,nama_prodi',
             'mahasiswa.perguruanTinggi:id,nama_pt',
-            'filePesertas',
-            'filePesertas.hasilPenilaian'
-            ])->find($plotReviewer->tahapanPeserta->peserta_id);
+            'filePesertas'
+        ])->find($plotReviewer->tahapanPeserta->peserta_id);
+
+        foreach ($peserta->filePesertas as $filePeserta) {
+            $filePeserta->hasilPenilaianReviewer = $filePeserta->hasilPenilaians()
+                ->where('plot_reviewer_id', $plot_reviewer_id)->first();
+        }
 
         // Perlu diganti dari input-an tahapan (yang dari tahapan_proposal)
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
@@ -129,39 +133,50 @@ class PortofolioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id plot_reviewer.id
+     * @param  int  $plot_reviewer_id plot_reviewer.id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $plot_reviewer_id)
     {
         /** @var FilePeserta $filePeserta */
-        $filePeserta = FilePeserta::with('hasilPenilaian')->find($request->input('file_peserta_id'));
+        $filePeserta = FilePeserta::find($request->input('file_peserta_id'));
 
         /** @var Skor $skor */
         $skor = Skor::find($request->input('skor_id'));
 
         try {
 
-            if ($filePeserta->hasilPenilaian == null) {
-                $filePeserta->hasilPenilaian()->create([
-                    'plot_reviewer_id' => $id,
+            DB::beginTransaction();
+
+            /** @var HasilPenilaian $hasilPenilaian */
+            $hasilPenilaian = $filePeserta->hasilPenilaians()->where('plot_reviewer_id', $plot_reviewer_id)->first();
+
+            if ($hasilPenilaian == null) {
+
+                $filePeserta->hasilPenilaians()->create([
+                    'plot_reviewer_id' => $plot_reviewer_id,
                     'skor_id' => $skor->id,
                     'skor' => $skor->skor,
                     'nilai' => $skor->skor,
                     'komentar' => $request->input('komentar')
                 ]);
+
             } else {
-                $filePeserta->hasilPenilaian->skor_id = $skor->id;
-                $filePeserta->hasilPenilaian->skor = $skor->skor;
-                $filePeserta->hasilPenilaian->nilai = $skor->skor;
-                $filePeserta->hasilPenilaian->komentar = $request->input('komentar');
-                $filePeserta->hasilPenilaian->save();
+
+                $hasilPenilaian->skor_id = $skor->id;
+                $hasilPenilaian->skor = $skor->skor;
+                $hasilPenilaian->nilai = $skor->skor;
+                $hasilPenilaian->komentar = $request->input('komentar');
+                $hasilPenilaian->save();
+
             }
 
             // Hitung total
-            $plotReviewer = PlotReviewer::with('hasilPenilaians')->find($id);
+            $plotReviewer = PlotReviewer::with('hasilPenilaians')->find($plot_reviewer_id);
             $plotReviewer->nilai_reviewer = $plotReviewer->hasilPenilaians()->sum('nilai');
             $plotReviewer->save();
+
+            DB::commit();
 
             return json_encode(1);
 
