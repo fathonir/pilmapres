@@ -71,8 +71,8 @@
                                                     @foreach ($kelompokSkors as $kelompokSkor)
                                                         <optgroup label="{{ $kelompokSkor->kelompok_skor }}"></optgroup>
                                                         @foreach ($kelompokSkor->skors as $skor)
-                                                            @if ($filePeserta->hasilPenilaian != null)
-                                                                <option value="{{ $skor->id }}" {{ $filePeserta->hasilPenilaian->skor_id == $skor->id ? 'selected' : '' }}>{{ $skor->nama_skor }}</option>
+                                                            @if ($filePeserta->hasilPenilaianReviewer != null)
+                                                                <option value="{{ $skor->id }}" {{ $filePeserta->hasilPenilaianReviewer->skor_id == $skor->id ? 'selected' : '' }}>{{ $skor->nama_skor }}</option>
                                                             @else
                                                                 <option value="{{ $skor->id }}">{{ $skor->nama_skor }}</option>
                                                             @endif
@@ -82,7 +82,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <textarea name="komentar" data-id="{{ $filePeserta->id }}" class="form-control" style="width: 350px;"
-                                                          required>{{ $filePeserta->hasilPenilaian ? $filePeserta->hasilPenilaian->komentar : '' }}</textarea>
+                                                          required>{{ $filePeserta->hasilPenilaianReviewer ? $filePeserta->hasilPenilaianReviewer->komentar : '' }}</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <input type="submit" id="btn-{{ $filePeserta->id }}" class="btn btn-xs btn-primary" style="display: none" value="Simpan"/>
