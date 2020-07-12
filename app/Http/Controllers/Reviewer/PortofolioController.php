@@ -107,6 +107,7 @@ class PortofolioController extends Controller
             ['plot_reviewer_id' => $plot_reviewer_id, 'peserta_id' => $peserta->id]
         );
 
+
         // Perlu diganti dari input-an tahapan (yang dari tahapan_proposal)
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
 
