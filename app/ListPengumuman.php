@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ListPengumuman extends Model
 {
-	protected $table = 'list_pengumuman';
+    protected $table = 'list_pengumuman';
 
     protected $fillable = [
-		'judul', 'gambar', 'deskripsi', 'file'
+        'judul', 'gambar', 'deskripsi', 'file'
     ];
+
     public function pengumuman()
     {
-        return $this->belongsTo('App\CategoryPengumuman');
+        return $this->belongsTo(CategoryPengumuman::class);
     }
 }

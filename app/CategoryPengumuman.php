@@ -14,6 +14,6 @@ class CategoryPengumuman extends Model
 
     public function categoryPengumuman()
     {
-        return $this->hasMany('App\ListPengumuman','category_pengumuman_id');
+        return $this->hasMany(Pengumuman::class,'category_pengumuman_id');
     }
 }

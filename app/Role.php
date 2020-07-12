@@ -12,11 +12,11 @@ class Role extends Model
 
     public function groups()
     {
-    	return $this->belongsToMany('App\Group', 'group_roles', 'role_id', 'groups_id');
+        return $this->belongsToMany(Group::class, 'group_roles', 'role_id', 'groups_id');
     }
 
     public function groupRole()
     {
-        return $this->hasMany('App\GroupRole','role_id');
+        return $this->hasMany(GroupRole::class, 'role_id');
     }
 }

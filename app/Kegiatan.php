@@ -18,6 +18,6 @@ class Kegiatan extends Model
 {
     public function program()
     {
-        return $this->belongsTo('\App\Program');
+        return $this->belongsTo(Program::class);
     }
 }

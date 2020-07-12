@@ -9,28 +9,28 @@ class Group extends Model
     public const ADMIN = 1;
     public const MAHASISWA = 2;
     public const JURI = 3;
-    
+
     protected $fillable = [
-		'name',
+        'name',
     ];
 
     public function users()
     {
-    	return $this->belongsToMany('App\User', 'user_groups', 'group_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_groups', 'group_id', 'user_id');
     }
 
     public function roles()
     {
-    	return $this->belongsToMany('App\Role', 'group_roles', 'group_id', 'role_id');
+        return $this->belongsToMany(Role::class, 'group_roles', 'group_id', 'role_id');
     }
 
     public function userGroup()
     {
-    	return $this->hasMany('App\UserGroup', 'group_id');
+        return $this->hasMany(UserGroup::class, 'group_id');
     }
 
     public function groupRole()
     {
-     	return $this->hasMany('App\GroupRole', 'group_id');
+        return $this->hasMany(GroupRole::class, 'group_id');
     }
 }

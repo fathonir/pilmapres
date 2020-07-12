@@ -44,17 +44,17 @@ class User extends Authenticatable
 
     public function userGroup()
     {
-        return $this->hasMany('App\UserGroup', 'user_id');
+        return $this->hasMany(UserGroup::class, 'user_id');
     }
 
     public function userHasGroup()
     {
-        return $this->belongsTo('App\UserGroup', 'id', 'user_id');
+        return $this->belongsTo(UserGroup::class, 'id', 'user_id');
     }
 
     public function groups()
     {
-        return $this->belongsToMany('App\Group', 'user_groups', 'user_id', 'group_id');
+        return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id');
     }
 
     public function hasAnyRole($role)
@@ -62,8 +62,7 @@ class User extends Authenticatable
         if ($this->groups()
             ->join('group_roles', 'groups.id', '=', 'group_roles.group_id')
             ->join('roles', 'roles.id', '=', 'group_roles.role_id')
-            ->where('roles.name', $role)->first())
-        {
+            ->where('roles.name', $role)->first()) {
             return true;
         } else {
             return false;
@@ -72,12 +71,12 @@ class User extends Authenticatable
 
     public function hasUserGroup()
     {
-        return $this->belongsTo('App\UserGroup', 'id', 'user_id');
+        return $this->belongsTo(UserGroup::class, 'id', 'user_id');
     }
 
     public function mahasiswa()
     {
-        return $this->belongsTo('App\Mahasiswa');
+        return $this->belongsTo(Mahasiswa::class);
     }
 
     public function dosen()

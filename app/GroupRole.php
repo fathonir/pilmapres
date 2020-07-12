@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class GroupRole extends Model
 {
     protected $fillable = [
-		'group_id', 'role_id'
+        'group_id', 'role_id'
     ];
 
     public function role()
-	{
-		return $this->belongsTo('App\Role');
-	}
+    {
+        return $this->belongsTo(Role::class);
+    }
 
-	public function group()
-	{
-		return $this->belongsTo('App\Group');
-	}
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }
