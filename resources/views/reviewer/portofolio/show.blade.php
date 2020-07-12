@@ -42,17 +42,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($peserta->filePesertas->sortBy('id') as $filePeserta)
+                            @foreach ($filePesertas as $filePeserta)
                                 <tr>
                                     <td class="text-center"><h4>{{ $loop->iteration }}</h4></td>
                                     <td>
                                         <h4>{{ $filePeserta->nama_prestasi }}</h4>
                                         Tahun: <span class="text-success">{{ $filePeserta->tahun }}</span><br/>
-                                        Jenis: {{ $filePeserta->jenisPrestasi->jenis_prestasi }}
+                                        Jenis: {{ $filePeserta->jenis_prestasi }}
                                     </td>
                                     <td><h5>{{ $filePeserta->nama_lembaga_event }}</h5></td>
                                     <td><h5>{{ ($filePeserta->is_kelompok == 1) ? 'Kelompok' : 'Individu' }}</h5></td>
-                                    <td><h5>{{ $filePeserta->tingkatPrestasi->tingkat_prestasi }}</h5></td>
+                                    <td><h5>{{ $filePeserta->tingkat_prestasi }}</h5></td>
                                     <td class="text-center">
                                         <h3>
                                             <a href="{{ URL::to($filePesertaPath.'/'.$filePeserta->nama_file) }}" target="_blank">
@@ -71,8 +71,8 @@
                                                     @foreach ($kelompokSkors as $kelompokSkor)
                                                         <optgroup label="{{ $kelompokSkor->kelompok_skor }}"></optgroup>
                                                         @foreach ($kelompokSkor->skors as $skor)
-                                                            @if ($filePeserta->hasilPenilaianReviewer != null)
-                                                                <option value="{{ $skor->id }}" {{ $filePeserta->hasilPenilaianReviewer->skor_id == $skor->id ? 'selected' : '' }}>{{ $skor->nama_skor }}</option>
+                                                            @if ($filePeserta->skor_id != null)
+                                                                <option value="{{ $skor->id }}" {{ $filePeserta->skor_id == $skor->id ? 'selected' : '' }}>{{ $skor->nama_skor }}</option>
                                                             @else
                                                                 <option value="{{ $skor->id }}">{{ $skor->nama_skor }}</option>
                                                             @endif
@@ -82,7 +82,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <textarea name="komentar" data-id="{{ $filePeserta->id }}" class="form-control" style="width: 350px;"
-                                                          required>{{ $filePeserta->hasilPenilaianReviewer ? $filePeserta->hasilPenilaianReviewer->komentar : '' }}</textarea>
+                                                          required>{{ $filePeserta->skor_id != null ? $filePeserta->komentar : '' }}</textarea>
                                             </div>
                                             <div class="form-group">
                                                 <input type="submit" id="btn-{{ $filePeserta->id }}" class="btn btn-xs btn-primary" style="display: none" value="Simpan"/>

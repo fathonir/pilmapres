@@ -93,14 +93,19 @@ class PortofolioController extends Controller
             'kegiatan:id',
             'mahasiswa:id,nama,program_studi_id,perguruan_tinggi_id',
             'mahasiswa.programStudi:id,nama_prodi',
-            'mahasiswa.perguruanTinggi:id,nama_pt',
-            'filePesertas'
+            'mahasiswa.perguruanTinggi:id,nama_pt'
         ])->find($plotReviewer->tahapanPeserta->peserta_id);
 
-        foreach ($peserta->filePesertas as $filePeserta) {
-            $filePeserta->hasilPenilaianReviewer = $filePeserta->hasilPenilaians()
-                ->where('plot_reviewer_id', $plot_reviewer_id)->first();
-        }
+        $filePesertas = DB::select(
+            "select fp.*, jp.jenis_prestasi, tp.tingkat_prestasi, hp.skor_id, hp.komentar
+            from file_pesertas fp
+            join tingkat_prestasis tp on tp.id = fp.tingkat_prestasi_id
+            join jenis_prestasis jp on jp.id = fp.jenis_prestasi_id
+            left join hasil_penilaians hp on hp.file_peserta_id = fp.id and hp.plot_reviewer_id = :plot_reviewer_id
+            where fp.is_dinilai = 1 and fp.peserta_id = :peserta_id
+            order by fp.id",
+            ['plot_reviewer_id' => $plot_reviewer_id, 'peserta_id' => $peserta->id]
+        );
 
         // Perlu diganti dari input-an tahapan (yang dari tahapan_proposal)
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
@@ -115,7 +120,7 @@ class PortofolioController extends Controller
         // Untuk pilihan skor penilaian
         $kelompokSkors = KelompokSkor::with('skors')->get();
 
-        return view('reviewer.portofolio.show', compact('peserta', 'filePesertaPath', 'kelompokSkors'));
+        return view('reviewer.portofolio.show', compact('peserta', 'filePesertas', 'filePesertaPath', 'kelompokSkors'));
     }
 
     /**
@@ -171,9 +176,18 @@ class PortofolioController extends Controller
 
             }
 
-            // Hitung total
-            $plotReviewer = PlotReviewer::with('hasilPenilaians')->find($plot_reviewer_id);
-            $plotReviewer->nilai_reviewer = $plotReviewer->hasilPenilaians()->sum('nilai');
+            /** @var PlotReviewer $plotReviewer */
+            $plotReviewer = PlotReviewer::with([
+                'hasilPenilaians',
+                'hasilPenilaians.filePeserta:id,is_dinilai'
+            ])->find($plot_reviewer_id);
+
+            $plotReviewer->nilai_reviewer = 0;
+            foreach ($plotReviewer->hasilPenilaians as $hasilPenilaian) {
+                if ($hasilPenilaian->filePeserta->is_dinilai == 1) {
+                    $plotReviewer->nilai_reviewer += $hasilPenilaian->nilai;
+                }
+            }
             $plotReviewer->save();
 
             DB::commit();
