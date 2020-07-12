@@ -93,11 +93,12 @@ class PortofolioController extends Controller
             'kegiatan:id',
             'mahasiswa:id,nama,program_studi_id,perguruan_tinggi_id',
             'mahasiswa.programStudi:id,nama_prodi',
-            'mahasiswa.perguruanTinggi:id,nama_pt',
-            'filePesertas'
+            'mahasiswa.perguruanTinggi:id,nama_pt'
         ])->find($plotReviewer->tahapanPeserta->peserta_id);
 
-        foreach ($peserta->filePesertas as $filePeserta) {
+        $filePesertas = $peserta->filePesertas()->where('is_dinilai', true)->get();
+
+        foreach ($filePesertas as $filePeserta) {
             $filePeserta->hasilPenilaianReviewer = $filePeserta->hasilPenilaians()
                 ->where('plot_reviewer_id', $plot_reviewer_id)->first();
         }
@@ -115,7 +116,7 @@ class PortofolioController extends Controller
         // Untuk pilihan skor penilaian
         $kelompokSkors = KelompokSkor::with('skors')->get();
 
-        return view('reviewer.portofolio.show', compact('peserta', 'filePesertaPath', 'kelompokSkors'));
+        return view('reviewer.portofolio.show', compact('peserta', 'filePesertas', 'filePesertaPath', 'kelompokSkors'));
     }
 
     /**

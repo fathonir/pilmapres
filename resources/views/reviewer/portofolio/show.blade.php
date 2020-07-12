@@ -42,7 +42,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($peserta->filePesertas->sortBy('id') as $filePeserta)
+                            @foreach ($filePesertas as $filePeserta)
                                 <tr>
                                     <td class="text-center"><h4>{{ $loop->iteration }}</h4></td>
                                     <td>
