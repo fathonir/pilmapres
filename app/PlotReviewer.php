@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property TahapanPeserta $tahapanPeserta
  * @property Dosen $dosen
  * @property HasilPenilaian[] $hasilPenilaians
+ * @property int nilai_reviewer
  */
 class PlotReviewer extends Model
 {

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float skor
  * @property float nilai
  * @property string komentar
+ * @property FilePeserta $filePeserta
  */
 class HasilPenilaian extends Model
 {
