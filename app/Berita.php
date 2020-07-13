@@ -12,6 +12,6 @@ class Berita extends Model
 
     public function berita()
     {
-        return $this->belongsTo('App\CategoryBerita');
+        return $this->belongsTo(CategoryBerita::class);
     }
 }

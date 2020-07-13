@@ -49,8 +49,14 @@
                             </div>
                             <div class="form-group {{ $errors->has('file_bukti') ? 'has-error' : '' }}">
                                 <label for="exampleInputFile">File Bukti (PDF)</label>
-                                <input type="file" id="exampleInputFile" name="file_bukti">
-                                <span><a href="{{ $filePeserta->fileUrl }}" target="_blank">{{ $filePeserta->nama_asli }}</a></span>
+                                @if ($filePeserta->is_need_edit == 0)
+                                    <input type="file" id="exampleInputFile" name="file_bukti">
+                                    <span><a href="{{ $filePeserta->fileUrl }}" target="_blank">{{ $filePeserta->nama_asli }}</a></span>
+                                @else
+                                    <p class="form-control-static">
+                                        <a href="{{ $filePeserta->fileUrl }}" target="_blank">{{ $filePeserta->nama_asli }}</a>
+                                    </p>
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col-sm-10 form-group {{ $errors->has('nama_prestasi') ? 'has-error' : '' }}">
@@ -110,7 +116,7 @@
                         <div class="box-footer">
                             <a href="{{ URL::to('mahasiswa/portofolio') }}" class="btn btn-default margin-r-5">Ke Data Portofolio</a>
                             <a href="{{ URL::to('mahasiswa/home') }}" class="btn btn-default">Ke Beranda</a>
-                            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                            <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                         </div>
                     </form>
                 </div>

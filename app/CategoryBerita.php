@@ -12,6 +12,6 @@ class CategoryBerita extends Model
 
     public function categoryBerita()
     {
-        return $this->hasMany('App\Berita','category_berita_id');
+        return $this->hasMany(Berita::class, 'category_berita_id');
     }
 }

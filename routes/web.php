@@ -205,6 +205,8 @@ Route::prefix('reviewer')->group(function() {
 
 Route::prefix('mahasiswa')->group(function () {
     Route::resource('home', 'Mahasiswa\HomeController')->middleware('auth');
+    Route::get('portofolio/submit-file', 'Mahasiswa\PortofolioController@submitFile')->middleware('auth');
+    Route::post('portofolio/submit-file', 'Mahasiswa\PortofolioController@submitFile')->middleware('auth');
     Route::get('portofolio/store-success', 'Mahasiswa\PortofolioController@storeSuccess')->middleware('auth');
     Route::resource('portofolio', 'Mahasiswa\PortofolioController')->middleware('auth');
     Route::get('portofolio/{id}/delete', 'Mahasiswa\PortofolioController@delete')->middleware('auth');

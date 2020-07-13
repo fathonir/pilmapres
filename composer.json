@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1",
         "almasaeed2010/adminlte": "~2.4",
         "components/jquery": "^3.5",
         "components/jqueryui": "^1.12",
