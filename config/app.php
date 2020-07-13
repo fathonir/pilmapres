@@ -27,6 +27,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'file_peserta_path' => env('FILE_PESERTA_PATH'),
 
     /*
     |--------------------------------------------------------------------------

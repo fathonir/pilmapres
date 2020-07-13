@@ -20,6 +20,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Jenis Prestasi</th>
                                 <th>Prestasi</th>
                                 <th>Tahun</th>
@@ -33,12 +34,13 @@
                             <tbody>
                             @foreach ($peserta->filePesertas as $filePeserta)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $filePeserta->jenisPrestasi->jenis_prestasi }}</td>
                                     <td>{{ $filePeserta->nama_prestasi }}</td>
                                     <td>{{ $filePeserta->tahun }}</td>
                                     <td>{{ $filePeserta->nama_lembaga_event }}</td>
                                     <td>{{ ($filePeserta->is_kelompok == 1) ? 'Kelompok' : 'Individu' }}</td>
-                                    <td>{{ $filePeserta->tingkatPrestasi->tingkat_prestasi }}</td>
+                                    <td>{{ ($filePeserta->tingkatPrestasi != null) ? $filePeserta->tingkatPrestasi->tingkat_prestasi : '' }}</td>
                                     <td>
                                         <a href="{{ URL::to($filePesertaPath.'/'.$filePeserta->nama_file) }}"
                                            target="_blank">
@@ -46,8 +48,23 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/edit') }}" class="btn btn-xs btn-success"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                        @if ($kegiatan->tgl_awal_upload <= $tglSekarang && $tglSekarang <= $kegiatan->tgl_akhir_upload)
+                                            <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/edit') }}" class="btn btn-xs btn-success">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </a>
+                                            <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/delete') }}" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-trash"></i> Hapus
+                                            </a>
+                                        @elseif($tglSekarang <= $kegiatan->tgl_akhir_edit_upload)
+                                            @if ($filePeserta->is_need_edit == 1)
+                                                <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/edit') }}" class="btn btn-xs btn-success">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
+                                                <a href="{{ URL::to('mahasiswa/portofolio/'.$filePeserta->id.'/delete') }}" class="btn btn-xs btn-danger">
+                                                    <i class="fa fa-trash"></i> Hapus
+                                                </a>
+                                            @endif
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -55,10 +72,19 @@
                         </table>
                     </div>
                     <div class="box-footer">
-                        @if (count($peserta->filePesertas) < $syarat->max_multi_upload)
-                        <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-info">
-                            <i class="fa fa-plus"></i> Tambah Portofolio
-                        </a>
+                        @if ($kegiatan->tgl_awal_upload <= $tglSekarang && $tglSekarang <= $kegiatan->tgl_akhir_upload)
+                            @if (count($peserta->filePesertas) < $syarat->max_multi_upload)
+                                <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-info">
+                                    <i class="fa fa-plus"></i> Tambah Portofolio
+                                </a>
+                            @endif
+                        @endif
+                        @if ($kegiatan->tgl_awal_upload <= $tglSekarang && $tglSekarang <= $kegiatan->tgl_akhir_edit_upload)
+                                @if (count($peserta->filePesertas) > $syarat->max_multi_upload)
+                                    <span class="text-danger">Tombol Submit akan muncul setelah jumlah portofolio kurang dari sama dengan {{ $syarat->max_multi_upload }}</span>
+                                @else
+                                    <a href="{{ URL::to('mahasiswa/portofolio/submit-file') }}" class="btn btn-primary">Submit Perbaikan Portofolio</a>
+                                @endif
                         @endif
                     </div>
                 </div>

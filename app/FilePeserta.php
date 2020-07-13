@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Peserta $peserta
  * @property HasilPenilaian[] $hasilPenilaians
  * @property bool is_dinilai
+ * @property int $id
+ * @property string $nama_file
  */
 class FilePeserta extends Model
 {
