@@ -111,7 +111,7 @@ class PortofolioController extends Controller
         // Perlu diganti dari input-an tahapan (yang dari tahapan_proposal)
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
 
-        $filePesertaPathEnv = env('FILE_PESERTA_PATH');
+        $filePesertaPathEnv = config('app.file_peserta_path');
         $filePesertaPath = strtr($filePesertaPathEnv, [
             '{kegiatan_id}' => $peserta->kegiatan->id,
             '{peserta_id}' => $peserta->id,
