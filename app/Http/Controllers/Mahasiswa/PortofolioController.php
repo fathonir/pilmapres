@@ -23,7 +23,11 @@ class PortofolioController extends Controller
     {
         $kegiatan = Kegiatan::where('is_aktif', true)->first();
         $mahasiswa = Auth::user()->mahasiswa;
-        $peserta = Peserta::where(['kegiatan_id' => $kegiatan->id, 'mahasiswa_id' => $mahasiswa->id])->first();
+        $peserta = Peserta::where([
+            'kegiatan_id' => $kegiatan->id,
+            'is_approved' => 1,
+            'mahasiswa_id' => $mahasiswa->id
+        ])->first();
         $syarat = Syarat::where('nama_syarat', 'Portofolio')->first();
 
         $filePesertaPathEnv = config('app.file_peserta_path');
@@ -87,7 +91,11 @@ class PortofolioController extends Controller
         $mahasiswa = Auth::user()->mahasiswa;
 
         /** @var Peserta $peserta */
-        $peserta = Peserta::where(['kegiatan_id' => $kegiatan->id, 'mahasiswa_id' => $mahasiswa->id])->first();
+        $peserta = Peserta::where([
+            'kegiatan_id' => $kegiatan->id,
+            'is_approved' => 1,
+            'mahasiswa_id' => $mahasiswa->id,
+        ])->first();
 
         /** @var Tahapan $tahapan */
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
@@ -266,7 +274,11 @@ class PortofolioController extends Controller
             $kegiatan = Kegiatan::where('is_aktif', true)->first();
             $mahasiswa = Auth::user()->mahasiswa;
             $peserta = Peserta::with(['filePesertas'])
-                ->where(['kegiatan_id' => $kegiatan->id, 'mahasiswa_id' => $mahasiswa->id])->first();
+                ->where([
+                    'kegiatan_id' => $kegiatan->id,
+                    'is_approved' => 1,
+                    'mahasiswa_id' => $mahasiswa->id
+                ])->first();
 
             DB::beginTransaction();
 
