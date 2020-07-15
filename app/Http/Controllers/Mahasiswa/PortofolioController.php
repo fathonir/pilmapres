@@ -104,7 +104,7 @@ class PortofolioController extends Controller
         $syarat = Syarat::where('nama_syarat', 'Portofolio')->first();
 
         // Folder Tujuan
-        $destPathConfig = env('FILE_PESERTA_PATH');
+        $destPathConfig = config('app.file_peserta_path');
         $destPath = public_path(
             strtr($destPathConfig, [
                 '{kegiatan_id}' => $kegiatan->id,
@@ -160,7 +160,7 @@ class PortofolioController extends Controller
         $tahapan = Tahapan::where('nama_tahapan', 'Babak Penyisihan Tahap 1')->first();
 
         $filePeserta = FilePeserta::find($filePesertaId);
-        $destPathConfig = env('FILE_PESERTA_PATH');
+        $destPathConfig = config('app.file_peserta_path');
         $filePeserta->fileUrl = url(
             strtr($destPathConfig, [
                 '{kegiatan_id}' => $filePeserta->peserta->kegiatan_id,
