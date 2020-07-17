@@ -19,7 +19,7 @@ class HomeController extends Controller
 
         // Check Photo
         $mahasiswa->photoExist = ($mahasiswa->photo != null);
-        $mahasiswa->photoUrl = url(env('PHOTO_MAHASISWA_PATH') . '/' . $mahasiswa->photo);
+        $mahasiswa->photoUrl = url(config('app.photo_mahasiswa_path') . '/' . $mahasiswa->photo);
 
         // Hitung Umur
         $mahasiswa->umur = (new \DateTime($mahasiswa->tgl_lahir))->diff(new \DateTime($kegiatan->tgl_batas_umur))
