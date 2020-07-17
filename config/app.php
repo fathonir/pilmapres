@@ -28,6 +28,7 @@ return [
 
     'env' => env('APP_ENV', 'production'),
     'file_peserta_path' => env('FILE_PESERTA_PATH'),
+    'photo_mahasiswa_path' => env('PHOTO_MAHASISWA_PATH'),
 
     /*
     |--------------------------------------------------------------------------

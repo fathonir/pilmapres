@@ -17,7 +17,7 @@ class PhotoController extends Controller
         $mahasiswa = Auth::user()->mahasiswa;
 
         $photoExist = ($mahasiswa->photo != null);
-        $photoUrl = url(env('PHOTO_MAHASISWA_PATH') . '/' . $mahasiswa->photo);
+        $photoUrl = url(config('app.photo_mahasiswa_path') . '/' . $mahasiswa->photo);
 
         return view('mahasiswa.photo.index', compact('photoExist', 'photoUrl'));
     }
@@ -33,7 +33,7 @@ class PhotoController extends Controller
             return redirect('mahasiswa/photo')->withErrors($validator);
         }
 
-        $destPath = env('PHOTO_MAHASISWA_PATH');
+        $destPath = config('app.photo_mahasiswa_path');
 
         // Buat folder-nya jika belum ada
         if ( ! File::exists($destPath)) {
