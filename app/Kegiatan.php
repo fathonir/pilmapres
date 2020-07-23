@@ -26,4 +26,9 @@ class Kegiatan extends Model
     {
         return $this->hasMany(JadwalKegiatan::class);
     }
+
+    public function syarats()
+    {
+        return $this->hasMany(Syarat::class);
+    }
 }

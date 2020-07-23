@@ -50,4 +50,9 @@ class Peserta extends Model
     {
         return $this->belongsToMany(Tahapan::class, 'tahapan_pesertas');
     }
+
+    public function isLolosTahap2()
+    {
+        return ($this->tahapans()->where(['tahapan_id' => Tahapan::BABAK_PENYISIHAN_2])->first() != null);
+    }
 }

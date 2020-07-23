@@ -34,6 +34,7 @@
                                 <b>Umur</b> <a class="pull-right">{{ $mahasiswa->umur }}</a>
                             </li>
                         </ul>
+                        <h4 class="text-center">Tahap 1</h4>
                         <p class="text-center">
                             <a href="{{ URL::to('mahasiswa/photo') }}" class="btn btn-primary">Update Pas Foto</a>
                             <a href="{{ URL::to('mahasiswa/portofolio/create') }}" class="btn btn-default">
@@ -41,6 +42,14 @@
                             <a href="{{ URL::to('mahasiswa/portofolio') }}" class="btn btn-default">
                                 <i class="fa fa-folder-o"></i> Data Portofolio</a>
                         </p>
+                        @if ($isLolosTahap2)
+                            <hr/>
+                            <h4 class="text-center">Tahap 2</h4>
+                            <p class="text-center">
+                                <a href="{{ URL::to('mahasiswa/gagasan-kreatif') }}" class="btn btn-info">
+                                    <i class="fa fa-upload"></i> Unggah Gagasan Kreatif</a>
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -211,4 +211,5 @@ Route::prefix('mahasiswa')->group(function () {
     Route::resource('portofolio', 'Mahasiswa\PortofolioController')->middleware('auth');
     Route::get('portofolio/{id}/delete', 'Mahasiswa\PortofolioController@delete')->middleware('auth');
     Route::resource('photo', 'Mahasiswa\PhotoController')->middleware('auth');
+    Route::resource('gagasan-kreatif', 'Mahasiswa\GagasanKreatifController')->middleware('auth');
 });
