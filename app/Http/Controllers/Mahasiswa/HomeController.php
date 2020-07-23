@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Kegiatan;
 use App\Mahasiswa;
 use App\Peserta;
+use App\Tahapan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Facade;
 
 class HomeController extends Controller
 {
@@ -26,11 +28,15 @@ class HomeController extends Controller
             ->format('%y tahun %m bulan %d hari');
 
         // Mendapatkan data peserta dari kegiatan aktif
+        /** @var Peserta $peserta */
         $peserta = Peserta::where([
             'mahasiswa_id' => $mahasiswa->id,
-            'kegiatan_id' => $kegiatan->id
+            'kegiatan_id' => $kegiatan->id,
+            'is_approved' => 1
         ])->first();
 
-        return view('mahasiswa.home.index', compact('kegiatan', 'mahasiswa', 'peserta'));
+        $isLolosTahap2 = $peserta->isLolosTahap2();
+
+        return view('mahasiswa.home.index', compact('kegiatan', 'mahasiswa', 'peserta', 'isLolosTahap2'));
     }
 }

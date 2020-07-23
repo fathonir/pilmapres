@@ -13,11 +13,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tgl_batas_umur
  * @property float $batas_ipk
  * @property int $batas_semester
+ * @property JadwalKegiatan[] $jadwalKegiatans
  */
 class Kegiatan extends Model
 {
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+
+    public function jadwalKegiatans()
+    {
+        return $this->hasMany(JadwalKegiatan::class);
+    }
+
+    public function syarats()
+    {
+        return $this->hasMany(Syarat::class);
     }
 }
