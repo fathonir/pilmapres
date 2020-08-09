@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property TahapanPeserta $tahapanPeserta
  * @property Dosen $dosen
  * @property HasilPenilaian[] $hasilPenilaians
- * @property int nilai_reviewer
+ * @property string $komentar
+ * @property int $nilai_reviewer
+ * @property int $tahapan_peserta_id
  */
 class PlotReviewer extends Model
 {
