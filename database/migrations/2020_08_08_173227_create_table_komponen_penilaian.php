@@ -19,6 +19,8 @@ class CreateTableKomponenPenilaian extends Migration
             $table->foreign('kegiatan_id')->references('id')->on('kegiatans');
             $table->unsignedInteger('tahapan_id');
             $table->foreign('tahapan_id')->references('id')->on('tahapans');
+            $table->unsignedInteger('kelompok_peserta_id');
+            $table->foreign('kelompok_peserta_id')->references('id')->on('kelompok_pesertas');
             $table->unsignedSmallInteger('urutan');
             $table->text('kriteria');
             $table->integer('bobot');
