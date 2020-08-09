@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property float nilai
  * @property string komentar
  * @property FilePeserta $filePeserta
+ * @property int komponen_penilaian_id
+ * @property int plot_reviewer_id
  */
 class HasilPenilaian extends Model
 {

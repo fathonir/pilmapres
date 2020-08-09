@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property Mahasiswa $mahasiswa
  * @property Kegiatan $kegiatan
+ * @property KelompokPeserta $kelompokPeserta
  * @property int $semester_tempuh
  * @property float $ipk
  * @property FilePengantarPeserta $filePengantarPeserta
@@ -34,6 +35,11 @@ class Peserta extends Model
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class);
+    }
+
+    public function kelompokPeserta()
+    {
+        return $this->belongsTo(KelompokPeserta::class);
     }
 
     public function filePengantarPeserta()

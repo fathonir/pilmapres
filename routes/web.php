@@ -201,6 +201,7 @@ Route::prefix('admin')->group(function() {
 Route::prefix('reviewer')->group(function() {
     Route::resource('home', 'Reviewer\HomeController')->middleware('auth');
     Route::resource('portofolio', 'Reviewer\PortofolioController')->middleware('auth');
+    Route::resource('gagasan-kreatif', 'Reviewer\GagasanKreatifController')->middleware('auth');
 });
 
 Route::prefix('mahasiswa')->group(function () {
