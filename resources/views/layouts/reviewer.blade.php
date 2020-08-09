@@ -100,6 +100,7 @@
             <ul class="sidebar-menu tree" data-widget="tree">
                 <li><a href="{{ URL::to('reviewer/home/') }}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
                 <li><a href="{{ URL::to('reviewer/portofolio/') }}"><i class="fa fa-check-circle"></i> <span>Penilaian Portofolio</span></a></li>
+                <li><a href="{{ URL::to('reviewer/gagasan-kreatif/') }}"><i class="fa fa-file-text-o"></i> <span>Penilaian Gagasan Kreatif</span></a></li>
                 <li><a href="{{ URL::to('logout') }}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
             </ul>
         </section>
