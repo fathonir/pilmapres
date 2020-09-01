@@ -36,7 +36,9 @@ class HomeController extends Controller
         ])->first();
 
         $isLolosTahap2 = $peserta->isLolosTahap2();
+        $isLolosTahapFinal = $peserta->isLolosTahapFinal();
 
-        return view('mahasiswa.home.index', compact('kegiatan', 'mahasiswa', 'peserta', 'isLolosTahap2'));
+        return view('mahasiswa.home.index', compact(
+            'kegiatan', 'mahasiswa', 'peserta', 'isLolosTahap2', 'isLolosTahapFinal'));
     }
 }

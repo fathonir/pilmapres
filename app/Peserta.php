@@ -66,4 +66,18 @@ class Peserta extends Model
     {
         return ($this->tahapans()->where(['tahapan_id' => Tahapan::BABAK_FINAL])->first() != null);
     }
+
+    /**
+     * @param int $mahasiswa_id
+     * @param int $kegiatan_id
+     * @return Peserta
+     */
+    public static function getFromMahasiswa($mahasiswa_id, $kegiatan_id)
+    {
+        return self::where([
+            'mahasiswa_id' => $mahasiswa_id,
+            'kegiatan_id' => $kegiatan_id,
+            'is_approved' => 1
+        ])->first();
+    }
 }

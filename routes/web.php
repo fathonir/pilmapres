@@ -213,4 +213,8 @@ Route::prefix('mahasiswa')->group(function () {
     Route::get('portofolio/{id}/delete', 'Mahasiswa\PortofolioController@delete')->middleware('auth');
     Route::resource('photo', 'Mahasiswa\PhotoController')->middleware('auth');
     Route::resource('gagasan-kreatif', 'Mahasiswa\GagasanKreatifController')->middleware('auth');
+    Route::resource('biodata', 'Mahasiswa\BiodataController')->middleware('auth');
+    Route::resource('poster-gk', 'Mahasiswa\PosterGKController')->middleware('auth');
+    Route::resource('poster-diri', 'Mahasiswa\PosterDiriController')->middleware('auth');
+    Route::resource('pakta-integritas', 'Mahasiswa\PaktaIntegritasController')->middleware('auth');
 });
