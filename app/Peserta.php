@@ -61,4 +61,9 @@ class Peserta extends Model
     {
         return ($this->tahapans()->where(['tahapan_id' => Tahapan::BABAK_PENYISIHAN_2])->first() != null);
     }
+
+    public function isLolosTahapFinal()
+    {
+        return ($this->tahapans()->where(['tahapan_id' => Tahapan::BABAK_FINAL])->first() != null);
+    }
 }
