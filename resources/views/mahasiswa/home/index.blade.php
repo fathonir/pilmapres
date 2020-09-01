@@ -50,6 +50,24 @@
                                     <i class="fa fa-upload"></i> Unggah Gagasan Kreatif</a>
                             </p>
                         @endif
+                        @if ($isLolosTahapFinal)
+                            <hr/>
+                            <h4 class="text-center">Tahap Final</h4>
+                            <p class="text-center">
+                                <a href="{{ URL::to('mahasiswa/biodata') }}" class="btn btn-default">
+                                    <i class="fa fa-upload"></i> Biodata
+                                </a>
+                                <a href="{{ URL::to('mahasiswa/poster-gk') }}" class="btn btn-default">
+                                    <i class="fa fa-upload"></i> Poster Gagasan Kreatif
+                                </a>
+                                <a href="{{ URL::to('mahasiswa/poster-diri') }}" class="btn btn-default">
+                                    <i class="fa fa-upload"></i> Poster Diri
+                                </a>
+                                <a href="{{ URL::to('mahasiswa/pakta-integritas') }}" class="btn btn-default">
+                                    <i class="fa fa-upload"></i> Pakta Integritas
+                                </a>
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>
