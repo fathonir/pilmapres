@@ -204,7 +204,7 @@ Route::prefix('reviewer')->group(function() {
     Route::resource('gagasan-kreatif', 'Reviewer\GagasanKreatifController')->middleware('auth');
     Route::resource('presentasi-gk', 'Reviewer\PresentasiGKController')->middleware('auth');
     Route::resource('wawancara', 'Reviewer\WawancaraController')->middleware('auth');
-    Route::resource('bahasa-inggris', 'Reviewer\BahasaInggrisController')->middleware('auth');
+    Route::resource('presentasi-bi', 'Reviewer\PresentasiBIController')->middleware('auth');
 });
 
 Route::prefix('mahasiswa')->group(function () {
