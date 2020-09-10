@@ -99,8 +99,13 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu tree" data-widget="tree">
                 <li><a href="{{ URL::to('reviewer/home/') }}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+                <li class="header">Penyisihan</li>
                 <li><a href="{{ URL::to('reviewer/portofolio/') }}"><i class="fa fa-check-circle"></i> <span>Penilaian Portofolio</span></a></li>
                 <li><a href="{{ URL::to('reviewer/gagasan-kreatif/') }}"><i class="fa fa-file-text-o"></i> <span>Penilaian Gagasan Kreatif</span></a></li>
+                <li class="header">Final</li>
+                <li><a href="{{ URL::to('reviewer/presentasi-gk/') }}"><i class="fa fa-laptop"></i> <span>Presentasi Gagasan Kreatif</span></a></li>
+                <li><a href="{{ URL::to('reviewer/wawancara/') }}"><i class="fa fa-microphone"></i> <span>Wawancara Karya Unggulan</span></a></li>
+                <li><a href="{{ URL::to('reviewer/bahasa-inggris/') }}"><i class="fa fa-graduation-cap"></i> <span>Presentasi Bahasa Inggris</span></a></li>
                 <li><a href="{{ URL::to('logout') }}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
             </ul>
         </section>
