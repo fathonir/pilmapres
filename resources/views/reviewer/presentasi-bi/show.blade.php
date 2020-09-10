@@ -45,22 +45,6 @@
                                     {{ $peserta->mahasiswa->perguruanTinggi->nama_pt }}
                                 </p>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">File Gagasan Kreatif</label>
-                                <p class="form-control-static col-md-6">
-                                    <a href="{{ URL::to($fileGKPath.'/'.$fileGK->nama_file) }}" id="fileGK"><i class="fa fa-file-pdf-o"></i> {{ $fileGK->nama_asli }}</a>
-                                    <a class="btn btn-sm btn-default" id="btnOpenFileGK"><i class="fa fa-folder-open-o"></i> Buka</a>
-                                    <a href="{{ URL::to($fileGKPath.'/'.$fileGK->nama_file) }}" class="btn btn-sm btn-default" target="_blank"><i class="fa fa-download"></i> Download</a>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">File Poster</label>
-                                <p class="form-control-static col-md-6">
-                                    <a href="{{ URL::to($filePosterPath.'/'.$filePoster->nama_file) }}" id="filePoster"><i class="fa fa-file-pdf-o"></i> {{ $filePoster->nama_asli }}</a>
-                                    <a class="btn btn-sm btn-default" id="btnOpenFilePoster"><i class="fa fa-folder-open-o"></i> Buka</a>
-                                    <a href="{{ URL::to($filePosterPath.'/'.$filePoster->nama_file) }}" class="btn btn-sm btn-default" target="_blank"><i class="fa fa-download"></i> Download</a>
-                                </p>
-                            </div>
                         </div>
                         <a href="{{ URL::to('reviewer/presentasi-bi?kegiatan_id='.$peserta->kegiatan_id) }}"
                            class="btn btn-default">Kembali</a>

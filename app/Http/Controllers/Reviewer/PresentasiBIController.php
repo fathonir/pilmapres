@@ -88,36 +88,6 @@ class PresentasiBIController extends Controller
             ->where('tahapan_id', Tahapan::PRESENTASI_BAHASA_INGGRIS)
             ->first()->peserta;
 
-        // Syarat File Gagasan Kreatif
-        $syaratGK = Syarat
-            ::where(['kegiatan_id' => $peserta->kegiatan_id, 'tahapan_id' => Tahapan::BABAK_PENYISIHAN_2])
-            ->select('id')->first();
-
-        // Syarat File Poster GK
-        $syaratPoster = Syarat
-            ::where([
-                'kegiatan_id' => $peserta->kegiatan_id,
-                'tahapan_id' => Tahapan::BABAK_FINAL,
-                'nama_syarat' => 'Poster Gagasan Kreatif'])
-            ->select('id')->first();
-
-        $filePesertaPathEnv = config('app.file_peserta_path');
-        $fileGKPath = strtr($filePesertaPathEnv, [
-            '{kegiatan_id}' => $peserta->kegiatan_id,
-            '{peserta_id}' => $peserta->id,
-            '{tahapan_id}' => Tahapan::BABAK_PENYISIHAN_2,
-        ]);
-        $filePosterPath = strtr($filePesertaPathEnv, [
-            '{kegiatan_id}' => $peserta->kegiatan_id,
-            '{peserta_id}' => $peserta->id,
-            '{tahapan_id}' => Tahapan::BABAK_FINAL,
-        ]);
-
-        // File Gagasan Kreatif
-        $fileGK = $peserta->filePesertas()->where('syarat_id', $syaratGK->id)->first();
-        // File Poster GK
-        $filePoster = $peserta->filePesertas()->where('syarat_id', $syaratPoster->id)->first();
-
         $penilaians = DB::table('plot_reviewers as pr')
             ->select(['kp.*', 'hp.skor', 'hp.nilai'])
             ->join('tahapan_pesertas as tp', 'tp.id', '=', 'pr.tahapan_peserta_id')
@@ -134,9 +104,7 @@ class PresentasiBIController extends Controller
             ->where('pr.id', $plot_reviewer_id)->get();
 
         return view('reviewer.presentasi-bi.show', compact(
-            'plotReviewer', 'peserta', 'penilaians',
-            'fileGKPath', 'fileGK',
-            'filePosterPath', 'filePoster'
+            'plotReviewer', 'peserta', 'penilaians'
         ));
     }
 
