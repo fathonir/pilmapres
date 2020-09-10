@@ -101,7 +101,9 @@ class WawancaraController extends Controller
         ]);
 
         // File Portofolio
-        $filePesertas = $peserta->filePesertas()->where(['syarat_id' => $syarat->id, 'is_dinilai' => 1])->get();
+        $filePesertas = $peserta->filePesertas()
+            ->with('hasilPenilaians')
+            ->where(['syarat_id' => $syarat->id, 'is_dinilai' => 1])->get();
 
         $penilaians = DB::table('plot_reviewers as pr')
             ->select(['kp.*', 'hp.skor', 'hp.nilai'])

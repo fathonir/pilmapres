@@ -48,10 +48,19 @@
                             @foreach ($filePesertas as $filePeserta)
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Karya Unggulan {{ $loop->iteration }}</label>
-                                    <p class="form-control-static col-md-10">
+                                    <p class="form-control-static col-md-8">
                                         <a href="{{ URL::to($filePesertaPath.'/'.$filePeserta->nama_file) }}" id="file{{ $filePeserta->id }}"><i class="fa fa-file-pdf-o"></i> {{ $filePeserta->nama_asli }}</a>
                                         <a class="btn btn-xs btn-default" id="btnOpenFile{{ $filePeserta->id }}" data-id="{{ $filePeserta->id }}"><i class="fa fa-folder-open-o"></i> Buka</a>
                                         <a href="{{ URL::to($filePesertaPath.'/'.$filePeserta->nama_file) }}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-download"></i> Download</a>
+                                        @foreach ($filePeserta->hasilPenilaians as $hp)
+                                            @if ($loop->iteration == 1)
+                                                &nbsp;&nbsp;&nbsp;
+                                                <span class="label bg-blue" style="font-size: 13px">{{ $hp->nilai }}</span>
+                                            @else
+                                                &nbsp;&nbsp;&nbsp;
+                                                <span class="label bg-green" style="font-size: 13px">{{ $hp->nilai }}</span>
+                                            @endif
+                                        @endforeach
                                     </p>
                                 </div>
                             @endforeach
