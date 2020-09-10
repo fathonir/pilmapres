@@ -202,6 +202,9 @@ Route::prefix('reviewer')->group(function() {
     Route::resource('home', 'Reviewer\HomeController')->middleware('auth');
     Route::resource('portofolio', 'Reviewer\PortofolioController')->middleware('auth');
     Route::resource('gagasan-kreatif', 'Reviewer\GagasanKreatifController')->middleware('auth');
+    Route::resource('presentasi-gk', 'Reviewer\PresentasiGKController')->middleware('auth');
+    Route::resource('wawancara', 'Reviewer\WawancaraController')->middleware('auth');
+    Route::resource('bahasa-inggris', 'Reviewer\BahasaInggrisController')->middleware('auth');
 });
 
 Route::prefix('mahasiswa')->group(function () {
