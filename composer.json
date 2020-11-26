@@ -21,6 +21,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
         "select2/select2": "~4.0",
+        "symfony/http-kernel": "~4.4",
         "twitter/bootstrap": "~3",
         "unisharp/laravel-ckeditor": "^4.6",
         "uxweb/sweet-alert": "^1.4"
